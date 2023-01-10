@@ -4,18 +4,18 @@ import { normalizeURL, decode } from 'ufo'
 import { interopDefault } from './utils'
 import scrollBehavior from './router.scrollBehavior.js'
 
-const _c4905ba6 = () => interopDefault(import('../pages/companies/index.vue' /* webpackChunkName: "pages/companies/index" */))
-const _741a60c4 = () => interopDefault(import('../pages/coordinators.vue' /* webpackChunkName: "pages/coordinators" */))
-const _a38aff72 = () => interopDefault(import('../pages/courses.vue' /* webpackChunkName: "pages/courses" */))
-const _6e88513a = () => interopDefault(import('../pages/dashboard.vue' /* webpackChunkName: "pages/dashboard" */))
-const _41cadbf7 = () => interopDefault(import('../pages/internships/index.vue' /* webpackChunkName: "pages/internships/index" */))
-const _7cdf1d38 = () => interopDefault(import('../pages/login.vue' /* webpackChunkName: "pages/login" */))
-const _8412cc40 = () => interopDefault(import('../pages/loginError.vue' /* webpackChunkName: "pages/loginError" */))
-const _d7dd35ce = () => interopDefault(import('../pages/students.vue' /* webpackChunkName: "pages/students" */))
-const _df05e85c = () => interopDefault(import('../pages/teachers.vue' /* webpackChunkName: "pages/teachers" */))
-const _1a5be2d0 = () => interopDefault(import('../pages/companies/_id/index.vue' /* webpackChunkName: "pages/companies/_id/index" */))
-const _4151b93c = () => interopDefault(import('../pages/internships/_id/index.vue' /* webpackChunkName: "pages/internships/_id/index" */))
-const _99910bbe = () => interopDefault(import('../pages/index.vue' /* webpackChunkName: "pages/index" */))
+const _872b0ed6 = () => interopDefault(import('../pages/companies/index.vue' /* webpackChunkName: "pages/companies/index" */))
+const _7d70d948 = () => interopDefault(import('../pages/coordinators.vue' /* webpackChunkName: "pages/coordinators" */))
+const _c2e3e2a2 = () => interopDefault(import('../pages/courses.vue' /* webpackChunkName: "pages/courses" */))
+const _1b35286a = () => interopDefault(import('../pages/dashboard.vue' /* webpackChunkName: "pages/dashboard" */))
+const _7e6d885f = () => interopDefault(import('../pages/internships/index.vue' /* webpackChunkName: "pages/internships/index" */))
+const _2bd9b4c0 = () => interopDefault(import('../pages/login.vue' /* webpackChunkName: "pages/login" */))
+const _6d00db10 = () => interopDefault(import('../pages/loginError.vue' /* webpackChunkName: "pages/loginError" */))
+const _a3a0b89e = () => interopDefault(import('../pages/students.vue' /* webpackChunkName: "pages/students" */))
+const _aac96b2c = () => interopDefault(import('../pages/teachers.vue' /* webpackChunkName: "pages/teachers" */))
+const _dd097e00 = () => interopDefault(import('../pages/companies/_id/index.vue' /* webpackChunkName: "pages/companies/_id/index" */))
+const _787d5bca = () => interopDefault(import('../pages/internships/_id/index.vue' /* webpackChunkName: "pages/internships/_id/index" */))
+const _206b8289 = () => interopDefault(import('../pages/index.vue' /* webpackChunkName: "pages/index" */))
 
 const emptyFn = () => {}
 
@@ -30,51 +30,51 @@ export const routerOptions = {
 
   routes: [{
     path: "/companies",
-    component: _c4905ba6,
+    component: _872b0ed6,
     name: "companies"
   }, {
     path: "/coordinators",
-    component: _741a60c4,
+    component: _7d70d948,
     name: "coordinators"
   }, {
     path: "/courses",
-    component: _a38aff72,
+    component: _c2e3e2a2,
     name: "courses"
   }, {
     path: "/dashboard",
-    component: _6e88513a,
+    component: _1b35286a,
     name: "dashboard"
   }, {
     path: "/internships",
-    component: _41cadbf7,
+    component: _7e6d885f,
     name: "internships"
   }, {
     path: "/login",
-    component: _7cdf1d38,
+    component: _2bd9b4c0,
     name: "login"
   }, {
     path: "/loginError",
-    component: _8412cc40,
+    component: _6d00db10,
     name: "loginError"
   }, {
     path: "/students",
-    component: _d7dd35ce,
+    component: _a3a0b89e,
     name: "students"
   }, {
     path: "/teachers",
-    component: _df05e85c,
+    component: _aac96b2c,
     name: "teachers"
   }, {
     path: "/companies/:id",
-    component: _1a5be2d0,
+    component: _dd097e00,
     name: "companies-id"
   }, {
     path: "/internships/:id",
-    component: _4151b93c,
+    component: _787d5bca,
     name: "internships-id"
   }, {
     path: "/",
-    component: _99910bbe,
+    component: _206b8289,
     name: "index"
   }],
 
