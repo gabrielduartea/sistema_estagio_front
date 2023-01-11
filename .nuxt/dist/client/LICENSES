@@ -1,6 +1,11 @@
 /*! @license DOMPurify 2.4.3 | (c) Cure53 and other contributors | Released under the Apache license 2.0 and Mozilla Public License 2.0 | github.com/cure53/DOMPurify/blob/2.4.3/LICENSE */
 
 
+//! moment.js
+
+//! moment.js locale configuration
+
+
 /**
  * @license
   Copyright (c) 2008, Adobe Systems Incorporated
@@ -265,9 +270,6 @@
 
 //! moment.js
 
-//! moment.js locale configuration
-
-
 /*!
  * The buffer module from node.js, for the browser.
  *
@@ -326,9 +328,6 @@ LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
 OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
 PERFORMANCE OF THIS SOFTWARE.
 ***************************************************************************** */
-
-
-//! moment.js locale configuration
 
 
 /*!
