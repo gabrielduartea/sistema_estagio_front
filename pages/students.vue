@@ -249,7 +249,7 @@ export default {
     async update(id) {
       try {
         const student = await api.put(
-          `http://'localhost:3003/api/v1/alunos/${id}`,
+          `alunos/${id}`,
           this.editedItem
         )
 
@@ -262,7 +262,7 @@ export default {
       }
     },
     async destroy(id) {
-      await api.delete(`http://'localhost:3003/api/v1/alunos/${id}`)
+      await api.delete(`alunos/${id}`)
       this.initialize()
     },
 

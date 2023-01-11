@@ -279,6 +279,7 @@
 <script>
 import axios from 'axios'
 import moment from 'moment'
+import api from '../../../api'
 
 export default {
   data: () => ({
@@ -395,13 +396,13 @@ export default {
   methods: {
     async getStudents() {
       debugger
-      const students = await axios.get(`http://localhost:3003/api/v1/estudantes/findAll`)
+      const students = await api.get(`estudantes/findAll`)
 
       this.itemsStudents = students.data
     },
 
     async getCompanies() {
-      const companies = await axios.get(`http://localhost:3003/api/v1/empresas/findAll`)
+      const companies = await api.get(`empresas/findAll`)
 
       this.itemsCompanies = companies.data
     },
@@ -421,8 +422,8 @@ export default {
       else return 'green'
     },
     async getInternships() {
-      const internshipDetails = await axios.get(
-        `http://localhost:3003/api/v1/estagios/${this.$route.params.id}`
+      const internshipDetails = await api.get(
+        `estagios/${this.$route.params.id}`
       )
       const internshipEdited = internshipDetails.data
       const internshipAux = internshipEdited.map(this.formatDateForBrazil)
@@ -433,8 +434,8 @@ export default {
     },
 
     async showPeriods() {
-      const periods = await axios.get(
-        `http://localhost:3003/api/v1/estagios/${this.id}`
+      const periods = await api.get(
+        `estagios/${this.id}`
       )
       this.dessertsEdited = periods.data
 
@@ -445,7 +446,7 @@ export default {
 
     async store() {
       try {
-        const student = await axios.post(`http://localhost:3003/api/v1/estagios/create`, {
+        const student = await api.post(`estagios/create`, {
           internship_id: this.$route.params.id,
           student_id: this.internship_details.student_id,
           empresaId: this.editedItem.empresaId,
@@ -476,7 +477,7 @@ export default {
 
     async update(id) {
       try {
-        const student = await axios.put(`http://localhost:3003/api/v1/estagios/${id}`, {
+        const student = await api.put(`estagios/${id}`, {
           internship_id: this.$route.params.id,
           student_id: this.editedItem.student_id,
           empresaId: this.editedItem.empresaId,
@@ -505,7 +506,7 @@ export default {
       }
     },
     async destroy(id) {
-      await axios.delete(`http://localhost:3003/api/v1/periods/${id}`)
+      await api.delete(`periods/${id}`)
       this.initialize()
     },
 
