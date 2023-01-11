@@ -140,6 +140,7 @@
 <script>
 import axios from 'axios'
 import Cookie from 'js-cookie';
+import api from '../api';
 export default {
   data: () => ({
     itemsCourses: [],
@@ -214,7 +215,7 @@ export default {
 
   methods: {
     async getCourses() {
-      const courses = await axios.get(`http://localhost:3003/api/v1/cursos/findAll`)
+      const courses = await api.get(`cursos/findAll`)
       debugger
       this.itemsCourses = courses.data
     },
@@ -222,7 +223,7 @@ export default {
     async store() {
       try {
         const token = Cookie.get('my_token');
-        const student = await axios.post('http://localhost:3003/api/v1/alunos/create', {
+        const student = await api.post('alunos/create', {
           nome: this.editedItem.nome,
           cursoId: this.editedItem.cursoId,
           email: this.editedItem.email,
@@ -247,7 +248,7 @@ export default {
 
     async update(id) {
       try {
-        const student = await axios.put(
+        const student = await api.put(
           `http://'localhost:3003/api/v1/alunos/${id}`,
           this.editedItem
         )
@@ -261,12 +262,12 @@ export default {
       }
     },
     async destroy(id) {
-      await axios.delete(`http://'localhost:3003/api/v1/alunos/${id}`)
+      await api.delete(`http://'localhost:3003/api/v1/alunos/${id}`)
       this.initialize()
     },
 
     async initialize() {
-      const students = await axios.get(`http://localhost:3003/api/v1/alunos/findAll`)
+      const students = await api.get(`alunos/findAll`)
       this.desserts = students.data
       debugger
       await this.getCourses()

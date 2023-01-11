@@ -2,7 +2,7 @@ import axios from "axios";
 import Cookies from "js-cookie";
 
  const api = axios.create({
- baseURL: "http://localhost:3003/api/v1",
+ baseURL: "sistema-estagio-back-production.up.railway.app",
 });
  const token = Cookies.get('my_token')
  api.interceptors.request.use(

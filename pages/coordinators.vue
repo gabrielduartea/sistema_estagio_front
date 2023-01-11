@@ -167,6 +167,7 @@
 
 <script>
 import axios from 'axios'
+import api from '../api'
 
 export default {
   name: 'Coordenadores',
@@ -201,7 +202,7 @@ export default {
 
     async indexCoordinators() {
   
-      const coordinators = await axios.get('http://localhost:3003/api/v1/auth/findAll')
+      const coordinators = await api.get('auth/findAll')
       this.coordinators = coordinators.data
       this.dialogStore = false
     },
@@ -209,7 +210,7 @@ export default {
     async storeCoordinators() {
   
       try {
-        const coordinator = await axios.post('http://localhost:3003/api/v1/auth', {
+        const coordinator = await api.post('auth', {
           email: this.email,
           type: '',
           password: this.password,
@@ -250,8 +251,8 @@ export default {
 
     async updateCoordinators(id) {
       try {
-        const coordinator = await axios.put(
-          `http://localhost:3003/api/v1/auth/${id}`,
+        const coordinator = await api.put(
+          `auth/${id}`,
           {
             email: this.email,
             password: this.password,
@@ -270,7 +271,7 @@ export default {
     },
 
     async destroyCoordinators(id) {
-      await axios.delete(`http://localhost:3003/api/v1/auth/${id}`)
+      await api.delete(`auth/${id}`)
       this.indexCoordinators()
       this.dialogDestroy = false
     },

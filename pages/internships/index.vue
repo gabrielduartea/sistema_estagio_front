@@ -337,19 +337,19 @@ export default {
 
   methods: {
     async getStudents() {
-      const students = await axios.get(`http://localhost:3003/api/v1/alunos/findAll`)
+      const students = await api.get(`alunos/findAll`)
 
       this.itemsStudents = students.data
     },
 
     async getCompanies() {
-      const companies = await axios.get(`http://localhost:3003/api/v1/empresas/findAll`)
+      const companies = await api.get(`empresas/findAll`)
 
       this.itemsCompanies = companies.data
     },
 
     async getTeachers() {
-      const teachers = await axios.get(`http://localhost:3003/api/v1/professores/findAll`)
+      const teachers = await api.get(`professores/findAll`)
 
       this.itemsTeachers = teachers.data
     },
@@ -372,7 +372,7 @@ export default {
 
     async store() {
       try {
-        const student = await axios.post(`http://localhost:3003/api/v1/estagios/create`, {
+        const student = await api.post(`estagios/create`, {
           //  alunoId, empresaId, professorId, supervisor, dataIncial, dataFinal, remuneracao, ajuda, codigoSeguroSaude, companhiaSeguroSaude, horasSemanaisTrabalhadas, categoria, modalidade, planoAtividades, relatorio, status
 
           alunoId: this.editedItem.alunoId,
@@ -404,8 +404,8 @@ export default {
 
     async update(id) {
       try {
-        const internship = await axios.put(
-          `http://localhost:3003/api/v1/estagios/${id}`,
+        const internship = await api.put(
+          `estagios/${id}`,
           {
             alunoId: this.editedItem.alunoId,
             empresaId: this.editedItem.empresaId,
@@ -435,7 +435,7 @@ export default {
       }
     },
     async destroy(id) {
-      await axios.delete(`http://localhost:3003/api/v1/estagios/${id}`)
+      await api.delete(`estagios/${id}`)
       this.initialize()
     },
 
@@ -463,7 +463,7 @@ export default {
     },
 
     async initialize() {
-      const internships = await axios.get(`http://localhost:3003/api/v1/estagios/findAll`)
+      const internships = await api.get(`estagios/findAll`)
 
       this.dessertsEdited = internships.data
 
@@ -482,27 +482,27 @@ export default {
     async printrelatorio(id, alunoId, empresaId) {
       const doc = new jsPDF()
 
-      const internshipEdited = await axios.get(
-        `http://localhost:3003/api/v1/estagios/${id}`
+      const internshipEdited = await api.get(
+        `estagios/${id}`
       )
       const internshipAux = internshipEdited.data.map(this.formatDateForBrazil)
       const internship = internshipAux[0]
       console.log(internship, '<Internship>')
 
-      const studentEdited = await axios.get(
-        `http://localhost:3003/api/v1/students/${alunoId}`
+      const studentEdited = await api.get(
+        `students/${alunoId}`
       )
       const student = studentEdited.data
       console.log(student, '<Student>')
 
-      const companyEdited = await axios.get(
-        `http://localhost:3003/api/v1/companies/${empresaId}`
+      const companyEdited = await api.get(
+        `companies/${empresaId}`
       )
       const company = companyEdited.data
       console.log(company, '<Company>')
 
-      const periodEdited = await axios.get(
-        `http://localhost:3003/api/v1/periods/${id}`
+      const periodEdited = await api.get(
+        `periods/${id}`
       )
       const period = periodEdited.data
       console.log(period, '<Period>')

@@ -208,8 +208,8 @@ export default {
   methods: {
     async store() {
       try {
-        const supervisor = await axios.post(
-          `http://localhost:3003/supervisors`,
+        const supervisor = await api.post(
+          `supervisors`,
           {
             name: this.editedItem.name,
             email: this.editedItem.email,
@@ -229,8 +229,8 @@ export default {
 
     async update(id) {
       try {
-        const supervisor = await axios.put(
-          `http://localhost:3003/supervisors/${id}`,
+        const supervisor = await api.put(
+          `supervisors/${id}`,
           this.editedItem
         )
 
@@ -243,13 +243,13 @@ export default {
       }
     },
     async destroy(id) {
-      await axios.delete(`http://localhost:3003/supervisors/${id}`)
+      await api.delete(`supervisors/${id}`)
       this.initialize()
     },
 
     async showSupervisors(id) {
-      const companies = await axios.get(
-        `http://localhost:3003/supervisors/${id}`
+      const companies = await api.get(
+        `supervisors/${id}`
       )
       this.desserts = companies.data
     },
@@ -257,8 +257,8 @@ export default {
     async initialize() {
       this.company_id = this.$route.params.id
 
-      const companyDetails = await axios.get(
-        `http://localhost:3003/companies/${this.company_id}`
+      const companyDetails = await api.get(
+        `companies/${this.company_id}`
       )
       this.showSupervisors(this.company_id)
       this.company_details = companyDetails.data

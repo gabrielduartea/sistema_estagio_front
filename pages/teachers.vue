@@ -111,7 +111,8 @@
 </template>
 
 <script>
-import axios from 'axios'
+import api from 'api'
+import api from '../api'
 
 export default {
   data: () => ({
@@ -172,7 +173,7 @@ export default {
     async store() {
       try {
         // nome, email, telefone, codigoProfessor
-        const student = await axios.post(`http://localhost:3003/api/v1/professores/create`, {
+        const student = await api.post(`professores/create`, {
           nome: this.editedItem.nome,
           email: this.editedItem.email,
           telefone: this.editedItem.telefone,
@@ -190,8 +191,8 @@ export default {
 
     async update(id) {
       try {
-        const student = await axios.put(
-          `http://localhost:3003/api/v1/professores/${id}`,
+        const student = await api.put(
+          `professores/${id}`,
           this.editedItem
         )
 
@@ -204,12 +205,12 @@ export default {
       }
     },
     async destroy(id) {
-      await axios.delete(`http://localhost:3003/api/v1/professores/${id}`)
+      await api.delete(`professores/${id}`)
       this.initialize()
     },
 
     async initialize() {
-      const students = await axios.get(`http://localhost:3003/api/v1/professores/findAll`)
+      const students = await api.get(`professores/findAll`)
 
       this.desserts = students.data
     },

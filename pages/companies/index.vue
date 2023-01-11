@@ -186,7 +186,7 @@ export default {
   methods: {
     async store() {
       try {
-        const company = await axios.post(`http://localhost:3003/api/v1/empresas/create`, {
+        const company = await api.post(`http://localhost:3003/api/v1/empresas/create`, {
           nome: this.editedItem.nome,
           cnpj: this.editedItem.cnpj,
           email: this.editedItem.email,
@@ -205,7 +205,7 @@ export default {
 
     async update(id) {
       try {
-        const company = await axios.put(
+        const company = await api.put(
           `http://localhost:3003/api/v1/empresas/${id}`,
           this.editedItem
         )
@@ -219,12 +219,12 @@ export default {
       }
     },
     async destroy(id) {
-      await axios.delete(`http://localhost:3003/api/v1/empresas/${id}`)
+      await api.delete(`http://localhost:3003/api/v1/empresas/${id}`)
       this.initialize()
     },
 
     async initialize() {
-      const companies = await axios.get(`http://localhost:3003/api/v1/empresas/findAll`)
+      const companies = await api.get(`http://localhost:3003/api/v1/empresas/findAll`)
 
       this.desserts = companies.data
     },

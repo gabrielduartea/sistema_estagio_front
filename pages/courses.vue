@@ -106,6 +106,7 @@
 
 <script>
 import axios from 'axios'
+import api from '../api'
 
 export default {
   data: () => ({
@@ -160,7 +161,7 @@ export default {
   methods: {
     async store() {
       try {
-        const student = await axios.post(`http://localhost:3003/api/v1/cursos/create`, {
+        const student = await api.post(`cursos/create`, {
           nome: this.editedItem.nome,
           descricao: this.editedItem.descricao,
           departamento: this.editedItem.departamento,
@@ -177,8 +178,8 @@ export default {
 
     async update(id) {
       try {
-        const student = await axios.put(
-          `http://localhost:3003/api/v1/cursos/${id}`,
+        const student = await api.put(
+          `cursos/${id}`,
           this.editedItem
         )
 
@@ -191,12 +192,12 @@ export default {
       }
     },
     async destroy(id) {
-      await axios.delete(`http://localhost:3003/api/v1/cursos/${id}`)
+      await api.delete(`cursos/${id}`)
       this.initialize()
     },
 
     async initialize() {
-      const students = await axios.get(`http://localhost:3003/api/v1/cursos/findAll`)
+      const students = await api.get(`cursos/findAll`)
 
       this.desserts = students.data
     },
