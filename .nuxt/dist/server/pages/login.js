@@ -1883,7 +1883,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 202:
+/***/ 181:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1894,7 +1894,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 
 const api = axios__WEBPACK_IMPORTED_MODULE_0___default.a.create({
-  baseURL: "sistema-estagio-back-production.up.railway.app"
+  baseURL: "sistema-estagio-back-production.up.railway.app/api/v1"
 });
 const token = js_cookie__WEBPACK_IMPORTED_MODULE_1___default.a.get('my_token');
 api.interceptors.request.use(config => {
@@ -2194,7 +2194,7 @@ var external_js_cookie_ = __webpack_require__(132);
 var external_js_cookie_default = /*#__PURE__*/__webpack_require__.n(external_js_cookie_);
 
 // EXTERNAL MODULE: ./api.js
-var api = __webpack_require__(202);
+var api = __webpack_require__(181);
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/login.vue?vue&type=script&lang=js&
 
