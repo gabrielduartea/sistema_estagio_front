@@ -1,0 +1,86 @@
+[
+  {
+    "name": "companies",
+    "path": "/companies",
+    "component": "/home/gabriel/Documentos/Projetos/TCC/sistema_estagio_front/pages/companies/index.vue",
+    "chunkName": "pages/companies/index",
+    "_name": "_59affdb1"
+  },
+  {
+    "name": "coordinators",
+    "path": "/coordinators",
+    "component": "/home/gabriel/Documentos/Projetos/TCC/sistema_estagio_front/pages/coordinators.vue",
+    "chunkName": "pages/coordinators",
+    "_name": "_acacf880"
+  },
+  {
+    "name": "courses",
+    "path": "/courses",
+    "component": "/home/gabriel/Documentos/Projetos/TCC/sistema_estagio_front/pages/courses.vue",
+    "chunkName": "pages/courses",
+    "_name": "_70486fcb"
+  },
+  {
+    "name": "dashboard",
+    "path": "/dashboard",
+    "component": "/home/gabriel/Documentos/Projetos/TCC/sistema_estagio_front/pages/dashboard.vue",
+    "chunkName": "pages/dashboard",
+    "_name": "_3f0bf5e7"
+  },
+  {
+    "name": "internships",
+    "path": "/internships",
+    "component": "/home/gabriel/Documentos/Projetos/TCC/sistema_estagio_front/pages/internships/index.vue",
+    "chunkName": "pages/internships/index",
+    "_name": "_3f33930a"
+  },
+  {
+    "name": "login",
+    "path": "/login",
+    "component": "/home/gabriel/Documentos/Projetos/TCC/sistema_estagio_front/pages/login.vue",
+    "chunkName": "pages/login",
+    "_name": "_51eb1dbc"
+  },
+  {
+    "name": "loginError",
+    "path": "/loginError",
+    "component": "/home/gabriel/Documentos/Projetos/TCC/sistema_estagio_front/pages/loginError.vue",
+    "chunkName": "pages/loginError",
+    "_name": "_11aa4bdc"
+  },
+  {
+    "name": "students",
+    "path": "/students",
+    "component": "/home/gabriel/Documentos/Projetos/TCC/sistema_estagio_front/pages/students.vue",
+    "chunkName": "pages/students",
+    "_name": "_13c16615"
+  },
+  {
+    "name": "teachers",
+    "path": "/teachers",
+    "component": "/home/gabriel/Documentos/Projetos/TCC/sistema_estagio_front/pages/teachers.vue",
+    "chunkName": "pages/teachers",
+    "_name": "_102d0cce"
+  },
+  {
+    "name": "companies-id",
+    "path": "/companies/:id",
+    "component": "/home/gabriel/Documentos/Projetos/TCC/sistema_estagio_front/pages/companies/_id/index.vue",
+    "chunkName": "pages/companies/_id/index",
+    "_name": "_5800d81c"
+  },
+  {
+    "name": "internships-id",
+    "path": "/internships/:id",
+    "component": "/home/gabriel/Documentos/Projetos/TCC/sistema_estagio_front/pages/internships/_id/index.vue",
+    "chunkName": "pages/internships/_id/index",
+    "_name": "_980cc834"
+  },
+  {
+    "name": "index",
+    "path": "/",
+    "component": "/home/gabriel/Documentos/Projetos/TCC/sistema_estagio_front/pages/index.vue",
+    "chunkName": "pages/index",
+    "_name": "_ef790ab6"
+  }
+]
