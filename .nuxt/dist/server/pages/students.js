@@ -4660,7 +4660,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 
 const api = axios__WEBPACK_IMPORTED_MODULE_0___default.a.create({
-  baseURL: "http://sistema-estagio-back-production.up.railway.app/api/v1",
+  baseURL: "https://sistema-estagio-back-production.up.railway.app/api/v1",
   headers: [{
     "source": "/api/(.*)",
     "headers": [{

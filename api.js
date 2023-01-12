@@ -2,7 +2,7 @@ import axios from "axios";
 import Cookies from "js-cookie";
 
 const api = axios.create({
-  baseURL: "http://sistema-estagio-back-production.up.railway.app/api/v1",
+  baseURL: "https://sistema-estagio-back-production.up.railway.app/api/v1",
   headers: [
     {
       "source": "/api/(.*)",
