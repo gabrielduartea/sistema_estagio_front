@@ -2409,46 +2409,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 181:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(24);
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var js_cookie__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(132);
-/* harmony import */ var js_cookie__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(js_cookie__WEBPACK_IMPORTED_MODULE_1__);
-
-
-const api = axios__WEBPACK_IMPORTED_MODULE_0___default.a.create({
-  baseURL: "https://sistema-estagio-back-production.up.railway.app/api/v1",
-  headers: [{
-    "source": "/api/(.*)",
-    "headers": [{
-      "key": "Access-Control-Allow-Credentials",
-      "value": "true"
-    }, {
-      "key": "Access-Control-Allow-Origin",
-      "value": "*"
-    }, {
-      "key": "Access-Control-Allow-Methods",
-      "value": "GET,OPTIONS,PATCH,DELETE,POST,PUT"
-    }, {
-      "key": "Access-Control-Allow-Headers",
-      "value": "X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version"
-    }]
-  }]
-});
-const token = js_cookie__WEBPACK_IMPORTED_MODULE_1___default.a.get('my_token');
-api.interceptors.request.use(config => {
-  return config;
-}, error => {
-  return Promise.reject(error);
-});
-/* harmony default export */ __webpack_exports__["a"] = (api);
-
-/***/ }),
-
-/***/ 183:
+/***/ 182:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2497,6 +2458,45 @@ api.interceptors.request.use(config => {
     }, [this.$slots.top, this.genWrapper(), this.$slots.bottom]);
   }
 }));
+
+/***/ }),
+
+/***/ 202:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(24);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var js_cookie__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(132);
+/* harmony import */ var js_cookie__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(js_cookie__WEBPACK_IMPORTED_MODULE_1__);
+
+
+const api = axios__WEBPACK_IMPORTED_MODULE_0___default.a.create({
+  baseURL: "https://sistema-estagio-back-production.up.railway.app/api/v1",
+  headers: [{
+    "source": "/api/(.*)",
+    "headers": [{
+      "key": "Access-Control-Allow-Credentials",
+      "value": "true"
+    }, {
+      "key": "Access-Control-Allow-Origin",
+      "value": "*"
+    }, {
+      "key": "Access-Control-Allow-Methods",
+      "value": "GET,OPTIONS,PATCH,DELETE,POST,PUT"
+    }, {
+      "key": "Access-Control-Allow-Headers",
+      "value": "X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version"
+    }]
+  }]
+});
+const token = js_cookie__WEBPACK_IMPORTED_MODULE_1___default.a.get('my_token');
+api.interceptors.request.use(config => {
+  return config;
+}, error => {
+  return Promise.reject(error);
+});
+/* harmony default export */ __webpack_exports__["a"] = (api);
 
 /***/ }),
 
@@ -3254,7 +3254,7 @@ var VIcon = __webpack_require__(44);
 var VRow = __webpack_require__(205);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDataTable/VSimpleTable.js
-var VSimpleTable = __webpack_require__(183);
+var VSimpleTable = __webpack_require__(182);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VSpacer.js
 var VSpacer = __webpack_require__(141);
@@ -3553,7 +3553,7 @@ var staticRenderFns = [];
 // CONCATENATED MODULE: ./pages/coordinators.vue?vue&type=template&id=62ac1ea0&scoped=true&
 
 // EXTERNAL MODULE: ./api.js
-var api = __webpack_require__(181);
+var api = __webpack_require__(202);
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/coordinators.vue?vue&type=script&lang=js&
 

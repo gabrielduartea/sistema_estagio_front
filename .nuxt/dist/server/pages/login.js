@@ -1883,45 +1883,6 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 181:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(24);
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var js_cookie__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(132);
-/* harmony import */ var js_cookie__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(js_cookie__WEBPACK_IMPORTED_MODULE_1__);
-
-
-const api = axios__WEBPACK_IMPORTED_MODULE_0___default.a.create({
-  baseURL: "https://sistema-estagio-back-production.up.railway.app/api/v1",
-  headers: [{
-    "source": "/api/(.*)",
-    "headers": [{
-      "key": "Access-Control-Allow-Credentials",
-      "value": "true"
-    }, {
-      "key": "Access-Control-Allow-Origin",
-      "value": "*"
-    }, {
-      "key": "Access-Control-Allow-Methods",
-      "value": "GET,OPTIONS,PATCH,DELETE,POST,PUT"
-    }, {
-      "key": "Access-Control-Allow-Headers",
-      "value": "X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version"
-    }]
-  }]
-});
-const token = js_cookie__WEBPACK_IMPORTED_MODULE_1___default.a.get('my_token');
-api.interceptors.request.use(config => {
-  return config;
-}, error => {
-  return Promise.reject(error);
-});
-/* harmony default export */ __webpack_exports__["a"] = (api);
-
-/***/ }),
-
 /***/ 223:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -2113,7 +2074,7 @@ var VToolbar = __webpack_require__(11);
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VToolbar/index.js
 var components_VToolbar = __webpack_require__(28);
 
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/login.vue?vue&type=template&id=cf3ac73c&
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/login.vue?vue&type=template&id=517e4a24&
 
 
 
@@ -2129,7 +2090,7 @@ var components_VToolbar = __webpack_require__(28);
 
 
 
-var loginvue_type_template_id_cf3ac73c_render = function render() {
+var loginvue_type_template_id_517e4a24_render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c(VApp["a" /* default */], {
@@ -2199,14 +2160,15 @@ var loginvue_type_template_id_cf3ac73c_render = function render() {
 };
 var staticRenderFns = [];
 
-// CONCATENATED MODULE: ./pages/login.vue?vue&type=template&id=cf3ac73c&
+// CONCATENATED MODULE: ./pages/login.vue?vue&type=template&id=517e4a24&
+
+// EXTERNAL MODULE: external "axios"
+var external_axios_ = __webpack_require__(24);
+var external_axios_default = /*#__PURE__*/__webpack_require__.n(external_axios_);
 
 // EXTERNAL MODULE: external "js-cookie"
 var external_js_cookie_ = __webpack_require__(132);
 var external_js_cookie_default = /*#__PURE__*/__webpack_require__.n(external_js_cookie_);
-
-// EXTERNAL MODULE: ./api.js
-var api = __webpack_require__(181);
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/login.vue?vue&type=script&lang=js&
 
@@ -2224,9 +2186,11 @@ var api = __webpack_require__(181);
   methods: {
     async loginUser() {
       debugger;
-      await api["a" /* default */].post('auth/login', {
+      await external_axios_default.a.post('https://sistema-estagio-back-production.up.railway.app/api/v1/auth/login', {
         data: this.login
-      }, 'local').then(res => {
+      }, {
+        headers: 'Access-Control-Allow-Origin: *'
+      }).then(res => {
         // eslint-disable-next-line no-undef
         external_js_cookie_default.a.set('my_token', res.data.access_token);
         debugger;
@@ -2265,7 +2229,7 @@ function injectStyles (context) {
 
 var component = Object(componentNormalizer["a" /* default */])(
   pages_loginvue_type_script_lang_js_,
-  loginvue_type_template_id_cf3ac73c_render,
+  loginvue_type_template_id_517e4a24_render,
   staticRenderFns,
   false,
   injectStyles,

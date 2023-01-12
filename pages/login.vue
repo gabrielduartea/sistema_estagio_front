@@ -29,8 +29,8 @@
 </template>
 
 <script>
+import axios from 'axios';
 import Cookie from 'js-cookie';
-import api from "../api";
 
 export default {
   layout: 'emptyPage',
@@ -46,7 +46,9 @@ export default {
   methods: {
     async loginUser() {
       debugger
-      await api.post('auth/login', { data: this.login }, 'local')
+      await axios.post('https://sistema-estagio-back-production.up.railway.app/api/v1/auth/login', { data: this.login }, {
+        headers: 'Access-Control-Allow-Origin: *'
+      })
         .then((res) => {
           // eslint-disable-next-line no-undef
           Cookie.set('my_token',res.data.access_token)

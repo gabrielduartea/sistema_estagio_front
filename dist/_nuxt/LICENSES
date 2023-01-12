@@ -312,9 +312,6 @@
     ***************************************************************************** */
 
 
-//! moment.js locale configuration
-
-
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation.
 
@@ -349,3 +346,6 @@ PERFORMANCE OF THIS SOFTWARE.
  * (c) 2021 Evan You
  * @license MIT
  */
+
+
+//! moment.js locale configuration
