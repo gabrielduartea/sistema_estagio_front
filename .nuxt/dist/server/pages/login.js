@@ -1894,14 +1894,26 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 
 const api = axios__WEBPACK_IMPORTED_MODULE_0___default.a.create({
-  baseURL: "https://sistema-estagio-back-production.up.railway.app/api/v1"
+  baseURL: "http://sistema-estagio-back-production.up.railway.app/api/v1",
+  headers: [{
+    "source": "/api/(.*)",
+    "headers": [{
+      "key": "Access-Control-Allow-Credentials",
+      "value": "true"
+    }, {
+      "key": "Access-Control-Allow-Origin",
+      "value": "*"
+    }, {
+      "key": "Access-Control-Allow-Methods",
+      "value": "GET,OPTIONS,PATCH,DELETE,POST,PUT"
+    }, {
+      "key": "Access-Control-Allow-Headers",
+      "value": "X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version"
+    }]
+  }]
 });
 const token = js_cookie__WEBPACK_IMPORTED_MODULE_1___default.a.get('my_token');
 api.interceptors.request.use(config => {
-  debugger;
-  config.headers = {
-    'Authorization': `Bearer ${token}`
-  };
   return config;
 }, error => {
   return Promise.reject(error);
