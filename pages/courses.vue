@@ -156,10 +156,7 @@ export default {
       try {
         const student = await axios.put(
           `https://sistema-estagio-back-production.up.railway.app/api/v1/cursos/${id}`,
-          this.editedItem,
-          {
-            headers: 'Access-Control-Allow-Origin: *'
-          }
+          this.editedItem
         )
 
         // eslint-disable-next-line no-undef
@@ -176,7 +173,7 @@ export default {
     },
 
     async initialize() {
-      const students = await api.get(`https://sistema-estagio-back-production.up.railway.app/api/v1/cursos/findAll`)
+      const students = await axios.get(`https://sistema-estagio-back-production.up.railway.app/api/v1/cursos/findAll`)
 
       this.desserts = students.data
     },
