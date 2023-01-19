@@ -7704,7 +7704,7 @@ var VToolbar = __webpack_require__(11);
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VToolbar/index.js
 var components_VToolbar = __webpack_require__(28);
 
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/courses.vue?vue&type=template&id=f9016b2a&
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/courses.vue?vue&type=template&id=d3369998&
 
 
 
@@ -7722,7 +7722,7 @@ var components_VToolbar = __webpack_require__(28);
 
 
 
-var coursesvue_type_template_id_f9016b2a_render = function render() {
+var coursesvue_type_template_id_d3369998_render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c(VContainer["a" /* default */], [_c(VRow["a" /* default */], [_c(VCol["a" /* default */], [_c(VDataTable["a" /* default */], {
@@ -7914,7 +7914,7 @@ var coursesvue_type_template_id_f9016b2a_render = function render() {
 };
 var staticRenderFns = [];
 
-// CONCATENATED MODULE: ./pages/courses.vue?vue&type=template&id=f9016b2a&
+// CONCATENATED MODULE: ./pages/courses.vue?vue&type=template&id=d3369998&
 
 // EXTERNAL MODULE: external "axios"
 var external_axios_ = __webpack_require__(24);
@@ -7982,7 +7982,7 @@ var api = __webpack_require__(202);
   methods: {
     async store() {
       try {
-        const student = await external_axios_default.a.post('https://sistema-estagio-back-production.up.railway.app/api/v1/auth/login', {
+        const student = await external_axios_default.a.post('https://sistema-estagio-back-production.up.railway.app/api/v1/cursos/create', {
           nome: this.editedItem.nome,
           descricao: this.editedItem.descricao,
           departamento: this.editedItem.departamento
@@ -8000,7 +8000,9 @@ var api = __webpack_require__(202);
     },
     async update(id) {
       try {
-        const student = await external_axios_default.a.put(`https://sistema-estagio-back-production.up.railway.app/api/v1/cursos/${id}`, this.editedItem);
+        const student = await external_axios_default.a.put(`https://sistema-estagio-back-production.up.railway.app/api/v1/cursos/${id}`, this.editedItem, {
+          headers: 'Access-Control-Allow-Origin: *'
+        });
 
         // eslint-disable-next-line no-undef
         console.log(student);
@@ -8077,7 +8079,7 @@ var componentNormalizer = __webpack_require__(13);
 
 var component = Object(componentNormalizer["a" /* default */])(
   pages_coursesvue_type_script_lang_js_,
-  coursesvue_type_template_id_f9016b2a_render,
+  coursesvue_type_template_id_d3369998_render,
   staticRenderFns,
   false,
   null,
