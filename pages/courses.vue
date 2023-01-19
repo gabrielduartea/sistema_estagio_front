@@ -135,7 +135,7 @@ export default {
   methods: {
     async store() {
       try {
-        const student = await axios.post('https://sistema-estagio-back-production.up.railway.app/api/v1/auth/login', {
+        const student = await axios.post('https://sistema-estagio-back-production.up.railway.app/api/v1/cursos/create', {
           nome: this.editedItem.nome,
           descricao: this.editedItem.descricao,
           departamento: this.editedItem.departamento,
