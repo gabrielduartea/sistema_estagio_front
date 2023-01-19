@@ -111,7 +111,7 @@
 </template>
 
 <script>
-import api from '../api'
+import axios from 'axios'
 export default {
   data: () => ({
     dialog: false,
@@ -171,7 +171,7 @@ export default {
     async store() {
       try {
         // nome, email, telefone, codigoProfessor
-        const student = await api.post(`professores/create`, {
+        const student = await axios.post(`https://sistema-estagio-back-production.up.railway.app/api/v1/professores/create`, {
           nome: this.editedItem.nome,
           email: this.editedItem.email,
           telefone: this.editedItem.telefone,
@@ -189,7 +189,7 @@ export default {
 
     async update(id) {
       try {
-        const student = await api.put(
+        const student = await axios.put(
           `professores/${id}`,
           this.editedItem
         )
@@ -203,12 +203,12 @@ export default {
       }
     },
     async destroy(id) {
-      await api.delete(`professores/${id}`)
+      await axios.delete(`https://sistema-estagio-back-production.up.railway.app/api/v1/professores/${id}`)
       this.initialize()
     },
 
     async initialize() {
-      const students = await api.get(`professores/findAll`)
+      const students = await axios.get(`https://sistema-estagio-back-production.up.railway.app/api/v1/professores/findAll`)
 
       this.desserts = students.data
     },

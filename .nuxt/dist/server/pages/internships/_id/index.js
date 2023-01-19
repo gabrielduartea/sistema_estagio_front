@@ -1400,7 +1400,7 @@ const baseMixins = Object(mixins["a" /* default */])(binds_attrs["a" /* default 
 __webpack_require__.d(__webpack_exports__, "b", function() { return /* binding */ defaultMenuProps; });
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.array.last-item.js"
-var esnext_array_last_item_js_ = __webpack_require__(133);
+var esnext_array_last_item_js_ = __webpack_require__(132);
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.map.delete-all.js"
 var esnext_map_delete_all_js_ = __webpack_require__(119);
@@ -1454,7 +1454,7 @@ var VChip = __webpack_require__(155);
 var VMenu = __webpack_require__(198);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VThemeProvider/VThemeProvider.js
-var VThemeProvider = __webpack_require__(208);
+var VThemeProvider = __webpack_require__(207);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/mixins/activatable/index.js
 var activatable = __webpack_require__(147);
@@ -1843,7 +1843,7 @@ var resize = __webpack_require__(50);
 var console = __webpack_require__(2);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/services/goto/index.js + 2 modules
-var services_goto = __webpack_require__(134);
+var services_goto = __webpack_require__(133);
 
 // CONCATENATED MODULE: ./node_modules/vuetify/lib/components/VMenu/VMenu.js
 // Styles
@@ -4936,47 +4936,9 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 
 /***/ }),
-/* 202 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(24);
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var js_cookie__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(132);
-/* harmony import */ var js_cookie__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(js_cookie__WEBPACK_IMPORTED_MODULE_1__);
-
-
-const api = axios__WEBPACK_IMPORTED_MODULE_0___default.a.create({
-  baseURL: "https://sistema-estagio-back-production.up.railway.app/api/v1",
-  headers: [{
-    "source": "/api/(.*)",
-    "headers": [{
-      "key": "Access-Control-Allow-Credentials",
-      "value": "true"
-    }, {
-      "key": "Access-Control-Allow-Origin",
-      "value": "*"
-    }, {
-      "key": "Access-Control-Allow-Methods",
-      "value": "GET,OPTIONS,PATCH,DELETE,POST,PUT"
-    }, {
-      "key": "Access-Control-Allow-Headers",
-      "value": "X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version"
-    }]
-  }]
-});
-const token = js_cookie__WEBPACK_IMPORTED_MODULE_1___default.a.get('my_token');
-api.interceptors.request.use(config => {
-  return config;
-}, error => {
-  return Promise.reject(error);
-});
-/* harmony default export */ __webpack_exports__["a"] = (api);
-
-/***/ }),
+/* 202 */,
 /* 203 */,
-/* 204 */,
-/* 205 */
+/* 204 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5149,7 +5111,7 @@ const cache = new Map();
 }));
 
 /***/ }),
-/* 206 */
+/* 205 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5327,8 +5289,8 @@ const cache = new Map();
 }));
 
 /***/ }),
-/* 207 */,
-/* 208 */
+/* 206 */,
+/* 207 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5354,13 +5316,13 @@ const cache = new Map();
 }));
 
 /***/ }),
-/* 209 */
+/* 208 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var _src_components_VDialog_VDialog_sass__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(179);
 /* harmony import */ var _src_components_VDialog_VDialog_sass__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_src_components_VDialog_VDialog_sass__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _VThemeProvider__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(208);
+/* harmony import */ var _VThemeProvider__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(207);
 /* harmony import */ var _mixins_activatable__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(147);
 /* harmony import */ var _mixins_dependent__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(48);
 /* harmony import */ var _mixins_detachable__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(159);
@@ -5651,8 +5613,8 @@ const baseMixins = Object(_util_mixins__WEBPACK_IMPORTED_MODULE_9__[/* default *
 }));
 
 /***/ }),
-/* 210 */,
-/* 211 */
+/* 209 */,
+/* 210 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -7634,20 +7596,20 @@ function searchTableItems(items, search, headersWithCustomFilters, headersWithou
 }));
 
 /***/ }),
-/* 212 */
+/* 211 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(213);
+var content = __webpack_require__(212);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 __webpack_require__(5).default("50788f08", content, true)
 
 /***/ }),
-/* 213 */
+/* 212 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -7660,13 +7622,51 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 
 /***/ }),
+/* 213 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(24);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var js_cookie__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(134);
+/* harmony import */ var js_cookie__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(js_cookie__WEBPACK_IMPORTED_MODULE_1__);
+
+
+const api = axios__WEBPACK_IMPORTED_MODULE_0___default.a.create({
+  baseURL: "https://sistema-estagio-back-production.up.railway.app/api/v1",
+  headers: [{
+    "source": "/api/(.*)",
+    "headers": [{
+      "key": "Access-Control-Allow-Credentials",
+      "value": "true"
+    }, {
+      "key": "Access-Control-Allow-Origin",
+      "value": "*"
+    }, {
+      "key": "Access-Control-Allow-Methods",
+      "value": "GET,OPTIONS,PATCH,DELETE,POST,PUT"
+    }, {
+      "key": "Access-Control-Allow-Headers",
+      "value": "X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version"
+    }]
+  }]
+});
+const token = js_cookie__WEBPACK_IMPORTED_MODULE_1___default.a.get('my_token');
+api.interceptors.request.use(config => {
+  return config;
+}, error => {
+  return Promise.reject(error);
+});
+/* unused harmony default export */ var _unused_webpack_default_export = (api);
+
+/***/ }),
 /* 214 */,
 /* 215 */,
 /* 216 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var _src_components_VAutocomplete_VAutocomplete_sass__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(212);
+/* harmony import */ var _src_components_VAutocomplete_VAutocomplete_sass__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(211);
 /* harmony import */ var _src_components_VAutocomplete_VAutocomplete_sass__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_src_components_VAutocomplete_VAutocomplete_sass__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _VSelect_VSelect__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(154);
 /* harmony import */ var _VTextField_VTextField__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(163);
@@ -8059,16 +8059,16 @@ var components_VCard = __webpack_require__(144);
 var VChip = __webpack_require__(162);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VCol.js
-var VCol = __webpack_require__(206);
+var VCol = __webpack_require__(205);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VContainer.js
 var VContainer = __webpack_require__(143);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDataTable/VDataTable.js + 12 modules
-var VDataTable = __webpack_require__(211);
+var VDataTable = __webpack_require__(210);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDialog/VDialog.js
-var VDialog = __webpack_require__(209);
+var VDialog = __webpack_require__(208);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDivider/VDivider.js
 var VDivider = __webpack_require__(161);
@@ -8077,7 +8077,7 @@ var VDivider = __webpack_require__(161);
 var VIcon = __webpack_require__(44);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VRow.js
-var VRow = __webpack_require__(205);
+var VRow = __webpack_require__(204);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VSelect/VSelect.js + 7 modules
 var VSelect = __webpack_require__(154);
@@ -8097,7 +8097,7 @@ var VToolbar = __webpack_require__(11);
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VToolbar/index.js
 var components_VToolbar = __webpack_require__(28);
 
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/internships/_id/index.vue?vue&type=template&id=36d44d8e&
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/internships/_id/index.vue?vue&type=template&id=297db534&
 
 
 
@@ -8119,7 +8119,7 @@ var components_VToolbar = __webpack_require__(28);
 
 
 
-var _idvue_type_template_id_36d44d8e_render = function render() {
+var _idvue_type_template_id_297db534_render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c(VContainer["a" /* default */], [_c(VRow["a" /* default */], [_c(VCol["a" /* default */], [_c('NuxtLink', {
@@ -8605,17 +8605,18 @@ var _idvue_type_template_id_36d44d8e_render = function render() {
 };
 var staticRenderFns = [];
 
-// CONCATENATED MODULE: ./pages/internships/_id/index.vue?vue&type=template&id=36d44d8e&
+// CONCATENATED MODULE: ./pages/internships/_id/index.vue?vue&type=template&id=297db534&
 
 // EXTERNAL MODULE: external "axios"
 var external_axios_ = __webpack_require__(24);
+var external_axios_default = /*#__PURE__*/__webpack_require__.n(external_axios_);
 
 // EXTERNAL MODULE: external "moment"
 var external_moment_ = __webpack_require__(135);
 var external_moment_default = /*#__PURE__*/__webpack_require__.n(external_moment_);
 
 // EXTERNAL MODULE: ./api.js
-var api = __webpack_require__(202);
+var api = __webpack_require__(213);
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/internships/_id/index.vue?vue&type=script&lang=js&
 
@@ -8747,11 +8748,11 @@ var api = __webpack_require__(202);
   methods: {
     async getStudents() {
       debugger;
-      const students = await api["a" /* default */].get(`estudantes/findAll`);
+      const students = await external_axios_default.a.get(`https://sistema-estagio-back-production.up.railway.app/api/v1/estudantes/findAll`);
       this.itemsStudents = students.data;
     },
     async getCompanies() {
-      const companies = await api["a" /* default */].get(`empresas/findAll`);
+      const companies = await external_axios_default.a.get(`https://sistema-estagio-back-production.up.railway.app/api/v1/empresas/findAll`);
       this.itemsCompanies = companies.data;
     },
     getColorStatus(statusColor) {
@@ -8764,21 +8765,21 @@ var api = __webpack_require__(202);
       if (statusColor === 'Pendente') return 'red';else return 'green';
     },
     async getInternships() {
-      const internshipDetails = await api["a" /* default */].get(`estagios/${this.$route.params.id}`);
+      const internshipDetails = await external_axios_default.a.get(`https://sistema-estagio-back-production.up.railway.app/api/v1/estagios/${this.$route.params.id}`);
       const internshipEdited = internshipDetails.data;
       const internshipAux = internshipEdited.map(this.formatDateForBrazil);
       this.internship_details = internshipAux[0];
       console.log(this.internship_details, '<=====');
     },
     async showPeriods() {
-      const periods = await api["a" /* default */].get(`estagios/${this.id}`);
+      const periods = await external_axios_default.a.get(`https://sistema-estagio-back-production.up.railway.app/api/v1/estagios/${this.id}`);
       this.dessertsEdited = periods.data;
       this.desserts = this.dessertsEdited.map(this.formatDateForBrazil);
       console.log(this.desserts);
     },
     async store() {
       try {
-        const student = await api["a" /* default */].post(`estagios/create`, {
+        const student = await external_axios_default.a.post(`https://sistema-estagio-back-production.up.railway.app/api/v1/estagios/create`, {
           internship_id: this.$route.params.id,
           student_id: this.internship_details.student_id,
           empresaId: this.editedItem.empresaId,
@@ -8808,7 +8809,7 @@ var api = __webpack_require__(202);
     },
     async update(id) {
       try {
-        const student = await api["a" /* default */].put(`estagios/${id}`, {
+        const student = await external_axios_default.a.put(`https://sistema-estagio-back-production.up.railway.app/api/v1/estagios/${id}`, {
           internship_id: this.$route.params.id,
           student_id: this.editedItem.student_id,
           empresaId: this.editedItem.empresaId,
@@ -8837,7 +8838,7 @@ var api = __webpack_require__(202);
       }
     },
     async destroy(id) {
-      await api["a" /* default */].delete(`periods/${id}`);
+      await external_axios_default.a.delete(`https://sistema-estagio-back-production.up.railway.app/api/v1/periods/${id}`);
       this.initialize();
     },
     formatDateForBrazil(e) {
@@ -8922,7 +8923,7 @@ var componentNormalizer = __webpack_require__(13);
 
 var component = Object(componentNormalizer["a" /* default */])(
   internships_idvue_type_script_lang_js_,
-  _idvue_type_template_id_36d44d8e_render,
+  _idvue_type_template_id_297db534_render,
   staticRenderFns,
   false,
   null,

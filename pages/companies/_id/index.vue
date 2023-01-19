@@ -140,6 +140,7 @@
 </template>
 
 <script>
+import axios from 'axios'
 import api from '../../../api'
 
 export default {
@@ -208,8 +209,8 @@ export default {
   methods: {
     async store() {
       try {
-        const supervisor = await api.post(
-          `supervisors`,
+        const supervisor = await axios.post(
+         `https://sistema-estagio-back-production.up.railway.app/api/v1/supervisores/create`,
           {
             name: this.editedItem.name,
             email: this.editedItem.email,
@@ -229,8 +230,8 @@ export default {
 
     async update(id) {
       try {
-        const supervisor = await api.put(
-          `supervisors/${id}`,
+        const supervisor = await axios.put(
+         `https://sistema-estagio-back-production.up.railway.app/api/v1/supervisors/${id}`,
           this.editedItem
         )
 
@@ -243,13 +244,13 @@ export default {
       }
     },
     async destroy(id) {
-      await api.delete(`supervisors/${id}`)
+      await axios.delete(`https://sistema-estagio-back-production.up.railway.app/api/v1/supervisores/${id}`)
       this.initialize()
     },
 
     async showSupervisors(id) {
-      const companies = await api.get(
-        `supervisors/${id}`
+      const companies = await axios.get(
+       `https://sistema-estagio-back-production.up.railway.app/api/v1/supervisores/${id}`
       )
       this.desserts = companies.data
     },
@@ -257,8 +258,8 @@ export default {
     async initialize() {
       this.company_id = this.$route.params.id
 
-      const companyDetails = await api.get(
-        `companies/${this.company_id}`
+      const companyDetails = await axios.get(
+       `https://sistema-estagio-back-production.up.railway.app/api/v1/empresas/${this.company_id}`
       )
       this.showSupervisors(this.company_id)
       this.company_details = companyDetails.data

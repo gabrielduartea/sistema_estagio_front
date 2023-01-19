@@ -140,7 +140,6 @@
 <script>
 import axios from 'axios'
 import Cookie from 'js-cookie';
-import api from '../api';
 export default {
   data: () => ({
     itemsCourses: [],
@@ -215,7 +214,7 @@ export default {
 
   methods: {
     async getCourses() {
-      const courses = await api.get(`cursos/findAll`)
+      const courses = await axios.get('https://sistema-estagio-back-production.up.railway.app/api/v1/cursos/findAll')
       debugger
       this.itemsCourses = courses.data
     },
@@ -223,7 +222,7 @@ export default {
     async store() {
       try {
         const token = Cookie.get('my_token');
-        const student = await api.post('alunos/create', {
+        const student = await axios.post('https://sistema-estagio-back-production.up.railway.app/api/v1/alunos/create', {
           nome: this.editedItem.nome,
           cursoId: this.editedItem.cursoId,
           email: this.editedItem.email,
@@ -248,8 +247,7 @@ export default {
 
     async update(id) {
       try {
-        const student = await api.put(
-          `alunos/${id}`,
+        const student = await axios.put(`https://sistema-estagio-back-production.up.railway.app/api/v1/alunos/${id}`,
           this.editedItem
         )
 
@@ -262,12 +260,12 @@ export default {
       }
     },
     async destroy(id) {
-      await api.delete(`alunos/${id}`)
+      await axios.delete(`https://sistema-estagio-back-production.up.railway.app/api/v1/alunos/${id}`)
       this.initialize()
     },
 
     async initialize() {
-      const students = await api.get(`alunos/findAll`)
+      const students = await axios.get('https://sistema-estagio-back-production.up.railway.app/api/v1/alunos/findAll')
       this.desserts = students.data
       debugger
       await this.getCourses()

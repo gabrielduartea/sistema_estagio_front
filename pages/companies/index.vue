@@ -123,7 +123,7 @@
 </template>
 
 <script>
-import api from '../../api'
+import axios from 'axios'
 
 export default {
   data: () => ({
@@ -186,7 +186,7 @@ export default {
   methods: {
     async store() {
       try {
-        const company = await api.post(`empresas/create`, {
+        const company = await axios.post(`https://sistema-estagio-back-production.up.railway.app/api/v1/empresas/create`, {
           nome: this.editedItem.nome,
           cnpj: this.editedItem.cnpj,
           email: this.editedItem.email,
@@ -205,7 +205,7 @@ export default {
 
     async update(id) {
       try {
-        const company = await api.put(
+        const company = await axios.put(
           `empresas/${id}`,
           this.editedItem
         )
@@ -219,18 +219,18 @@ export default {
       }
     },
     async destroy(id) {
-      await api.delete(`empresas/${id}`)
+      await axios.delete(`https://sistema-estagio-back-production.up.railway.app/api/v1/empresas/${id}`)
       this.initialize()
     },
 
     async initialize() {
-      const companies = await api.get(`empresas/findAll`)
+      const companies = await axios.get(`https://sistema-estagio-back-production.up.railway.app/api/v1/empresas/findAll`)
 
       this.desserts = companies.data
     },
 
     companyMore(id) {
-      this.$router.push(`/api/v1/empresas/${id}`)
+      this.$router.push(`https://sistema-estagio-back-production.up.railway.app/api/v1//api/v1/empresas/${id}`)
     },
 
     editItem(item) {

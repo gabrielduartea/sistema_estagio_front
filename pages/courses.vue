@@ -80,7 +80,6 @@
 
 <script>
 import axios from 'axios'
-import api from '../api'
 
 export default {
   data: () => ({
@@ -168,7 +167,7 @@ export default {
       }
     },
     async destroy(id) {
-      await api.delete(`cursos/${id}`)
+      await axios.delete(`https://sistema-estagio-back-production.up.railway.app/api/v1/cursos/${id}`)
       this.initialize()
     },
 

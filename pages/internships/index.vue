@@ -337,19 +337,19 @@ export default {
 
   methods: {
     async getStudents() {
-      const students = await api.get(`alunos/findAll`)
+      const students = await axios.get(`https://sistema-estagio-back-production.up.railway.app/api/v1/alunos/findAll`)
 
       this.itemsStudents = students.data
     },
 
     async getCompanies() {
-      const companies = await api.get(`empresas/findAll`)
+      const companies = await axios.get(`https://sistema-estagio-back-production.up.railway.app/api/v1/empresas/findAll`)
 
       this.itemsCompanies = companies.data
     },
 
     async getTeachers() {
-      const teachers = await api.get(`professores/findAll`)
+      const teachers = await axios.get(`https://sistema-estagio-back-production.up.railway.app/api/v1/professores/findAll`)
 
       this.itemsTeachers = teachers.data
     },
@@ -372,7 +372,7 @@ export default {
 
     async store() {
       try {
-        const student = await api.post(`estagios/create`, {
+        const student = await axios.post(`https://sistema-estagio-back-production.up.railway.app/api/v1/estagios/create`, {
           //  alunoId, empresaId, professorId, supervisor, dataIncial, dataFinal, remuneracao, ajuda, codigoSeguroSaude, companhiaSeguroSaude, horasSemanaisTrabalhadas, categoria, modalidade, planoAtividades, relatorio, status
 
           alunoId: this.editedItem.alunoId,
@@ -404,8 +404,8 @@ export default {
 
     async update(id) {
       try {
-        const internship = await api.put(
-          `estagios/${id}`,
+        const internship = await axios.put(
+          `https://sistema-estagio-back-production.up.railway.app/api/v1/estagios/${id}`,
           {
             alunoId: this.editedItem.alunoId,
             empresaId: this.editedItem.empresaId,
@@ -435,7 +435,7 @@ export default {
       }
     },
     async destroy(id) {
-      await api.delete(`estagios/${id}`)
+      await axios.delete(`https://sistema-estagio-back-production.up.railway.app/api/v1/estagios/${id}`)
       this.initialize()
     },
 
@@ -459,11 +459,11 @@ export default {
     },
 
     internshipMore(id) {
-      this.$router.push(`/estagios/${id}`)
+      this.$router.push(`https://sistema-estagio-back-production.up.railway.app/api/v1//estagios/${id}`)
     },
 
     async initialize() {
-      const internships = await api.get(`estagios/findAll`)
+      const internships = await axios.get(`https://sistema-estagio-back-production.up.railway.app/api/v1/estagios/findAll`)
 
       this.dessertsEdited = internships.data
 
@@ -482,26 +482,26 @@ export default {
     async printrelatorio(id, alunoId, empresaId) {
       const doc = new jsPDF()
 
-      const internshipEdited = await api.get(
+      const internshipEdited = await axios.get(
         `estagios/${id}`
       )
       const internshipAux = internshipEdited.data.map(this.formatDateForBrazil)
       const internship = internshipAux[0]
       console.log(internship, '<Internship>')
 
-      const studentEdited = await api.get(
+      const studentEdited = await axios.get(
         `students/${alunoId}`
       )
       const student = studentEdited.data
       console.log(student, '<Student>')
 
-      const companyEdited = await api.get(
+      const companyEdited = await axios.get(
         `companies/${empresaId}`
       )
       const company = companyEdited.data
       console.log(company, '<Company>')
 
-      const periodEdited = await api.get(
+      const periodEdited = await axios.get(
         `periods/${id}`
       )
       const period = periodEdited.data
@@ -595,7 +595,7 @@ export default {
       }
 
       // SAVE DOC IN PDF
-      doc.save(`${student.name}.pdf`)
+      doc.save(`https://sistema-estagio-back-production.up.railway.app/api/v1/${student.name}.pdf`)
     },
 
     editItem(item) {

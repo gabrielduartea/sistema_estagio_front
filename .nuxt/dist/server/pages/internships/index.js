@@ -1400,7 +1400,7 @@ const baseMixins = Object(mixins["a" /* default */])(binds_attrs["a" /* default 
 __webpack_require__.d(__webpack_exports__, "b", function() { return /* binding */ defaultMenuProps; });
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.array.last-item.js"
-var esnext_array_last_item_js_ = __webpack_require__(133);
+var esnext_array_last_item_js_ = __webpack_require__(132);
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.map.delete-all.js"
 var esnext_map_delete_all_js_ = __webpack_require__(119);
@@ -1454,7 +1454,7 @@ var VChip = __webpack_require__(155);
 var VMenu = __webpack_require__(198);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VThemeProvider/VThemeProvider.js
-var VThemeProvider = __webpack_require__(208);
+var VThemeProvider = __webpack_require__(207);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/mixins/activatable/index.js
 var activatable = __webpack_require__(147);
@@ -1843,7 +1843,7 @@ var resize = __webpack_require__(50);
 var console = __webpack_require__(2);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/services/goto/index.js + 2 modules
-var services_goto = __webpack_require__(134);
+var services_goto = __webpack_require__(133);
 
 // CONCATENATED MODULE: ./node_modules/vuetify/lib/components/VMenu/VMenu.js
 // Styles
@@ -4938,8 +4938,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 /***/ }),
 /* 202 */,
 /* 203 */,
-/* 204 */,
-/* 205 */
+/* 204 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5112,7 +5111,7 @@ const cache = new Map();
 }));
 
 /***/ }),
-/* 206 */
+/* 205 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5290,8 +5289,8 @@ const cache = new Map();
 }));
 
 /***/ }),
-/* 207 */,
-/* 208 */
+/* 206 */,
+/* 207 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5317,13 +5316,13 @@ const cache = new Map();
 }));
 
 /***/ }),
-/* 209 */
+/* 208 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var _src_components_VDialog_VDialog_sass__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(179);
 /* harmony import */ var _src_components_VDialog_VDialog_sass__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_src_components_VDialog_VDialog_sass__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _VThemeProvider__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(208);
+/* harmony import */ var _VThemeProvider__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(207);
 /* harmony import */ var _mixins_activatable__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(147);
 /* harmony import */ var _mixins_dependent__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(48);
 /* harmony import */ var _mixins_detachable__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(159);
@@ -5614,8 +5613,8 @@ const baseMixins = Object(_util_mixins__WEBPACK_IMPORTED_MODULE_9__[/* default *
 }));
 
 /***/ }),
-/* 210 */,
-/* 211 */
+/* 209 */,
+/* 210 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -7597,20 +7596,20 @@ function searchTableItems(items, search, headersWithCustomFilters, headersWithou
 }));
 
 /***/ }),
-/* 212 */
+/* 211 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(213);
+var content = __webpack_require__(212);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 __webpack_require__(5).default("50788f08", content, true)
 
 /***/ }),
-/* 213 */
+/* 212 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -7623,13 +7622,14 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 
 /***/ }),
+/* 213 */,
 /* 214 */,
 /* 215 */,
 /* 216 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var _src_components_VAutocomplete_VAutocomplete_sass__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(212);
+/* harmony import */ var _src_components_VAutocomplete_VAutocomplete_sass__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(211);
 /* harmony import */ var _src_components_VAutocomplete_VAutocomplete_sass__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_src_components_VAutocomplete_VAutocomplete_sass__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _VSelect_VSelect__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(154);
 /* harmony import */ var _VTextField_VTextField__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(163);
@@ -8017,16 +8017,16 @@ var components_VCard = __webpack_require__(144);
 var VChip = __webpack_require__(162);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VCol.js
-var VCol = __webpack_require__(206);
+var VCol = __webpack_require__(205);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VContainer.js
 var VContainer = __webpack_require__(143);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDataTable/VDataTable.js + 12 modules
-var VDataTable = __webpack_require__(211);
+var VDataTable = __webpack_require__(210);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDialog/VDialog.js
-var VDialog = __webpack_require__(209);
+var VDialog = __webpack_require__(208);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDivider/VDivider.js
 var VDivider = __webpack_require__(161);
@@ -8035,7 +8035,7 @@ var VDivider = __webpack_require__(161);
 var VIcon = __webpack_require__(44);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VRow.js
-var VRow = __webpack_require__(205);
+var VRow = __webpack_require__(204);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VSelect/VSelect.js + 7 modules
 var VSelect = __webpack_require__(154);
@@ -8052,7 +8052,7 @@ var VToolbar = __webpack_require__(11);
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VToolbar/index.js
 var components_VToolbar = __webpack_require__(28);
 
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/internships/index.vue?vue&type=template&id=46467bd7&
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/internships/index.vue?vue&type=template&id=723b1b56&
 
 
 
@@ -8073,7 +8073,7 @@ var components_VToolbar = __webpack_require__(28);
 
 
 
-var internshipsvue_type_template_id_46467bd7_render = function render() {
+var internshipsvue_type_template_id_723b1b56_render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c(VContainer["a" /* default */], [_c(VRow["a" /* default */], [_c(VCol["a" /* default */], [_c(VDataTable["a" /* default */], {
@@ -8558,10 +8558,11 @@ var internshipsvue_type_template_id_46467bd7_render = function render() {
 };
 var staticRenderFns = [];
 
-// CONCATENATED MODULE: ./pages/internships/index.vue?vue&type=template&id=46467bd7&
+// CONCATENATED MODULE: ./pages/internships/index.vue?vue&type=template&id=723b1b56&
 
 // EXTERNAL MODULE: external "axios"
 var external_axios_ = __webpack_require__(24);
+var external_axios_default = /*#__PURE__*/__webpack_require__.n(external_axios_);
 
 // EXTERNAL MODULE: external "moment"
 var external_moment_ = __webpack_require__(135);
@@ -8682,15 +8683,15 @@ var external_jspdf_default = /*#__PURE__*/__webpack_require__.n(external_jspdf_)
   },
   methods: {
     async getStudents() {
-      const students = await api.get(`alunos/findAll`);
+      const students = await external_axios_default.a.get(`https://sistema-estagio-back-production.up.railway.app/api/v1/alunos/findAll`);
       this.itemsStudents = students.data;
     },
     async getCompanies() {
-      const companies = await api.get(`empresas/findAll`);
+      const companies = await external_axios_default.a.get(`https://sistema-estagio-back-production.up.railway.app/api/v1/empresas/findAll`);
       this.itemsCompanies = companies.data;
     },
     async getTeachers() {
-      const teachers = await api.get(`professores/findAll`);
+      const teachers = await external_axios_default.a.get(`https://sistema-estagio-back-production.up.railway.app/api/v1/professores/findAll`);
       this.itemsTeachers = teachers.data;
     },
     getColorStatus(statusColor) {
@@ -8704,7 +8705,7 @@ var external_jspdf_default = /*#__PURE__*/__webpack_require__.n(external_jspdf_)
     },
     async store() {
       try {
-        const student = await api.post(`estagios/create`, {
+        const student = await external_axios_default.a.post(`https://sistema-estagio-back-production.up.railway.app/api/v1/estagios/create`, {
           //  alunoId, empresaId, professorId, supervisor, dataIncial, dataFinal, remuneracao, ajuda, codigoSeguroSaude, companhiaSeguroSaude, horasSemanaisTrabalhadas, categoria, modalidade, planoAtividades, relatorio, status
 
           alunoId: this.editedItem.alunoId,
@@ -8735,7 +8736,7 @@ var external_jspdf_default = /*#__PURE__*/__webpack_require__.n(external_jspdf_)
     },
     async update(id) {
       try {
-        const internship = await api.put(`estagios/${id}`, {
+        const internship = await external_axios_default.a.put(`https://sistema-estagio-back-production.up.railway.app/api/v1/estagios/${id}`, {
           alunoId: this.editedItem.alunoId,
           empresaId: this.editedItem.empresaId,
           professorId: this.editedItem.professorId,
@@ -8763,7 +8764,7 @@ var external_jspdf_default = /*#__PURE__*/__webpack_require__.n(external_jspdf_)
       }
     },
     async destroy(id) {
-      await api.delete(`estagios/${id}`);
+      await external_axios_default.a.delete(`https://sistema-estagio-back-production.up.railway.app/api/v1/estagios/${id}`);
       this.initialize();
     },
     formatDateForBrazil(e) {
@@ -8782,10 +8783,10 @@ var external_jspdf_default = /*#__PURE__*/__webpack_require__.n(external_jspdf_)
       return dateFormated;
     },
     internshipMore(id) {
-      this.$router.push(`/estagios/${id}`);
+      this.$router.push(`https://sistema-estagio-back-production.up.railway.app/api/v1//estagios/${id}`);
     },
     async initialize() {
-      const internships = await api.get(`estagios/findAll`);
+      const internships = await external_axios_default.a.get(`https://sistema-estagio-back-production.up.railway.app/api/v1/estagios/findAll`);
       this.dessertsEdited = internships.data;
       this.desserts = this.dessertsEdited.map(this.formatDateForBrazil);
       console.log(this.desserts);
@@ -8800,17 +8801,17 @@ var external_jspdf_default = /*#__PURE__*/__webpack_require__.n(external_jspdf_)
 
     async printrelatorio(id, alunoId, empresaId) {
       const doc = new external_jspdf_default.a();
-      const internshipEdited = await api.get(`estagios/${id}`);
+      const internshipEdited = await external_axios_default.a.get(`estagios/${id}`);
       const internshipAux = internshipEdited.data.map(this.formatDateForBrazil);
       const internship = internshipAux[0];
       console.log(internship, '<Internship>');
-      const studentEdited = await api.get(`students/${alunoId}`);
+      const studentEdited = await external_axios_default.a.get(`students/${alunoId}`);
       const student = studentEdited.data;
       console.log(student, '<Student>');
-      const companyEdited = await api.get(`companies/${empresaId}`);
+      const companyEdited = await external_axios_default.a.get(`companies/${empresaId}`);
       const company = companyEdited.data;
       console.log(company, '<Company>');
-      const periodEdited = await api.get(`periods/${id}`);
+      const periodEdited = await external_axios_default.a.get(`periods/${id}`);
       const period = periodEdited.data;
       console.log(period, '<Period>');
 
@@ -8891,7 +8892,7 @@ var external_jspdf_default = /*#__PURE__*/__webpack_require__.n(external_jspdf_)
       }
 
       // SAVE DOC IN PDF
-      doc.save(`${student.name}.pdf`);
+      doc.save(`https://sistema-estagio-back-production.up.railway.app/api/v1/${student.name}.pdf`);
     },
     editItem(item) {
       this.editedIndex = this.desserts.indexOf(item);
@@ -8952,7 +8953,7 @@ var componentNormalizer = __webpack_require__(13);
 
 var component = Object(componentNormalizer["a" /* default */])(
   pages_internshipsvue_type_script_lang_js_,
-  internshipsvue_type_template_id_46467bd7_render,
+  internshipsvue_type_template_id_723b1b56_render,
   staticRenderFns,
   false,
   null,
@@ -8961,7 +8962,7 @@ var component = Object(componentNormalizer["a" /* default */])(
   
 )
 
-/* harmony default export */ var internships = __webpack_exports__["default"] = (component.exports);
+/* harmony default export */ var pages_internships = __webpack_exports__["default"] = (component.exports);
 
 /***/ })
 ]);;

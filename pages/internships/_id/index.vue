@@ -396,13 +396,13 @@ export default {
   methods: {
     async getStudents() {
       debugger
-      const students = await api.get(`estudantes/findAll`)
+      const students = await axios.get(`https://sistema-estagio-back-production.up.railway.app/api/v1/estudantes/findAll`)
 
       this.itemsStudents = students.data
     },
 
     async getCompanies() {
-      const companies = await api.get(`empresas/findAll`)
+      const companies = await axios.get(`https://sistema-estagio-back-production.up.railway.app/api/v1/empresas/findAll`)
 
       this.itemsCompanies = companies.data
     },
@@ -422,8 +422,8 @@ export default {
       else return 'green'
     },
     async getInternships() {
-      const internshipDetails = await api.get(
-        `estagios/${this.$route.params.id}`
+      const internshipDetails = await axios.get(
+        `https://sistema-estagio-back-production.up.railway.app/api/v1/estagios/${this.$route.params.id}`
       )
       const internshipEdited = internshipDetails.data
       const internshipAux = internshipEdited.map(this.formatDateForBrazil)
@@ -434,8 +434,8 @@ export default {
     },
 
     async showPeriods() {
-      const periods = await api.get(
-        `estagios/${this.id}`
+      const periods = await axios.get(
+        `https://sistema-estagio-back-production.up.railway.app/api/v1/estagios/${this.id}`
       )
       this.dessertsEdited = periods.data
 
@@ -446,7 +446,7 @@ export default {
 
     async store() {
       try {
-        const student = await api.post(`estagios/create`, {
+        const student = await axios.post(`https://sistema-estagio-back-production.up.railway.app/api/v1/estagios/create`, {
           internship_id: this.$route.params.id,
           student_id: this.internship_details.student_id,
           empresaId: this.editedItem.empresaId,
@@ -477,7 +477,7 @@ export default {
 
     async update(id) {
       try {
-        const student = await api.put(`estagios/${id}`, {
+        const student = await axios.put(`https://sistema-estagio-back-production.up.railway.app/api/v1/estagios/${id}`, {
           internship_id: this.$route.params.id,
           student_id: this.editedItem.student_id,
           empresaId: this.editedItem.empresaId,
@@ -506,7 +506,7 @@ export default {
       }
     },
     async destroy(id) {
-      await api.delete(`periods/${id}`)
+      await axios.delete(`https://sistema-estagio-back-production.up.railway.app/api/v1/periods/${id}`)
       this.initialize()
     },
 

@@ -166,7 +166,8 @@
 </template>
 
 <script>
-import api from '../api'
+import axios from 'axios'
+
 
 export default {
   name: 'Coordenadores',
@@ -201,7 +202,7 @@ export default {
 
     async indexCoordinators() {
   
-      const coordinators = await api.get('auth/findAll')
+      const coordinators = await axios.get('https://sistema-estagio-back-production.up.railway.app/api/v1/auth/findAll')
       this.coordinators = coordinators.data
       this.dialogStore = false
     },
@@ -209,7 +210,7 @@ export default {
     async storeCoordinators() {
   
       try {
-        const coordinator = await api.post('auth', {
+        const coordinator = await axios.post('https://sistema-estagio-back-production.up.railway.app/api/v1/auth', {
           email: this.email,
           type: '',
           password: this.password,
@@ -250,7 +251,7 @@ export default {
 
     async updateCoordinators(id) {
       try {
-        const coordinator = await api.put(
+        const coordinator = await axios.put(
           `auth/${id}`,
           {
             email: this.email,
@@ -270,7 +271,7 @@ export default {
     },
 
     async destroyCoordinators(id) {
-      await api.delete(`auth/${id}`)
+      await axios.delete(`auth/${id}`)
       this.indexCoordinators()
       this.dialogDestroy = false
     },

@@ -3655,7 +3655,7 @@ class breakpoint_Breakpoint extends service["a" /* Service */] {
 }
 breakpoint_Breakpoint.property = 'breakpoint';
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/services/goto/index.js + 2 modules
-var services_goto = __webpack_require__(134);
+var services_goto = __webpack_require__(133);
 
 // CONCATENATED MODULE: ./node_modules/vuetify/lib/services/icons/presets/mdi-svg.js
 const icons = {
@@ -11896,16 +11896,10 @@ module.exports = require("core-js/modules/esnext.map.update.js");
 /* 132 */
 /***/ (function(module, exports) {
 
-module.exports = require("js-cookie");
-
-/***/ }),
-/* 133 */
-/***/ (function(module, exports) {
-
 module.exports = require("core-js/modules/esnext.array.last-item.js");
 
 /***/ }),
-/* 134 */
+/* 133 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -12066,6 +12060,12 @@ class goto_Goto extends service["a" /* Service */] {
   }
 }
 goto_Goto.property = 'goTo';
+
+/***/ }),
+/* 134 */
+/***/ (function(module, exports) {
+
+module.exports = require("js-cookie");
 
 /***/ }),
 /* 135 */
