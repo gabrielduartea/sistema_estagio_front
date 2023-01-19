@@ -8052,7 +8052,7 @@ var VToolbar = __webpack_require__(11);
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VToolbar/index.js
 var components_VToolbar = __webpack_require__(28);
 
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/internships/index.vue?vue&type=template&id=723b1b56&
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/internships/index.vue?vue&type=template&id=44b18b4e&
 
 
 
@@ -8073,7 +8073,7 @@ var components_VToolbar = __webpack_require__(28);
 
 
 
-var internshipsvue_type_template_id_723b1b56_render = function render() {
+var internshipsvue_type_template_id_44b18b4e_render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c(VContainer["a" /* default */], [_c(VRow["a" /* default */], [_c(VCol["a" /* default */], [_c(VDataTable["a" /* default */], {
@@ -8265,11 +8265,11 @@ var internshipsvue_type_template_id_723b1b56_render = function render() {
             "label": "Data de término"
           },
           model: {
-            value: _vm.editedItem.dataFinal,
+            value: _vm.editedItem.dataFinall,
             callback: function ($$v) {
-              _vm.$set(_vm.editedItem, "dataFinal", $$v);
+              _vm.$set(_vm.editedItem, "dataFinall", $$v);
             },
-            expression: "editedItem.dataFinal"
+            expression: "editedItem.dataFinall"
           }
         })], 1), _vm._v(" "), _c(VCol["a" /* default */], {
           attrs: {
@@ -8558,7 +8558,7 @@ var internshipsvue_type_template_id_723b1b56_render = function render() {
 };
 var staticRenderFns = [];
 
-// CONCATENATED MODULE: ./pages/internships/index.vue?vue&type=template&id=723b1b56&
+// CONCATENATED MODULE: ./pages/internships/index.vue?vue&type=template&id=44b18b4e&
 
 // EXTERNAL MODULE: external "axios"
 var external_axios_ = __webpack_require__(24);
@@ -8596,7 +8596,7 @@ var external_jspdf_default = /*#__PURE__*/__webpack_require__.n(external_jspdf_)
       value: 'student_name'
     }, {
       text: 'Empresa',
-      value: 'company_name',
+      value: 'nome',
       sortable: false
     }, {
       text: 'Status',
@@ -8608,7 +8608,7 @@ var external_jspdf_default = /*#__PURE__*/__webpack_require__.n(external_jspdf_)
       sortable: false
     }, {
       text: 'Fim',
-      value: 'dataFinal',
+      value: 'dataFinall',
       sortable: false
     }, {
       text: 'Plano de atividades',
@@ -8953,7 +8953,7 @@ var componentNormalizer = __webpack_require__(13);
 
 var component = Object(componentNormalizer["a" /* default */])(
   pages_internshipsvue_type_script_lang_js_,
-  internshipsvue_type_template_id_723b1b56_render,
+  internshipsvue_type_template_id_44b18b4e_render,
   staticRenderFns,
   false,
   null,

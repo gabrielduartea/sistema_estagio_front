@@ -4,12 +4,7 @@
     <NuxtChild :key="$route.params.id" />
     <v-row>
       <v-col>
-        <v-data-table
-          :headers="headers"
-          :items="desserts"
-          sort-by="nome"
-          class="elevation-1"
-        >
+        <v-data-table :headers="headers" :items="desserts" sort-by="nome" class="elevation-1">
           <template v-slot:top>
             <v-toolbar flat>
               <v-toolbar-title>Empresas</v-toolbar-title>
@@ -17,13 +12,7 @@
               <v-spacer></v-spacer>
               <v-dialog v-model="dialog" max-width="600px">
                 <template v-slot:activator="{ on, attrs }">
-                  <v-btn
-                    color="primary"
-                    dark
-                    class="mb-2"
-                    v-bind="attrs"
-                    v-on="on"
-                  >
+                  <v-btn color="primary" dark class="mb-2" v-bind="attrs" v-on="on">
                     Novo
                   </v-btn>
                 </template>
@@ -36,38 +25,23 @@
                     <v-container>
                       <v-row>
                         <v-col cols="12" sm="6" md="6">
-                          <v-text-field
-                            v-model="editedItem.nome"
-                            label="Nome da empresa"
-                          ></v-text-field>
+                          <v-text-field v-model="editedItem.nome" label="Nome da empresa"></v-text-field>
                         </v-col>
                         <v-col cols="12" sm="6" md="6">
-                          <v-text-field
-                            v-model="editedItem.cnpj"
-                            label="CNPJ"
-                          ></v-text-field>
+                          <v-text-field v-model="editedItem.cnpj" label="CNPJ"></v-text-field>
                         </v-col>
                       </v-row>
                       <v-row>
                         <v-col cols="12" sm="6" md="6">
-                          <v-text-field
-                            v-model="editedItem.email"
-                            label="Email"
-                          ></v-text-field>
+                          <v-text-field v-model="editedItem.email" label="Email"></v-text-field>
                         </v-col>
                         <v-col cols="6">
-                          <v-text-field
-                            v-model="editedItem.telefone"
-                            label="Telefone"
-                          ></v-text-field>
+                          <v-text-field v-model="editedItem.telefone" label="Telefone"></v-text-field>
                         </v-col>
                       </v-row>
                       <v-row>
                         <v-col cols="6">
-                          <v-text-field
-                            v-model="editedItem.enderesso"
-                            label="Endereço"
-                          ></v-text-field>
+                          <v-text-field v-model="editedItem.enderesso" label="Endereço"></v-text-field>
                         </v-col>
                       </v-row>
                     </v-container>
@@ -86,17 +60,11 @@
               </v-dialog>
               <v-dialog v-model="dialogDelete" max-width="600px">
                 <v-card>
-                  <v-card-title class="text-h5"
-                    >Tem certeza que deseja apagar este item?</v-card-title
-                  >
+                  <v-card-title class="text-h5">Tem certeza que deseja apagar este item?</v-card-title>
                   <v-card-actions>
                     <v-spacer></v-spacer>
-                    <v-btn color="blue darken-1" text @click="closeDelete"
-                      >Cancelar</v-btn
-                    >
-                    <v-btn color="blue darken-1" text @click="deleteItemConfirm"
-                      >OK</v-btn
-                    >
+                    <v-btn color="blue darken-1" text @click="closeDelete">Cancelar</v-btn>
+                    <v-btn color="blue darken-1" text @click="deleteItemConfirm">OK</v-btn>
                     <v-spacer></v-spacer>
                   </v-card-actions>
                 </v-card>
@@ -206,7 +174,7 @@ export default {
     async update(id) {
       try {
         const company = await axios.put(
-          `empresas/${id}`,
+          `https://sistema-estagio-back-production.up.railway.app/api/v1/empresas/${id}`,
           this.editedItem
         )
 

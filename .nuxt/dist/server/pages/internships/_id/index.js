@@ -8097,7 +8097,7 @@ var VToolbar = __webpack_require__(11);
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VToolbar/index.js
 var components_VToolbar = __webpack_require__(28);
 
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/internships/_id/index.vue?vue&type=template&id=297db534&
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/internships/_id/index.vue?vue&type=template&id=9d21accc&
 
 
 
@@ -8119,7 +8119,7 @@ var components_VToolbar = __webpack_require__(28);
 
 
 
-var _idvue_type_template_id_297db534_render = function render() {
+var _idvue_type_template_id_9d21accc_render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c(VContainer["a" /* default */], [_c(VRow["a" /* default */], [_c(VCol["a" /* default */], [_c('NuxtLink', {
@@ -8162,7 +8162,7 @@ var _idvue_type_template_id_297db534_render = function render() {
           staticClass: "text-left"
         }, [_vm._v("Plano de Atividades")]), _vm._v(" "), _c('th', {
           staticClass: "text-left"
-        }, [_vm._v("Relatório")])])]), _vm._v(" "), _c('tbody', [_c('tr', [_c('td', [_vm._v(_vm._s(_vm.internship_details.student_name))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.internship_details.company_name))]), _vm._v(" "), _c('td', [_c(VChip["a" /* default */], {
+        }, [_vm._v("Relatório")])])]), _vm._v(" "), _c('tbody', [_c('tr', [_c('td', [_vm._v(_vm._s(_vm.internship_details.student_name))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.internship_details.nome))]), _vm._v(" "), _c('td', [_c(VChip["a" /* default */], {
           attrs: {
             "dark": "",
             "small": "",
@@ -8241,7 +8241,7 @@ var _idvue_type_template_id_297db534_render = function render() {
         }, [_c(VAutocomplete["a" /* default */], {
           attrs: {
             "label": "Empresa",
-            "items": _vm.itemsCompanies,
+            "items": _vm.itemsCompanies[0],
             "item-text": "name",
             "item-value": "id"
           },
@@ -8605,7 +8605,7 @@ var _idvue_type_template_id_297db534_render = function render() {
 };
 var staticRenderFns = [];
 
-// CONCATENATED MODULE: ./pages/internships/_id/index.vue?vue&type=template&id=297db534&
+// CONCATENATED MODULE: ./pages/internships/_id/index.vue?vue&type=template&id=9d21accc&
 
 // EXTERNAL MODULE: external "axios"
 var external_axios_ = __webpack_require__(24);
@@ -8642,7 +8642,7 @@ var api = __webpack_require__(213);
       value: 'student_name'
     }, {
       text: 'Empresa',
-      value: 'company_name',
+      value: 'nome',
       sortable: false
     }, {
       text: 'Status',
@@ -8712,7 +8712,7 @@ var api = __webpack_require__(213);
     internship_details: {
       internship_id: '',
       student_name: '',
-      company_name: '',
+      nome: '',
       teacher_name: '',
       supervisor: '',
       dataInicial: '',
@@ -8923,7 +8923,7 @@ var componentNormalizer = __webpack_require__(13);
 
 var component = Object(componentNormalizer["a" /* default */])(
   internships_idvue_type_script_lang_js_,
-  _idvue_type_template_id_297db534_render,
+  _idvue_type_template_id_9d21accc_render,
   staticRenderFns,
   false,
   null,

@@ -30,7 +30,7 @@
             <tbody>
               <tr>
                 <td>{{ internship_details.student_name }}</td>
-                <td>{{ internship_details.company_name }}</td>
+                <td>{{ internship_details.nome }}</td>
                 <td>
                   <v-chip
                     dark
@@ -127,7 +127,7 @@
                           <v-autocomplete
                             v-model="editedItem.empresaId"
                             label="Empresa"
-                            :items="itemsCompanies"
+                            :items="itemsCompanies[0]"
                             item-text="name"
                             item-value="id"
                           ></v-autocomplete>
@@ -301,7 +301,7 @@ export default {
         sortable: false,
         value: 'student_name',
       },
-      { text: 'Empresa', value: 'company_name', sortable: false },
+      { text: 'Empresa', value: 'nome', sortable: false },
       { text: 'Status', value: 'status', sortable: false },
       { text: 'Início', value: 'dataInicial', sortable: false },
       { text: 'Fim', value: 'dataFinal', sortable: false },
@@ -356,7 +356,7 @@ export default {
     internship_details: {
       internship_id: '',
       student_name: '',
-      company_name: '',
+      nome: '',
       teacher_name: '',
       supervisor: '',
       dataInicial: '',

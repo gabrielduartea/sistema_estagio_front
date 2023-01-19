@@ -102,7 +102,7 @@
                         </v-col>
                         <v-col cols="12" sm="6" md="6">
                           <v-text-field
-                            v-model="editedItem.dataFinal"
+                            v-model="editedItem.dataFinall"
                             label="Data de término"
                           ></v-text-field>
                         </v-col>
@@ -261,10 +261,10 @@ export default {
         sortable: false,
         value: 'student_name',
       },
-      { text: 'Empresa', value: 'company_name', sortable: false },
+      { text: 'Empresa', value: 'nome', sortable: false },
       { text: 'Status', value: 'status', sortable: false },
       { text: 'Início', value: 'dataIncial', sortable: false },
-      { text: 'Fim', value: 'dataFinal', sortable: false },
+      { text: 'Fim', value: 'dataFinall', sortable: false },
       {
         text: 'Plano de atividades',
         value: 'planoAtividades',
