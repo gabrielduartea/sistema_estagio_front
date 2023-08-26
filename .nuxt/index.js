@@ -16,6 +16,7 @@ import { createStore } from './store.js'
 import nuxt_plugin_plugin_1bbfae7a from 'nuxt_plugin_plugin_1bbfae7a' // Source: ./components/plugin.js (mode: 'all')
 import nuxt_plugin_plugin_8912ebea from 'nuxt_plugin_plugin_8912ebea' // Source: ./vuetify/plugin.js (mode: 'all')
 import nuxt_plugin_axios_ac81bf4e from 'nuxt_plugin_axios_ac81bf4e' // Source: ./axios.js (mode: 'all')
+import nuxt_plugin_mask_9266ba40 from 'nuxt_plugin_mask_9266ba40' // Source: ../plugins/mask (mode: 'all')
 import nuxt_plugin_plugin_0638c6d5 from 'nuxt_plugin_plugin_0638c6d5' // Source: ./auth/plugin.js (mode: 'all')
 
 // Component: <ClientOnly>
@@ -45,7 +46,7 @@ Vue.component(Nuxt.name, Nuxt)
 
 Object.defineProperty(Vue.prototype, '$nuxt', {
   get() {
-    const globalNuxt = this.$root.$options.$nuxt
+    const globalNuxt = this.$root ? this.$root.$options.$nuxt : null
     if (process.client && !globalNuxt && typeof window !== 'undefined') {
       return window.$nuxt
     }
@@ -70,9 +71,9 @@ function registerModule (path, rawModule, options = {}) {
 }
 
 async function createApp(ssrContext, config = {}) {
-  const router = await createRouter(ssrContext, config)
-
   const store = createStore(ssrContext)
+  const router = await createRouter(ssrContext, config, { store })
+
   // Add this.$router into store actions/mutations
   store.$router = router
 
@@ -154,6 +155,7 @@ async function createApp(ssrContext, config = {}) {
     req: ssrContext ? ssrContext.req : undefined,
     res: ssrContext ? ssrContext.res : undefined,
     beforeRenderFns: ssrContext ? ssrContext.beforeRenderFns : undefined,
+    beforeSerializeFns: ssrContext ? ssrContext.beforeSerializeFns : undefined,
     ssrContext
   })
 
@@ -223,6 +225,10 @@ async function createApp(ssrContext, config = {}) {
 
   if (typeof nuxt_plugin_axios_ac81bf4e === 'function') {
     await nuxt_plugin_axios_ac81bf4e(app.context, inject)
+  }
+
+  if (typeof nuxt_plugin_mask_9266ba40 === 'function') {
+    await nuxt_plugin_mask_9266ba40(app.context, inject)
   }
 
   if (typeof nuxt_plugin_plugin_0638c6d5 === 'function') {

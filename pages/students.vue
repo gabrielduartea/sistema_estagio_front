@@ -32,12 +32,13 @@
                   </v-card-title>
 
                   <v-card-text>
-                    <v-form v-model="valid">
+                    <v-form v-model="valid" @submit="checkForm">
                       <v-row>
                         <v-col cols="12" sm="6" md="6">
                           <v-text-field
-                            v-model="editedItem.nome"
-                            label="Nome Completo"
+                          v-model="editedItem.nome"
+                          label="Nome Completo"
+                          :rules="[rules.required]"
                           ></v-text-field>
                         </v-col>
                         <v-col cols="12" sm="6" md="6">
@@ -47,6 +48,7 @@
                             :items="itemsCourses"
                             item-text="nome"
                             item-value="id"
+                            :rules="[rules.required]"
                           ></v-autocomplete>
                         </v-col>
                         <v-col cols="12" sm="6" md="6">
@@ -59,27 +61,36 @@
                         <v-col cols="12" sm="6" md="4">
                           <v-text-field
                             v-model="editedItem.telefone"
+                            v-mask="'(##) #####-####'"
                             label="Telefone"
+                            :rules="[rules.telefone]"
                           ></v-text-field>
                         </v-col>
                         <v-col cols="12" sm="6" md="4">
                           <v-text-field
                             v-model="editedItem.cpf"
+                            v-mask="'###.###.###-##'" 
+                            min=11
+                            max=11
                             label="CPF"
+                            :rules="[rules.cpf]"
                           ></v-text-field>
                         </v-col>
                         <v-col cols="12" sm="6" md="4">
                           <v-text-field
                             v-model="editedItem.matricula"
                             label="Matrícula"
+                            v-mask="'###############'"
+                            :rules="[rules.required]"
                           ></v-text-field>
                         </v-col>
                       </v-row>
                       <v-row>
                         <v-col cols="12">
                           <v-text-field
-                            v-model="editedItem.enderesso"
+                            v-model="editedItem.endereco"
                             label="Endereço"
+                            :rules="[rules.required]"
                           ></v-text-field>
                         </v-col>
                       </v-row>
@@ -122,11 +133,29 @@
             </v-toolbar>
           </template>
           <template v-slot:[`item.actions`]="{ item }">
-            <v-icon small class="mr-2" @click="editItem(item)">
-              mdi-pencil
-            </v-icon>
-            <v-icon small @click="deleteItem(item)"> mdi-delete </v-icon>
+            <div class="text-center">
+              <v-menu offset-y>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-icon small class="mr-2" color="primary" dark v-bind="attrs" v-on="on">
+                    mdi-dots-vertical
+                  </v-icon>
+                </template>
+                <v-list>
+                  <div>
+                    <v-btn color="primary" x-small text @click="editItem(item)">
+                      Editar
+                    </v-btn>
+                  </div>
+                  <div>
+                    <v-btn color="primary" x-small text @click="deleteItem(item)">
+                      Excluir
+                    </v-btn>
+                  </div>
+                </v-list>
+              </v-menu>
+            </div>
           </template>
+
 
           <template v-slot:no-data>
             <v-btn color="primary" @click="initialize"> Reset </v-btn>
@@ -140,6 +169,7 @@
 <script>
 import axios from 'axios'
 import Cookie from 'js-cookie';
+import baseURL from '../api';
 export default {
   data: () => ({
     itemsCourses: [],
@@ -150,6 +180,11 @@ export default {
         return pattern.test(v) || 'E-mail invalido'
       },
     ],
+    rules: {
+        required: value => !!value || 'Campo obrigatório',
+        cpf: value => String(value).length > 13 || 'Incompleto',
+        telefone: value=> String(value).length >14 || 'Incompleto',
+      },
 
     valid: false,
     dialog: false,
@@ -161,11 +196,11 @@ export default {
         sortable: false,
         value: 'nome',
       },
-      { text: 'Curso', value: 'course_nome', sortable: false },
+      { text: 'Curso', value: 'curso[0].nome', sortable: false },
       { text: 'Email', value: 'email', sortable: false },
       { text: 'Telefone', value: 'telefone', sortable: false },
       { text: 'CPF', value: 'cpf', sortable: false },
-      { text: 'Endereço', value: 'enderesso', sortable: false },
+      { text: 'Endereço', value: 'endereco', sortable: false },
       { text: 'Matrícula', value: 'matricula', sortable: false },
       { text: 'Ações', value: 'actions', sortable: false },
     ],
@@ -178,7 +213,7 @@ export default {
       email: '',
       telefone: '',
       cpf: '',
-      enderesso: '',
+      endereco: '',
       matricula: '',
     },
     defaultItem: {
@@ -188,7 +223,7 @@ export default {
       email: '',
       telefone: '',
       cpf: '',
-      enderesso: '',
+      endereco: '',
       matricula: '',
     },
   }),
@@ -214,21 +249,21 @@ export default {
 
   methods: {
     async getCourses() {
-      const courses = await axios.get('https://sistema-estagio-back-production.up.railway.app/api/v1/cursos/findAll')
+      const courses = await axios.get(`${baseURL}cursos/findAll`)
       debugger
       this.itemsCourses = courses.data
     },
 
     async store() {
       try {
-        const token = Cookie.get('my_token');
-        const student = await axios.post('https://sistema-estagio-back-production.up.railway.app/api/v1/alunos/create', {
+        const token = Cookie.get('jwt');
+        const student = await axios.post(`${baseURL}estudantes/create`, {
           nome: this.editedItem.nome,
           cursoId: this.editedItem.cursoId,
           email: this.editedItem.email,
           telefone: this.editedItem.telefone,
           cpf: this.editedItem.cpf,
-          enderesso: this.editedItem.enderesso,
+          endereco: this.editedItem.endereco,
           matricula: this.editedItem.matricula,
         },{
         headers: {
@@ -247,7 +282,7 @@ export default {
 
     async update(id) {
       try {
-        const student = await axios.put(`https://sistema-estagio-back-production.up.railway.app/api/v1/alunos/${id}`,
+        const student = await axios.put(`${baseURL}estudantes/${id}`,
           this.editedItem
         )
 
@@ -260,12 +295,13 @@ export default {
       }
     },
     async destroy(id) {
-      await axios.delete(`https://sistema-estagio-back-production.up.railway.app/api/v1/alunos/${id}`)
+      await axios.delete(`${baseURL}estudantes/${id}`)
       this.initialize()
     },
 
     async initialize() {
-      const students = await axios.get('https://sistema-estagio-back-production.up.railway.app/api/v1/alunos/findAll')
+      const students = await axios.get(`${baseURL}estudantes/findAll`)
+      debugger
       this.desserts = students.data
       debugger
       await this.getCourses()

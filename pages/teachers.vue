@@ -32,11 +32,12 @@
                   </v-card-title>
                   <!-- nome, email, telefone, codigoProfessor -->
                   <v-card-text>
-                    <v-container>
+                    <v-form v-model="valid" @submit="checkForm">
                       <v-row>
                         <v-col cols="12" sm="6" md="6">
                           <v-text-field
                             v-model="editedItem.nome"
+                            :rules="[rules.required]"
                             label="Nome do Professor"
                           ></v-text-field>
                         </v-col>
@@ -44,6 +45,7 @@
                           <v-text-field
                             v-model="editedItem.email"
                             label="E-mail"
+                            :rules="email"
                           ></v-text-field>
                         </v-col>
                       </v-row>
@@ -52,16 +54,20 @@
                           <v-text-field
                             v-model="editedItem.telefone"
                             label="Telefone"
+                            :rules="[rules.telefone]"
+                            v-mask="'(##) #####-####'"
                           ></v-text-field>
                         </v-col>
                         <v-col cols="6">
                           <v-text-field
                             v-model="editedItem.codigoProfessor"
                             label="Código"
+                            :rules="[rules.required]"
+                            v-mask="'############'"
                           ></v-text-field>
                         </v-col>
                       </v-row>
-                    </v-container>
+                    </v-form>
                   </v-card-text>
 
                   <v-card-actions>
@@ -69,7 +75,7 @@
                     <v-btn color="blue darken-1" text @click="close">
                       Cancelar
                     </v-btn>
-                    <v-btn color="blue darken-1" text @click="save">
+                    <v-btn color="blue darken-1" text @click="save" :disabled="!valid">
                       Salvar
                     </v-btn>
                   </v-card-actions>
@@ -95,10 +101,27 @@
             </v-toolbar>
           </template>
           <template v-slot:[`item.actions`]="{ item }">
-            <v-icon small class="mr-2" @click="editItem(item)">
-              mdi-pencil
-            </v-icon>
-            <v-icon small @click="deleteItem(item)"> mdi-delete </v-icon>
+            <div class="text-center">
+              <v-menu offset-y>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-icon small class="mr-2" color="primary" dark v-bind="attrs" v-on="on">
+                    mdi-dots-vertical
+                  </v-icon>
+                </template>
+                <v-list>
+                  <div>
+                    <v-btn color="primary" x-small text @click="editItem(item)">
+                      Editar
+                    </v-btn>
+                  </div>
+                  <div>
+                    <v-btn color="primary" x-small text @click="deleteItem(item)">
+                      Excluir
+                    </v-btn>
+                  </div>
+                </v-list>
+              </v-menu>
+            </div>
           </template>
 
           <template v-slot:no-data>
@@ -112,10 +135,24 @@
 
 <script>
 import axios from 'axios'
+import baseURL from '../api'
 export default {
   data: () => ({
     dialog: false,
     dialogDelete: false,
+    valid: false,
+    email: [
+      (v) => {
+        const pattern =
+          /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+        return pattern.test(v) || 'E-mail invalido'
+      },
+    ],
+    rules: {
+        required: value => !!value || 'Campo obrigatório',
+        cpf: value => String(value).length > 13 || 'Incompleto',
+        telefone: value=> String(value).length >14 || 'Incompleto',
+      },
     headers: [
       // nome, email, telefone, codigoProfessor
 
@@ -171,7 +208,7 @@ export default {
     async store() {
       try {
         // nome, email, telefone, codigoProfessor
-        const student = await axios.post(`https://sistema-estagio-back-production.up.railway.app/api/v1/professores/create`, {
+        const student = await axios.post(`${baseURL}professores/create`, {
           nome: this.editedItem.nome,
           email: this.editedItem.email,
           telefone: this.editedItem.telefone,
@@ -190,7 +227,7 @@ export default {
     async update(id) {
       try {
         const student = await axios.put(
-          `professores/${id}`,
+          `${baseURL}professores/${id}`,
           this.editedItem
         )
 
@@ -203,12 +240,12 @@ export default {
       }
     },
     async destroy(id) {
-      await axios.delete(`https://sistema-estagio-back-production.up.railway.app/api/v1/professores/${id}`)
+      await axios.delete(`${baseURL}professores/${id}`)
       this.initialize()
     },
 
     async initialize() {
-      const students = await axios.get(`https://sistema-estagio-back-production.up.railway.app/api/v1/professores/findAll`)
+      const students = await axios.get(`${baseURL}professores/findAll`)
 
       this.desserts = students.data
     },

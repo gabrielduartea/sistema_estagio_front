@@ -24,15 +24,15 @@
                     <v-container>
                       <v-row>
                         <v-col cols="12" sm="6" md="6">
-                          <v-text-field v-model="editedItem.nome" label="Nome do Curso"></v-text-field>
+                          <v-text-field v-model="editedItem.nome" :rules="[rules.required]" label="Nome do Curso"></v-text-field>
                         </v-col>
                         <v-col cols="12" sm="6" md="6">
-                          <v-text-field v-model="editedItem.departamento" label="Departamento"></v-text-field>
+                          <v-text-field v-model="editedItem.departamento" :rules="[rules.required]" label="Departamento"></v-text-field>
                         </v-col>
                       </v-row>
                       <v-row>
                         <v-col cols="12">
-                          <v-text-field v-model="editedItem.descricao" label="Descrição"></v-text-field>
+                          <v-text-field v-model="editedItem.descricao" :rules="[rules.required]" label="Descrição"></v-text-field>
                         </v-col>
                       </v-row>
                     </v-container>
@@ -63,11 +63,29 @@
             </v-toolbar>
           </template>
           <template v-slot:[`item.actions`]="{ item }">
-            <v-icon small class="mr-2" @click="editItem(item)">
-              mdi-pencil
-            </v-icon>
-            <v-icon small @click="deleteItem(item)"> mdi-delete </v-icon>
+            <div class="text-center">
+              <v-menu offset-y>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-icon small class="mr-2" color="primary" dark v-bind="attrs" v-on="on">
+                    mdi-dots-vertical
+                  </v-icon>
+                </template>
+                <v-list>
+                  <div>
+                    <v-btn color="primary" x-small text @click="editItem(item)">
+                      Editar
+                    </v-btn>
+                  </div>
+                  <div>
+                    <v-btn color="primary" x-small text @click="deleteItem(item)">
+                      Excluir
+                    </v-btn>
+                  </div>
+                </v-list>
+              </v-menu>
+            </div>
           </template>
+
 
           <template v-slot:no-data>
             <v-btn color="primary" @click="initialize"> Reset </v-btn>
@@ -80,6 +98,7 @@
 
 <script>
 import axios from 'axios'
+import baseURL from '../api'
 
 export default {
   data: () => ({
@@ -97,6 +116,9 @@ export default {
       { text: 'Ações', value: 'actions', sortable: false },
     ],
     desserts: [],
+    rules: {
+        required: value => !!value || 'Campo obrigatório',
+      },
     editedIndex: -1,
     editedItem: {
       id: '',
@@ -134,7 +156,7 @@ export default {
   methods: {
     async store() {
       try {
-        const student = await axios.post('https://sistema-estagio-back-production.up.railway.app/api/v1/cursos/create', {
+        const student = await axios.post(`${baseURL}cursos/create`, {
           nome: this.editedItem.nome,
           descricao: this.editedItem.descricao,
           departamento: this.editedItem.departamento,
@@ -154,7 +176,7 @@ export default {
     async update(id) {
       try {
         const student = await axios.put(
-          `https://sistema-estagio-back-production.up.railway.app/api/v1/cursos/${id}`,
+          `${baseURL}cursos/${id}`,
           this.editedItem
         )
 
@@ -167,12 +189,12 @@ export default {
       }
     },
     async destroy(id) {
-      await axios.delete(`https://sistema-estagio-back-production.up.railway.app/api/v1/cursos/${id}`)
+      await axios.delete(`${baseURL}cursos/${id}`)
       this.initialize()
     },
 
     async initialize() {
-      const students = await axios.get(`https://sistema-estagio-back-production.up.railway.app/api/v1/cursos/findAll`)
+      const students = await axios.get(`${baseURL}cursos/findAll`)
 
       this.desserts = students.data
     },

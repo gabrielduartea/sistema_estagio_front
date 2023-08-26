@@ -12,7 +12,7 @@
               </v-toolbar>
               <v-card-text>
                 <v-form>
-                  <v-text-field v-model="login.email" name="login" label="Usuário" type="text"></v-text-field>
+                  <v-text-field v-model="login.username" name="login" label="Usuário" type="text"></v-text-field>
                   <v-text-field v-model="login.password" name="password" label="Senha" type="password"></v-text-field>
                 </v-form>
               </v-card-text>
@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import axios from 'axios';
+
 import Cookie from 'js-cookie';
 
 export default {
@@ -44,21 +44,18 @@ export default {
   },
 
   methods: {
-    async loginUser() {
-      debugger
-      await axios.post('https://sistema-estagio-back-production.up.railway.app/api/v1/auth/login', { data: this.login }, {
-        headers: 'Access-Control-Allow-Origin: *'
+     loginUser() {
+      this.$auth.loginWith('local',{data: this.login})
+      .then((res) => {
+        debugger
+        Cookie.set('token', res.data.token);
+        debugger
+        if (res.data.user.tipo === 1) {
+          this.$router.push('/coordinators')
+        } else {
+          this.$router.push('/students')
+        }
       })
-        .then((res) => {
-          // eslint-disable-next-line no-undef
-          Cookie.set('my_token',res.data.access_token)
-          debugger
-          if (res.data.user.tipo === 1) {
-            this.$router.push('/coordinators')
-          } else {
-            this.$router.push('/students')
-          }
-        })
         .catch((error) => {
           // eslint-disable-next-line no-undef
           console.log('erro!!!')

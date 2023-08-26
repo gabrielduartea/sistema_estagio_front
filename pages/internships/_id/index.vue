@@ -3,10 +3,7 @@
   <v-container>
     <v-row>
       <v-col>
-        <NuxtLink
-          to="/internships"
-          style="text-decoration: none; color: inherit"
-          ><v-btn color="primary" x-small text>
+        <NuxtLink to="/internships" style="text-decoration: none; color: inherit"><v-btn color="primary" x-small text>
             <v-icon small> mdi-chevron-left </v-icon> Voltar
           </v-btn>
         </NuxtLink>
@@ -18,7 +15,7 @@
           <template v-slot:default>
             <thead>
               <tr>
-                <th class="text-left">Aluno</th>
+                <th class="text-left">Estudante</th>
                 <th class="text-left">Empresa</th>
                 <th class="text-left">Status</th>
                 <th class="text-left">Início</th>
@@ -29,36 +26,23 @@
             </thead>
             <tbody>
               <tr>
-                <td>{{ internship_details.student_name }}</td>
-                <td>{{ internship_details.nome }}</td>
+                <td>{{ internship_details.estudante }}</td>
+                <td>{{ internship_details.empresa }}</td>
                 <td>
-                  <v-chip
-                    dark
-                    small
-                    :color="getColorStatus(internship_details.status)"
-                  >
+                  <v-chip dark small :color="getColorStatus(internship_details.status)">
                     {{ internship_details.status }}
                   </v-chip>
                 </td>
                 <td>{{ internship_details.dataInicial }}</td>
                 <td>{{ internship_details.dataFinal }}</td>
                 <td>
-                  <v-chip
-                    dark
-                    small
-                    :color="
-                      getColorActivitiesPlan(internship_details.planoAtividades)
-                    "
-                  >
+                  <v-chip dark small :color="getColorActivitiesPlan(internship_details.planoAtividades)
+                    ">
                     {{ internship_details.planoAtividades }}
                   </v-chip>
                 </td>
                 <td>
-                  <v-chip
-                    dark
-                    small
-                    :color="getColorrelatorio(internship_details.relatorio)"
-                  >
+                  <v-chip dark small :color="getColorrelatorio(internship_details.relatorio)">
                     {{ internship_details.relatorio }}
                   </v-chip>
                 </td>
@@ -70,33 +54,23 @@
     </v-row>
     <v-row>
       <v-col>
-        <v-data-table
-          :headers="headers"
-          :items="desserts"
-          sort-by="name"
-          class="elevation-1"
-        >
-          
-            <v-chip dark small :color="getColorStatus(item.status)">
+        <v-data-table :headers="headers" :items="desserts" sort-by="name" class="elevation-1">
+          <template #item.status="{ item }">
+            <v-chip dark :color="getColorStatus(item.status)">
               {{ item.status }}
             </v-chip>
-          
+          </template>
 
-          
-            <v-chip
-              dark
-              small
-              :color="getColorActivitiesPlan(item.planoAtividades)"
-            >
+          <template #item.planoAtividades="{ item }">
+            <v-chip dark :color="getColorActivitiesPlan(item.planoAtividades)">
               {{ item.planoAtividades }}
             </v-chip>
-          
-
-          
-            <v-chip dark small :color="getColorrelatorio(item.relatorio)">
+          </template>
+          <template #item.relatorio="{ item }">
+            <v-chip dark :color="getColorrelatorio(item.relatorio)">
               {{ item.relatorio }}
             </v-chip>
-          
+          </template>
 
           <template v-slot:top>
             <v-toolbar flat>
@@ -104,15 +78,9 @@
               <v-divider class="mx-4" inset vertical></v-divider>
               <v-spacer></v-spacer>
               <v-dialog v-model="dialog" max-width="600px">
-                <template v-slot:activator="{ on, attrs }">
-                  <v-btn
-                    color="primary"
-                    dark
-                    class="mb-2"
-                    v-bind="attrs"
-                    v-on="on"
-                  >
-                    Novo
+                <template #activator="{ on }">
+                  <v-btn color="primary" v-on="{ ...on, click: renovarEstagio }">
+                    RENOVAR ESTÁGIO
                   </v-btn>
                 </template>
                 <v-card>
@@ -124,107 +92,60 @@
                     <v-container>
                       <v-row>
                         <v-col cols="12" sm="6" md="6">
-                          <v-autocomplete
-                            v-model="editedItem.empresaId"
-                            label="Empresa"
-                            :items="itemsCompanies[0]"
-                            item-text="name"
-                            item-value="id"
-                          ></v-autocomplete>
+                          <v-autocomplete v-model="editedItem.empresaId" label="Empresa" :disabled="disabled == true"
+                            :items="itemsCompanies" item-text="nome" item-value="id"></v-autocomplete>
                         </v-col>
 
                         <v-col cols="12" sm="6" md="6">
-                          <v-text-field
-                            v-model="editedItem.professorId"
-                            label="Orientador"
-                          ></v-text-field>
+                          <v-autocomplete v-model="editedItem.professorId" label="Orientador" :items="itemsProfessores"
+                            item-text="nome" item-value="id"></v-autocomplete>
                         </v-col>
                         <v-col cols="12" sm="6" md="6">
-                          <v-text-field
-                            v-model="editedItem.supervisor"
-                            label="Supervisor"
-                          ></v-text-field>
+                          <v-autocomplete v-model="editedItem.supervisor" label="Supervisores" :items="itemsSupervisores"
+                            item-text="nome" item-value="id"></v-autocomplete>
                         </v-col>
                         <v-col cols="12" sm="6" md="6">
-                          <v-text-field
-                            v-model="editedItem.dataInicial"
-                            label="Data de início"
-                          ></v-text-field>
+                          <v-text-field v-model="editedItem.dataInicial" label="Data de início"></v-text-field>
                         </v-col>
                         <v-col cols="12" sm="6" md="6">
-                          <v-text-field
-                            v-model="editedItem.dataFinal"
-                            label="Data de término"
-                          ></v-text-field>
+                          <v-text-field v-model="editedItem.dataFinal" label="Data de término"></v-text-field>
                         </v-col>
                         <v-col cols="12" sm="6" md="6">
-                          <v-text-field
-                            v-model="editedItem.remuneracao"
-                            label="Bolsa (R$)"
-                          ></v-text-field>
+                          <v-text-field v-model="editedItem.remuneracao" label="Bolsa (R$)"></v-text-field>
                         </v-col>
                         <v-col cols="12" sm="6" md="6">
-                          <v-text-field
-                            v-model="editedItem.ajuda"
-                            label="Auxílio (R$)"
-                          ></v-text-field>
+                          <v-text-field v-model="editedItem.ajuda" label="Auxílio (R$)"></v-text-field>
                         </v-col>
 
                         <v-col cols="12" sm="6" md="6">
-                          <v-text-field
-                            v-model="editedItem.codigoSeguroSaude"
-                            label="Número do Seguro"
-                          ></v-text-field>
+                          <v-text-field v-model="editedItem.codigoSeguroSaude" label="Número do Seguro"></v-text-field>
                         </v-col>
                         <v-col cols="12" sm="6" md="6">
-                          <v-text-field
-                            v-model="editedItem.companhiaSeguroSaude"
-                            label="Seguradora"
-                          ></v-text-field>
+                          <v-text-field v-model="editedItem.companhiaSeguroSaude" label="Seguradora"></v-text-field>
                         </v-col>
                         <v-col cols="12" sm="6" md="6">
-                          <v-text-field
-                            v-model="editedItem.horasSemanaisTrabalho"
-                            label="Carga horária semanal"
-                          ></v-text-field>
+                          <v-text-field v-model="editedItem.horasSemanaisTrabalho"
+                            label="Carga horária semanal"></v-text-field>
                         </v-col>
 
                         <v-col cols="12" sm="6" md="6">
-                          <v-select
-                            v-model="editedItem.categoria"
-                            :items="itemscategoria"
-                            label="Categoria"
-                          ></v-select>
+                          <v-select v-model="editedItem.categoria" :items="itemscategoria" label="Categoria"></v-select>
                         </v-col>
 
                         <v-col cols="12" sm="6" md="6">
-                          <v-select
-                            v-model="editedItem.modalidade"
-                            :items="itemsmodalidade"
-                            label="Modalidade"
-                          ></v-select>
+                          <v-select v-model="editedItem.modalidade" :items="itemsmodalidade"
+                            label="Modalidade"></v-select>
                         </v-col>
 
                         <v-col cols="12" sm="6" md="6">
-                          <v-select
-                            v-model="editedItem.status"
-                            :items="itemsStatus"
-                            label="Status"
-                          ></v-select>
+                          <v-select v-model="editedItem.status" :items="itemsStatus" label="Status"></v-select>
                         </v-col>
                         <v-col cols="12" sm="6" md="6">
-                          <v-select
-                            v-model="editedItem.planoAtividades"
-                            :items="itemsActivitiesPlan"
-                            label="Plano de Atividades"
-                          ></v-select>
+                          <v-select v-model="editedItem.planoAtividades" :items="itemsActivitiesPlan"
+                            label="Plano de Atividades"></v-select>
                         </v-col>
                         <v-col cols="12" sm="6" md="6">
-                          <v-select
-                            v-model="editedItem.relatorio"
-                            :items="itemsrelatorio"
-                            label="Relatório"
-                          ></v-select>
+                          <v-select v-model="editedItem.relatorio" :items="itemsrelatorio" label="Relatório"></v-select>
                         </v-col>
                       </v-row>
                     </v-container>
@@ -243,17 +164,11 @@
               </v-dialog>
               <v-dialog v-model="dialogDelete" max-width="600px">
                 <v-card>
-                  <v-card-title class="text-h5"
-                    >Tem certeza que deseja apagar este item?</v-card-title
-                  >
+                  <v-card-title class="text-h5">Tem certeza que deseja apagar este item?</v-card-title>
                   <v-card-actions>
                     <v-spacer></v-spacer>
-                    <v-btn color="blue darken-1" text @click="closeDelete"
-                      >Cancelar</v-btn
-                    >
-                    <v-btn color="blue darken-1" text @click="deleteItemConfirm"
-                      >OK</v-btn
-                    >
+                    <v-btn color="blue darken-1" text @click="closeDelete">Cancelar</v-btn>
+                    <v-btn color="blue darken-1" text @click="deleteItemConfirm">OK</v-btn>
                     <v-spacer></v-spacer>
                   </v-card-actions>
                 </v-card>
@@ -279,13 +194,16 @@
 <script>
 import axios from 'axios'
 import moment from 'moment'
-import api from '../../../api'
+import baseURL from '../../../api'
+
 
 export default {
   data: () => ({
     dessertsEdited: [],
     itemsStudents: [],
     itemsCompanies: [],
+    itemsSupervisores: [],
+    itemsProfessores: [],
     itemsStatus: ['Em andamento', 'Finalizado', 'Cancelado'],
     itemsActivitiesPlan: ['Pendente', 'Entregue'],
     itemsrelatorio: ['Pendente', 'Entregue'],
@@ -296,13 +214,13 @@ export default {
     dialogDelete: false,
     headers: [
       {
-        text: 'Aluno',
+        text: 'Estudante',
         align: 'start',
         sortable: false,
-        value: 'student_name',
+        value: 'estudante[0].nome',
       },
-      { text: 'Empresa', value: 'nome', sortable: false },
-      { text: 'Status', value: 'status', sortable: false },
+      { text: 'Empresa', value: 'empresa[0].nome', sortable: false },
+      // { text: 'Status', value: 'status', sortable: false },
       { text: 'Início', value: 'dataInicial', sortable: false },
       { text: 'Fim', value: 'dataFinal', sortable: false },
       {
@@ -357,7 +275,7 @@ export default {
       internship_id: '',
       student_name: '',
       nome: '',
-      teacher_name: '',
+      professorId: '',
       supervisor: '',
       dataInicial: '',
       dataFinal: '',
@@ -372,6 +290,7 @@ export default {
       relatorio: '',
       status: '',
     },
+    disabled: false
   }),
 
   computed: {
@@ -395,60 +314,78 @@ export default {
 
   methods: {
     async getStudents() {
-      debugger
-      const students = await axios.get(`https://sistema-estagio-back-production.up.railway.app/api/v1/estudantes/findAll`)
 
+      const students = await axios.get(`${baseURL}estudante/findAll`)
+      debugger
       this.itemsStudents = students.data
     },
 
     async getCompanies() {
-      const companies = await axios.get(`https://sistema-estagio-back-production.up.railway.app/api/v1/empresas/findAll`)
 
+      const companies = await axios.get(`${baseURL}empresas/findAll`)
+      debugger
       this.itemsCompanies = companies.data
     },
+    async getSupervisores() {
+      debugger
+      const supervisores = await axios.get(`${baseURL}supervisores/findAllEmpresa/${this.empresaId.id}`)
+      debugger
+      this.itemsSupervisores = supervisores.data;
+
+    },
+    async getProfessores() {
+      const professores = await axios.get(`${baseURL}professores/findAll`)
+
+      this.itemsProfessores = professores.data
+    },
     getColorStatus(statusColor) {
+
       if (statusColor === 'Em andamento') return 'orange'
       else if (statusColor === 'Finalizado') return 'green'
       else return 'red'
     },
 
     getColorActivitiesPlan(statusColor) {
+
       if (statusColor === 'Pendente') return 'red'
       else return 'green'
     },
 
     getColorrelatorio(statusColor) {
+
       if (statusColor === 'Pendente') return 'red'
       else return 'green'
     },
     async getInternships() {
+
       const internshipDetails = await axios.get(
-        `https://sistema-estagio-back-production.up.railway.app/api/v1/estagios/${this.$route.params.id}`
+        `${baseURL}estagios/${Number(this.$route.params.id)}`
       )
-      const internshipEdited = internshipDetails.data
-      const internshipAux = internshipEdited.map(this.formatDateForBrazil)
-
-      this.internship_details = internshipAux[0]
-
-      console.log(this.internship_details, '<=====')
+      debugger
+      this.internship_details = internshipDetails.data;
+      this.internship_details.estudante = internshipDetails.data.estudante[0].nome;
+      this.internship_details.empresa = internshipDetails.data.empresa[0].nome;
+      this.internship_details.dataInicial = moment(internshipDetails.data.dataInicial).format('DD-MM-YYYY');
+      this.internship_details.dataFinal = moment(internshipDetails.data.dataFinal).format('DD-MM-YYYY');
     },
 
     async showPeriods() {
+
       const periods = await axios.get(
-        `https://sistema-estagio-back-production.up.railway.app/api/v1/estagios/${this.id}`
+        `${baseURL}estagios/findAllEstagio/${Number(this.$route.params.id)}`
       )
       this.dessertsEdited = periods.data
 
-      this.desserts = this.dessertsEdited.map(this.formatDateForBrazil)
+      this.desserts = this.dessertsEdited
 
-      console.log(this.desserts)
+    
     },
 
     async store() {
       try {
-        const student = await axios.post(`https://sistema-estagio-back-production.up.railway.app/api/v1/estagios/create`, {
-          internship_id: this.$route.params.id,
-          student_id: this.internship_details.student_id,
+        const renovacao = await axios.post(`${baseURL}estagios/create`, {
+          estagioReferenteId: this.$route.params.id,
+          estudanteId: this.internship_details.student_id,
           empresaId: this.editedItem.empresaId,
           professorId: this.editedItem.professorId,
           supervisor: this.editedItem.supervisor,
@@ -467,17 +404,17 @@ export default {
         })
 
         // eslint-disable-next-line no-undef
-        console.log(student)
+        
         this.initialize()
       } catch (error) {
         // eslint-disable-next-line no-undef
-        console.log(error)
+        
       }
     },
 
     async update(id) {
       try {
-        const student = await axios.put(`https://sistema-estagio-back-production.up.railway.app/api/v1/estagios/${id}`, {
+        const student = await axios.put(`${baseURL}estagios/${id}`, {
           internship_id: this.$route.params.id,
           student_id: this.editedItem.student_id,
           empresaId: this.editedItem.empresaId,
@@ -498,15 +435,15 @@ export default {
         })
 
         // eslint-disable-next-line no-undef
-        console.log(student)
+        
         this.initialize()
       } catch (error) {
         // eslint-disable-next-line no-undef
-        console.error(error)
+        
       }
     },
     async destroy(id) {
-      await axios.delete(`https://sistema-estagio-back-production.up.railway.app/api/v1/periods/${id}`)
+      await axios.delete(`${baseURL}periods/${id}`)
       this.initialize()
     },
 
@@ -520,28 +457,36 @@ export default {
     },
     // BD ESTÁ RECEBENDO YYYY-MM-DD
     formatDateForISO(str) {
-      console.log(str, 'aqui')
+      
       const date = moment(str, 'DD/MM/YYYY')
       const dateFormated = date.format('YYYY-MM-DD')
-      console.log(dateFormated)
+      
 
       return dateFormated
     },
 
-      initialize() {
+    initialize() {
       this.internship_id = this.$route.params.id
-      console.log(this.internship_id)
+      
 
-      this.getInternships()
-      this.showPeriods()
-      this.getStudents()
-      this.getCompanies()
+      this.getInternships();
+      this.showPeriods();
+      this.getStudents();
+      this.getCompanies();
+      this.getSupervisores();
+      this.getProfessores();
     },
 
     editItem(item) {
       this.editedIndex = this.desserts.indexOf(item)
       this.editedItem = Object.assign({}, item)
       this.dialog = true
+    },
+    renovarEstagio() {
+      this.editedIndex = this.desserts.indexOf(this.internship_details)
+      this.editedItem = Object.assign({}, this.internship_details)
+      this.dialog = true
+      this.disabled = true
     },
 
     deleteItem(item) {
@@ -554,7 +499,7 @@ export default {
       this.desserts.splice(this.editedIndex, 1)
       this.destroy(this.editedItem.id)
       // eslint-disable-next-line no-undef
-      console.log(this.editedIndex)
+      
       this.closeDelete()
     },
 
@@ -579,7 +524,7 @@ export default {
         // Object.assign(this.desserts[this.editedIndex], this.editedItem)
         this.update(this.editedItem.id)
         // eslint-disable-next-line no-undef
-        console.log(this.editedItem)
+        
       } else {
         this.store()
       }

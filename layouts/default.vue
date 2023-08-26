@@ -1,3 +1,4 @@
+<!-- eslint-disable vue/require-v-for-key -->
 <template>
   <v-app id="inspire">
     <v-navigation-drawer v-model="drawer" app>
@@ -6,20 +7,32 @@
       <br />
       <br />
       <v-list>
-        <v-list-item
-          v-for="(item, i) in items"
-          :key="i"
-          :to="item.to"
-          router
-          exact
-        >
-          <v-list-item-action>
-            <v-icon>{{ item.icon }}</v-icon>
-          </v-list-item-action>
-          <v-list-item-content>
-            <v-list-item-title v-text="item.title" />
-          </v-list-item-content>
-        </v-list-item>
+        <div v-for="(link, i) in links">
+
+          <v-list-item v-if="!link.subLinks" :key="i" :to="link.to" class="v-list-item">
+            <v-list-tile-action>
+              <v-icon>{{ link.icon }}</v-icon>
+            </v-list-tile-action>
+
+            <v-list-tile-title v-text="link.text" />
+          </v-list-item>
+
+          <v-list-group v-else :key="link.text" no-action>
+            <template #activator>
+              <v-list-tile>
+                <v-list-tile-content>
+                  <v-list-tile-title>{{ link.text }}</v-list-tile-title>
+                </v-list-tile-content>
+              </v-list-tile>
+            </template>
+
+            <v-list-item v-for="sublink in link.subLinks" :key="sublink.text" :to="sublink.to">
+              <v-list-tile-title v-text="sublink.text" />
+            </v-list-item>
+
+          </v-list-group>
+
+        </div>
       </v-list>
     </v-navigation-drawer>
 
@@ -45,38 +58,62 @@ export default {
   name: 'DefaultLayout',
   data: () => ({
     drawer: null,
-    items: [
+    links: [
       {
-        icon: 'mdi-account-school',
-        title: 'Estudantes',
         to: '/students',
+        icon: 'mdi-account-school',
+        text: 'Estudantes',
+
       },
       {
         icon: 'mdi-book-open-variant',
-        title: 'Cursos',
+        text: 'Cursos',
         to: '/courses',
       },
       {
         icon: 'mdi-human-male-board',
-        title: 'Professores',
+        text: 'Professores',
         to: '/teachers',
       },
       {
         icon: 'mdi-google-my-business',
-        title: 'Empresas',
+        text: 'Empresas',
         to: '/companies',
       },
       {
         icon: 'mdi-briefcase',
-        title: 'Estágios',
+        text: 'Estágios',
         to: '/internships',
+      },
+      {
+        icon: 'mdi-briefcase',
+        text: 'Relatórios',
+        subLinks: [
+          {
+            text: 'Estágios',
+            to: '/relatorios/relatorio_estagios',
+          },
+          {
+            text: 'Estágios por empresa',
+            to: '/relatorios/relatorio_estagios_por_empresa',
+          },
+          {
+            text: 'Estágios por professor',
+            to: '/relatorios/relatorio_estagios_por_professor',
+          },
+          {
+            text: 'Número de estagiários por professor',
+            to: '/relatorios/numero_estaudantes_por_professor',
+          },
+
+        ],
       },
     ],
   }),
 
   methods: {
     logout() {
-      this.$router.push(`/login`)
+      this.$auth.logout()
     },
   },
 }

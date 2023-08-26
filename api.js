@@ -1,28 +1,4 @@
-import axios from "axios";
-import Cookies from "js-cookie";
+const baseURL= "http://localhost:3003/api/v1/";
+  
 
-const api = axios.create({
-  baseURL: "https://sistema-estagio-back-production.up.railway.app/api/v1",
-  headers: [
-    {
-      "source": "/api/(.*)",
-      "headers": [
-        { "key": "Access-Control-Allow-Credentials", "value": "true" },
-        { "key": "Access-Control-Allow-Origin", "value": "*" },
-        { "key": "Access-Control-Allow-Methods", "value": "GET,OPTIONS,PATCH,DELETE,POST,PUT" },
-        { "key": "Access-Control-Allow-Headers", "value": "X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version" }
-      ]
-    }
-  ]
-});
-const token = Cookies.get('my_token')
-api.interceptors.request.use(
-  (config) => {
-    return config;
-  },
-  (error) => {
-    return Promise.reject(error);
-  }
-);
-
-export default api
+export default baseURL

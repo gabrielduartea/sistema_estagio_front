@@ -20,28 +20,32 @@
                   <v-card-title>
                     <span class="text-h5">{{ formTitle }}</span>
                   </v-card-title>
-                  <!--  nome, companyId, email, telefone, enderesso -->
+                  <!--  nome, companyId, email, telefone, endereco -->
                   <v-card-text>
                     <v-container>
                       <v-row>
                         <v-col cols="12" sm="6" md="6">
-                          <v-text-field v-model="editedItem.nome" label="Nome da empresa"></v-text-field>
+                          <v-text-field v-model="editedItem.nome" label="Nome da empresa"
+                            :rules="[rules.required]"></v-text-field>
                         </v-col>
                         <v-col cols="12" sm="6" md="6">
-                          <v-text-field v-model="editedItem.cnpj" label="CNPJ"></v-text-field>
+                          <v-text-field v-model="editedItem.cnpj" label="CNPJ" :rules="[rules.cnpj]"
+                            v-mask="'##.###.###/####-##'"></v-text-field>
                         </v-col>
                       </v-row>
                       <v-row>
                         <v-col cols="12" sm="6" md="6">
-                          <v-text-field v-model="editedItem.email" label="Email"></v-text-field>
+                          <v-text-field v-model="editedItem.email" label="Email" :rules="email"></v-text-field>
                         </v-col>
                         <v-col cols="6">
-                          <v-text-field v-model="editedItem.telefone" label="Telefone"></v-text-field>
+                          <v-text-field v-model="editedItem.telefone" label="Telefone" :rules="[rules.telefone]"
+                            v-mask="'(##) #####-####'"></v-text-field>
                         </v-col>
                       </v-row>
                       <v-row>
                         <v-col cols="6">
-                          <v-text-field v-model="editedItem.enderesso" label="Endereço"></v-text-field>
+                          <v-text-field v-model="editedItem.endereco" label="Endereço"
+                            :rules="[rules.required]"></v-text-field>
                         </v-col>
                       </v-row>
                     </v-container>
@@ -72,13 +76,33 @@
             </v-toolbar>
           </template>
           <template v-slot:[`item.actions`]="{ item }">
-            <v-icon small class="mr-2" @click="companyMore(item.id)">
-              mdi-dots-vertical
-            </v-icon>
-            <v-icon small class="mr-2" @click="editItem(item)">
-              mdi-pencil
-            </v-icon>
-            <v-icon small @click="deleteItem(item)"> mdi-delete </v-icon>
+            <div class="text-center">
+              <v-menu offset-y>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-icon small class="mr-2" color="primary" dark v-bind="attrs" v-on="on">
+                    mdi-dots-vertical
+                  </v-icon>
+                </template>
+
+                <v-list>
+                  <div>
+                    <v-btn color="primary" x-small text @click="companyMore(item.id)">
+                      Gerenciar Supervisores
+                    </v-btn>
+                  </div>
+                  <div>
+                    <v-btn color="primary" x-small text @click="editItem(item)">
+                      Editar
+                    </v-btn>
+                  </div>
+                  <div>
+                    <v-btn color="primary" x-small text @click="deleteItem(item)">
+                      Excluir
+                    </v-btn>
+                  </div>
+                </v-list>
+              </v-menu>
+            </div>
           </template>
 
           <template v-slot:no-data>
@@ -92,13 +116,21 @@
 
 <script>
 import axios from 'axios'
+import baseURL from '../../api'
 
 export default {
   data: () => ({
     dialog: false,
     dialogDelete: false,
+    email: [
+      (v) => {
+        const pattern =
+          /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+        return pattern.test(v) || 'E-mail invalido'
+      },
+    ],
     headers: [
-      // nome, companyId, email, telefone, enderesso
+      // nome, companyId, email, telefone, endereco
 
       {
         text: 'Nome',
@@ -109,9 +141,14 @@ export default {
       { text: 'CNPJ', value: 'cnpj', sortable: false },
       { text: 'Email', value: 'email', sortable: false },
       { text: 'Telefone', value: 'telefone', sortable: false },
-      { text: 'Endereço', value: 'enderesso', sortable: false },
+      { text: 'Endereço', value: 'endereco', sortable: false },
       { text: 'Ações', value: 'actions', sortable: false },
     ],
+    rules: {
+      required: value => !!value || 'Campo obrigatório',
+      cnpj: value => String(value).length > 13 || 'Incompleto',
+      telefone: value => String(value).length > 14 || 'Incompleto',
+    },
     desserts: [],
     editedIndex: -1,
     editedItem: {
@@ -120,7 +157,7 @@ export default {
       cnpj: '',
       email: '',
       telefone: '',
-      enderesso: '',
+      endereco: '',
     },
     defaultItem: {
       id: '',
@@ -128,7 +165,7 @@ export default {
       cnpj: '',
       email: '',
       telefone: '',
-      enderesso: '',
+      endereco: '',
     },
   }),
 
@@ -154,12 +191,12 @@ export default {
   methods: {
     async store() {
       try {
-        const company = await axios.post(`https://sistema-estagio-back-production.up.railway.app/api/v1/empresas/create`, {
+        const company = await axios.post(`${baseURL}empresas/create`, {
           nome: this.editedItem.nome,
           cnpj: this.editedItem.cnpj,
           email: this.editedItem.email,
           telefone: this.editedItem.telefone,
-          enderesso: this.editedItem.enderesso,
+          endereco: this.editedItem.endereco,
         })
 
         // eslint-disable-next-line no-undef
@@ -174,7 +211,7 @@ export default {
     async update(id) {
       try {
         const company = await axios.put(
-          `https://sistema-estagio-back-production.up.railway.app/api/v1/empresas/${id}`,
+          `${baseURL}empresas/${id}`,
           this.editedItem
         )
 
@@ -187,18 +224,18 @@ export default {
       }
     },
     async destroy(id) {
-      await axios.delete(`https://sistema-estagio-back-production.up.railway.app/api/v1/empresas/${id}`)
+      await axios.delete(`${baseURL}empresas/${id}`)
       this.initialize()
     },
 
     async initialize() {
-      const companies = await axios.get(`https://sistema-estagio-back-production.up.railway.app/api/v1/empresas/findAll`)
+      const companies = await axios.get(`${baseURL}empresas/findAll`)
 
       this.desserts = companies.data
     },
 
     companyMore(id) {
-      this.$router.push(`https://sistema-estagio-back-production.up.railway.app/api/v1//api/v1/empresas/${id}`)
+      this.$router.push(`/companies/${id}`)
     },
 
     editItem(item) {

@@ -16,7 +16,7 @@
           <template v-slot:default>
             <thead>
               <tr>
-                <th class="text-left">Name</th>
+                <th class="text-left">Nome</th>
                 <th class="text-left">CNPJ</th>
                 <th class="text-left">Email</th>
                 <th class="text-left">Telefone</th>
@@ -25,11 +25,11 @@
             </thead>
             <tbody>
               <tr>
-                <td>{{ company_details.name }}</td>
-                <td>{{ company_details.company_id }}</td>
+                <td>{{ company_details.nome }}</td>
+                <td>{{ company_details.cnpj }}</td>
                 <td>{{ company_details.email }}</td>
-                <td>{{ company_details.phone }}</td>
-                <td>{{ company_details.address }}</td>
+                <td>{{ company_details.telefone }}</td>
+                <td>{{ company_details.endereco }}</td>
               </tr>
             </tbody>
           </template>
@@ -41,7 +41,7 @@
         <v-data-table
           :headers="headers"
           :items="desserts"
-          sort-by="name"
+          sort-by="nome"
           class="elevation-1"
         >
           <template v-slot:top>
@@ -65,13 +65,13 @@
                   <v-card-title>
                     <span class="text-h5">{{ formTitle }}</span>
                   </v-card-title>
-                  <!--  name, email, phone-->
+                  <!--  nome, email, telefone-->
                   <v-card-text>
                     <v-container>
                       <v-row>
                         <v-col cols="12" sm="6" md="6">
                           <v-text-field
-                            v-model="editedItem.name"
+                            v-model="editedItem.nome"
                             label="Nome"
                           ></v-text-field>
                         </v-col>
@@ -85,8 +85,9 @@
                       <v-row>
                         <v-col cols="6">
                           <v-text-field
-                            v-model="editedItem.phone"
+                            v-model="editedItem.telefone"
                             label="Telefone"
+                            v-mask="'(##) #####-####'"
                           ></v-text-field>
                         </v-col>
                       </v-row>
@@ -141,49 +142,49 @@
 
 <script>
 import axios from 'axios'
-import api from '../../../api'
+import baseURL from '../../../api'
 
 export default {
   data: () => ({
-    company_id: '',
+    empresaId: '',
     dialog: false,
     dialogDelete: false,
     headers: [
-      // name, email, phone,
+      // nome, email, telefone,
 
       {
         text: 'Nome',
         align: 'start',
         sortable: false,
-        value: 'name',
+        value: 'nome',
       },
       { text: 'Email', value: 'email', sortable: false },
-      { text: 'Telefone', value: 'phone', sortable: false },
+      { text: 'Telefone', value: 'telefone', sortable: false },
       { text: 'Ações', value: 'actions', sortable: false },
     ],
     desserts: [],
     editedIndex: -1,
     editedItem: {
       id: '',
-      name: '',
-      company_id: '', // ID
+      nome: '',
+      empresaId: '', // ID
       email: '',
-      phone: '',
+      telefone: '',
     },
     defaultItem: {
       id: '',
-      name: '',
-      company_id: '', // ID
+      nome: '',
+      empresaId: '', // ID
       email: '',
-      phone: '',
+      telefone: '',
     },
     company_details: {
       id: '',
-      name: '',
-      company_id: '', // CNPJ
+      nome: '',
+      empresaId: '', // CNPJ
       email: '',
-      phone: '',
-      address: '',
+      telefone: '',
+      endereco: '',
     },
   }),
 
@@ -210,12 +211,12 @@ export default {
     async store() {
       try {
         const supervisor = await axios.post(
-         `https://sistema-estagio-back-production.up.railway.app/api/v1/supervisores/create`,
+         `${baseURL}supervisores/create`,
           {
-            name: this.editedItem.name,
+            nome: this.editedItem.nome,
             email: this.editedItem.email,
-            phone: this.editedItem.phone,
-            company_id: this.$route.params.id,
+            telefone: this.editedItem.telefone,
+            empresaId: this.$route.params.id,
           }
         )
 
@@ -231,7 +232,7 @@ export default {
     async update(id) {
       try {
         const supervisor = await axios.put(
-         `https://sistema-estagio-back-production.up.railway.app/api/v1/supervisors/${id}`,
+         `${baseURL}supervisores/${id}`,
           this.editedItem
         )
 
@@ -244,24 +245,26 @@ export default {
       }
     },
     async destroy(id) {
-      await axios.delete(`https://sistema-estagio-back-production.up.railway.app/api/v1/supervisores/${id}`)
+      await axios.delete(`${baseURL}supervisores/${id}`)
       this.initialize()
     },
 
     async showSupervisors(id) {
       const companies = await axios.get(
-       `https://sistema-estagio-back-production.up.railway.app/api/v1/supervisores/${id}`
+       `${baseURL}supervisores/findAllEmpresa/${this.empresaId}`
       )
+      debugger
       this.desserts = companies.data
     },
 
     async initialize() {
-      this.company_id = this.$route.params.id
+      this.empresaId = this.$route.params.id
 
       const companyDetails = await axios.get(
-       `https://sistema-estagio-back-production.up.railway.app/api/v1/empresas/${this.company_id}`
+       `${baseURL}empresas/${this.empresaId}`
       )
-      this.showSupervisors(this.company_id)
+      debugger
+      this.showSupervisors(this.empresaId)
       this.company_details = companyDetails.data
       console.log(this.company_details)
     },

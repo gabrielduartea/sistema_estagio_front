@@ -22,6 +22,7 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
+    "@/plugins/mask"
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -47,18 +48,23 @@ export default {
   },
 
   axios: {
-    baseURL: "http://localhost:3000/api/v1/auth"
+    baseURL: "http://localhost:3003/api/v1/auth"
   },
 
   auth: {
     strategies: {
       local: {
         endpoints: {
-          login: {url: '/login', method: 'post', propertyName: 'login'},
-          user: {url: '/getUser', method: 'get', propertyName: null}
+          login: {url: '/login', method: 'post'},
+          logout:false,
+          user: false
         }
       }
     },
+  },
+  
+  router:{
+    middleware:'auth'
   },
 
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify

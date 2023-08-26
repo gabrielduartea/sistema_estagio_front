@@ -63,6 +63,41 @@
     "_name": "_102d0cce"
   },
   {
+    "name": "relatorios-numero_estaudantes_por_professor",
+    "path": "/relatorios/numero_estaudantes_por_professor",
+    "component": "/home/gabriel/Documentos/Projetos/TCC/sistema_estagio_front/pages/relatorios/numero_estaudantes_por_professor.vue",
+    "chunkName": "pages/relatorios/numero_estaudantes_por_professor",
+    "_name": "_1208eb50"
+  },
+  {
+    "name": "relatorios-relatorio_estagios",
+    "path": "/relatorios/relatorio_estagios",
+    "component": "/home/gabriel/Documentos/Projetos/TCC/sistema_estagio_front/pages/relatorios/relatorio_estagios.vue",
+    "chunkName": "pages/relatorios/relatorio_estagios",
+    "_name": "_0ebd4bcf"
+  },
+  {
+    "name": "relatorios-relatorio_estagios_por_empresa",
+    "path": "/relatorios/relatorio_estagios_por_empresa",
+    "component": "/home/gabriel/Documentos/Projetos/TCC/sistema_estagio_front/pages/relatorios/relatorio_estagios_por_empresa.vue",
+    "chunkName": "pages/relatorios/relatorio_estagios_por_empresa",
+    "_name": "_6275872d"
+  },
+  {
+    "name": "relatorios-relatorio_estagios_por_professor",
+    "path": "/relatorios/relatorio_estagios_por_professor",
+    "component": "/home/gabriel/Documentos/Projetos/TCC/sistema_estagio_front/pages/relatorios/relatorio_estagios_por_professor.vue",
+    "chunkName": "pages/relatorios/relatorio_estagios_por_professor",
+    "_name": "_1fb6c713"
+  },
+  {
+    "name": "index",
+    "path": "/",
+    "component": "/home/gabriel/Documentos/Projetos/TCC/sistema_estagio_front/pages/index.vue",
+    "chunkName": "pages/index",
+    "_name": "_ef790ab6"
+  },
+  {
     "name": "companies-id",
     "path": "/companies/:id",
     "component": "/home/gabriel/Documentos/Projetos/TCC/sistema_estagio_front/pages/companies/_id/index.vue",
@@ -75,12 +110,5 @@
     "component": "/home/gabriel/Documentos/Projetos/TCC/sistema_estagio_front/pages/internships/_id/index.vue",
     "chunkName": "pages/internships/_id/index",
     "_name": "_980cc834"
-  },
-  {
-    "name": "index",
-    "path": "/",
-    "component": "/home/gabriel/Documentos/Projetos/TCC/sistema_estagio_front/pages/index.vue",
-    "chunkName": "pages/index",
-    "_name": "_ef790ab6"
   }
 ]

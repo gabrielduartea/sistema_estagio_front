@@ -7,12 +7,7 @@
 
         <!-- /Dialog edit item alternative -->
 
-        <v-data-table
-          :headers="headers"
-          :items="desserts"
-          sort-by="name"
-          class="elevation-1"
-        >
+        <v-data-table :headers="headers" :items="desserts" sort-by="name" class="elevation-1">
           <template #item.status="{ item }">
             <v-chip dark :color="getColorStatus(item.status)">
               {{ item.status }}
@@ -39,13 +34,7 @@
               <!-- dialog -->
               <v-dialog v-model="dialog" max-width="900px">
                 <template v-slot:activator="{ on, attrs }">
-                  <v-btn
-                    color="primary"
-                    dark
-                    class="mb-2"
-                    v-bind="attrs"
-                    v-on="on"
-                  >
+                  <v-btn color="primary" dark class="mb-2" v-bind="attrs" v-on="on">
                     Novo
                   </v-btn>
                 </template>
@@ -59,121 +48,92 @@
                     <v-container>
                       <v-row>
                         <v-col cols="12" sm="6" md="6">
-                          <v-autocomplete
-                            v-model="editedItem.alunoId"
-                            label="Aluno"
-                            :items="itemsStudents"
-                            item-value="id"
-                            item-text="nome"
-                          ></v-autocomplete>
+                          <v-autocomplete :rules="[rules.required]" v-model="editedItem.estudanteId" label="Estudante"
+                            :items="itemsStudents" item-value="id" item-text="nome"></v-autocomplete>
                         </v-col>
 
                         <v-col cols="12" sm="6" md="6">
-                          <v-autocomplete
-                            v-model="editedItem.empresaId"
-                            label="Empresa"
-                            :items="itemsCompanies"
-                            item-text="nome"
-                            item-value="id"
-                          ></v-autocomplete>
+                          <v-autocomplete :rules="[rules.required]" v-model="editedItem.empresaId"
+                            @change="getSupervisores()" label="Empresa" :items="itemsCompanies" item-text="nome"
+                            item-value="id"></v-autocomplete>
                         </v-col>
 
                         <v-col cols="12" sm="6" md="6">
-                          <v-autocomplete
-                            v-model="editedItem.professorId"
-                            label="Orientador"
-                            :items="itemsTeachers"
-                            item-text="nome"
-                            item-value="id"
-                          ></v-autocomplete>
+                          <v-autocomplete :rules="[rules.required]" v-model="editedItem.professorId" label="Orientador"
+                            :items="itemsTeachers" item-text="nome" item-value="id"></v-autocomplete>
                         </v-col>
 
                         <v-col cols="12" sm="6" md="6">
-                          <v-text-field
-                            v-model="editedItem.supervisor"
-                            label="Supervisor"
-                          ></v-text-field>
+                          <v-autocomplete :rules="[rules.required]" v-model="editedItem.supervisorId" label="Supervisores"
+                            :disabled="disabled == true" :items="itemsSupervisores" item-text="nome"
+                            item-value="id"></v-autocomplete>
                         </v-col>
                         <v-col cols="12" sm="6" md="6">
-                          <v-text-field
-                            v-model="editedItem.dataIncial"
-                            label="Data de início"
-                          ></v-text-field>
+                          <v-menu v-model="menu1" :close-on-content-click="false" :nudge-right="40"
+                            transition="scale-transition" offset-y min-width="auto">
+                            <template v-slot:activator="{ on, attrs }">
+                              <v-text-field v-model="editedItem.dataIncial" label="Data Inicial"
+                                prepend-icon="mdi-calendar" readonly v-bind="attrs" v-on="on"></v-text-field>
+                            </template>
+                            <v-date-picker v-model="editedItem.dataIncial" @input="menu1 = false"
+                              locale="pt-br"></v-date-picker>
+                          </v-menu>
                         </v-col>
                         <v-col cols="12" sm="6" md="6">
-                          <v-text-field
-                            v-model="editedItem.dataFinall"
-                            label="Data de término"
-                          ></v-text-field>
+                          <v-menu v-model="menu2" :close-on-content-click="false" :nudge-right="40"
+                            transition="scale-transition" offset-y min-width="auto">
+                            <template v-slot:activator="{ on, attrs }">
+                              <v-text-field v-model="editedItem.dataFinal" label="Data Final" prepend-icon="mdi-calendar"
+                                readonly v-bind="attrs" v-on="on"></v-text-field>
+                            </template>
+                            <v-date-picker v-model="editedItem.dataFinal" @input="menu2 = false"
+                              locale="pt-br"></v-date-picker>
+                          </v-menu>
                         </v-col>
                         <v-col cols="12" sm="6" md="6">
-                          <v-text-field
-                            v-model="editedItem.remuneracao"
-                            label="Bolsa (R$)"
-                          ></v-text-field>
+                          <v-text-field :rules="[rules.required]" v-model.lazy="editedItem.remuneracao" v-money="money"
+                            label="Bolsa (R$)"></v-text-field>
                         </v-col>
                         <v-col cols="12" sm="6" md="6">
-                          <v-text-field
-                            v-model="editedItem.ajuda"
-                            label="Auxílio (R$)"
-                          ></v-text-field>
-                        </v-col>
-
-                        <v-col cols="12" sm="6" md="6">
-                          <v-text-field
-                            v-model="editedItem.codigoSeguroSaude"
-                            label="Número do Seguro"
-                          ></v-text-field>
-                        </v-col>
-                        <v-col cols="12" sm="6" md="6">
-                          <v-text-field
-                            v-model="editedItem.companhiaSeguroSaude"
-                            label="Seguradora"
-                          ></v-text-field>
-                        </v-col>
-                        <v-col cols="12" sm="6" md="6">
-                          <v-text-field
-                            v-model="editedItem.horasSemanaisTrabalhadas"
-                            label="Carga horária semanal"
-                          ></v-text-field>
+                          <v-text-field :rules="[rules.required]" v-model.lazy="editedItem.ajuda" v-money="money"
+                            label="Auxílio (R$)" />
                         </v-col>
 
                         <v-col cols="12" sm="6" md="6">
-                          <v-select
-                            v-model="editedItem.categoria"
-                            :items="itemscategoria"
-                            label="Categoria"
-                          ></v-select>
+                          <v-text-field :rules="[rules.required]" v-model="editedItem.codigoSeguroSaude"
+                            label="Número do Seguro"></v-text-field>
+                        </v-col>
+                        <v-col cols="12" sm="6" md="6">
+                          <v-text-field :rules="[rules.required]" v-model="editedItem.companhiaSeguroSaude"
+                            label="Seguradora"></v-text-field>
+                        </v-col>
+                        <v-col cols="12" sm="6" md="6">
+                          <v-text-field :rules="[rules.required]" v-model="editedItem.horasSemanaisTrabalhadas"
+                            v-mask="'##:##'" label="Carga horária semanal"></v-text-field>
                         </v-col>
 
                         <v-col cols="12" sm="6" md="6">
-                          <v-select
-                            v-model="editedItem.modalidade"
-                            :items="itemsmodalidade"
-                            label="Modalidade"
-                          ></v-select>
+                          <v-select :rules="[rules.required]" v-model="editedItem.categoria" :items="itemscategoria"
+                            label="Categoria"></v-select>
                         </v-col>
 
                         <v-col cols="12" sm="6" md="6">
-                          <v-select
-                            v-model="editedItem.status"
-                            :items="itemsStatus"
-                            label="Status"
-                          ></v-select>
+                          <v-select :rules="[rules.required]" v-model="editedItem.modalidade" :items="itemsmodalidade"
+                            label="Modalidade"></v-select>
+                        </v-col>
+
+                        <v-col cols="12" sm="6" md="6">
+                          <v-select :rules="[rules.required]" v-model="editedItem.status" :items="itemsStatus"
+                            label="Status"></v-select>
+                        </v-col>
+                        <v-col cols="12" sm="6" md="6">
+                          <v-select :rules="[rules.required]" v-model="editedItem.planoAtividades"
+                            :items="itemsActivitiesPlan" label="Plano de Atividades"></v-select>
                         </v-col>
                         <v-col cols="12" sm="6" md="6">
                           <v-select
-                            v-model="editedItem.planoAtividades"
-                            :items="itemsActivitiesPlan"
-                            label="Plano de Atividades"
-                          ></v-select>
-                        </v-col>
-                        <v-col cols="12" sm="6" md="6">
-                          <v-select
-                            v-model="editedItem.relatorio"
-                            :items="itemsrelatorio"
-                            label="Relatório"
-                          ></v-select>
+:rules="[rules.required]" v-model="editedItem.relatorio" :items="itemsrelatorio"
+                            label="Relatório"></v-select>
                         </v-col>
                       </v-row>
                     </v-container>
@@ -193,17 +153,11 @@
               <!-- /dialog -->
               <v-dialog v-model="dialogDelete" max-width="600px">
                 <v-card>
-                  <v-card-title class="text-h5"
-                    >Tem certeza que deseja apagar este item?</v-card-title
-                  >
+                  <v-card-title class="text-h5">Tem certeza que deseja apagar este item?</v-card-title>
                   <v-card-actions>
                     <v-spacer></v-spacer>
-                    <v-btn color="blue darken-1" text @click="closeDelete"
-                      >Cancelar</v-btn
-                    >
-                    <v-btn color="blue darken-1" text @click="deleteItemConfirm"
-                      >OK</v-btn
-                    >
+                    <v-btn color="blue darken-1" text @click="closeDelete">Cancelar</v-btn>
+                    <v-btn color="blue darken-1" text @click="deleteItemConfirm">OK</v-btn>
                     <v-spacer></v-spacer>
                   </v-card-actions>
                 </v-card>
@@ -211,20 +165,38 @@
             </v-toolbar>
           </template>
           <template v-slot:[`item.actions`]="{ item }">
-            <v-icon
-              small
-              class="mr-2"
-              @click="printrelatorio(item.id, item.alunoId, item.empresaId)"
-            >
-              mdi-printer
-            </v-icon>
-            <v-icon small class="mr-2" @click="internshipMore(item.id)">
-              mdi-dots-vertical
-            </v-icon>
-            <v-icon small class="mr-2" @click="editItem(item)">
-              mdi-pencil
-            </v-icon>
-            <v-icon small @click="deleteItem(item)"> mdi-delete </v-icon>
+            <div class="text-center">
+              <v-menu offset-y>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-icon small class="mr-2" color="primary" dark v-bind="attrs" v-on="on">
+                    mdi-dots-vertical
+                  </v-icon>
+                </template>
+
+                <v-list>
+                  <div>
+                    <v-btn color="primary" x-small text @click="printrelatorio(item.id, item.estudanteId, item.empresaId)">
+                      Imprimir
+                    </v-btn>
+                  </div>
+                  <div>
+                    <v-btn color="primary" x-small text @click="internshipMore(item.id)">
+                      Renovar Estágio
+                    </v-btn>
+                  </div>
+                  <div>
+                    <v-btn color="primary" x-small text @click="editItem(item)">
+                      Editar
+                    </v-btn>
+                  </div>
+                  <div>
+                    <v-btn color="primary" x-small text @click="deleteItem(item)">
+                      Excluir
+                    </v-btn>
+                  </div>
+                </v-list>
+              </v-menu>
+            </div>
           </template>
 
           <template v-slot:no-data>
@@ -240,9 +212,26 @@
 import axios from 'axios'
 import moment from 'moment'
 import jsPDF from 'jspdf'
+import { VMoney } from 'v-money'
+import baseURL from '../../api'
 
 export default {
   data: () => ({
+    money: {
+      decimal: '.',
+      thousands: '',
+      prefix: 'R$',
+      suffix: '',
+      precision: 2,
+      masked: false
+    },
+    rules: {
+      required: value => !!value || 'Campo obrigatório',
+      cnpj: value => String(value).length > 15 || 'Incompleto',
+      telefone: value => String(value).length > 14 || 'Incompleto',
+    },
+    menu1: false,
+    menu2: false,
     dialog: false,
     dialogDelete: false,
     dialogAlternative: false,
@@ -254,17 +243,18 @@ export default {
     itemsStudents: [],
     itemsCompanies: [],
     itemsTeachers: [],
+    itemsSupervisores: [],
     headers: [
       {
-        text: 'Aluno',
+        text: 'Estudante',
         align: 'start',
         sortable: false,
-        value: 'student_name',
+        value: 'estudante[0].nome',
       },
-      { text: 'Empresa', value: 'nome', sortable: false },
+      { text: 'Empresa', value: 'empresa[0].nome', sortable: false },
       { text: 'Status', value: 'status', sortable: false },
       { text: 'Início', value: 'dataIncial', sortable: false },
-      { text: 'Fim', value: 'dataFinall', sortable: false },
+      { text: 'Fim', value: 'dataFinal', sortable: false },
       {
         text: 'Plano de atividades',
         value: 'planoAtividades',
@@ -278,14 +268,14 @@ export default {
     editedIndex: -1,
     editedItem: {
       id: '',
-      alunoId: '',
+      estudanteId: '',
       empresaId: '',
       professorId: '',
-      supervisor: '',
+      supervisorId: '',
       dataIncial: '',
       dataFinal: '',
-      remuneracao: '',
-      ajuda: '',
+      remuneracao: 0.00,
+      ajuda: 0.00,
       codigoSeguroSaude: '',
       companhiaSeguroSaude: '',
       horasSemanaisTrabalhadas: '',
@@ -297,14 +287,15 @@ export default {
     },
     defaultItem: {
       id: '',
-      alunoId: '',
+      estudanteId: '',
       empresaId: '',
       professorId: '',
-      supervisor: '',
+      supervisorId: '',
+      date: '',
       dataIncial: '',
       dataFinal: '',
-      remuneracao: '',
-      ajuda: '',
+      remuneracao: 0.00,
+      ajuda: 0.00,
       codigoSeguroSaude: '',
       companhiaSeguroSaude: '',
       horasSemanaisTrabalhadas: '',
@@ -314,7 +305,9 @@ export default {
       relatorio: '',
       status: '',
     },
+    disabled: true,
   }),
+  directives: { money: VMoney },
 
   computed: {
     formTitle() {
@@ -337,21 +330,27 @@ export default {
 
   methods: {
     async getStudents() {
-      const students = await axios.get(`https://sistema-estagio-back-production.up.railway.app/api/v1/alunos/findAll`)
+      const students = await axios.get(`${baseURL}estudantes/findAll`)
 
       this.itemsStudents = students.data
     },
 
     async getCompanies() {
-      const companies = await axios.get(`https://sistema-estagio-back-production.up.railway.app/api/v1/empresas/findAll`)
+      const companies = await axios.get(`${baseURL}empresas/findAll`)
 
       this.itemsCompanies = companies.data
     },
 
     async getTeachers() {
-      const teachers = await axios.get(`https://sistema-estagio-back-production.up.railway.app/api/v1/professores/findAll`)
+      const teachers = await axios.get(`${baseURL}professores/findAll`)
 
       this.itemsTeachers = teachers.data
+    },
+    async getSupervisores() {
+      const supervisores = await axios.get(`${baseURL}supervisores/findAllEmpresa/${this.editedItem.empresaId}`)
+      this.itemsSupervisores = supervisores.data;
+      this.disabled = false;
+
     },
 
     getColorStatus(statusColor) {
@@ -372,17 +371,23 @@ export default {
 
     async store() {
       try {
-        const student = await axios.post(`https://sistema-estagio-back-production.up.railway.app/api/v1/estagios/create`, {
-          //  alunoId, empresaId, professorId, supervisor, dataIncial, dataFinal, remuneracao, ajuda, codigoSeguroSaude, companhiaSeguroSaude, horasSemanaisTrabalhadas, categoria, modalidade, planoAtividades, relatorio, status
-
-          alunoId: this.editedItem.alunoId,
+        debugger
+        // eslint-disable-next-line no-undef
+        console.log(this.editedItem)
+        const ajuda = this.editedItem.ajuda.substr(2);
+        const remuneracao = this.editedItem.remuneracao.substr(2);
+        // eslint-disable-next-line no-undef
+        console.log(ajuda)
+        const student = await axios.post(`${baseURL}estagios/create`, {
+          //  estudanteId, empresaId, professorId, supervisor, dataIncial, dataFinal, remuneracao, ajuda, codigoSeguroSaude, companhiaSeguroSaude, horasSemanaisTrabalhadas, categoria, modalidade, planoAtividades, relatorio, status
+          estudanteId: this.editedItem.estudanteId,
           empresaId: this.editedItem.empresaId,
           professorId: this.editedItem.professorId,
-          supervisor: this.editedItem.supervisor,
-          dataIncial: this.formatDateForISO(this.editedItem.dataIncial),
-          dataFinal: this.formatDateForISO(this.editedItem.dataFinal),
-          remuneracao: this.editedItem.remuneracao,
-          ajuda: this.editedItem.ajuda,
+          supervisorId: this.editedItem.supervisorId,
+          dataIncial: this.editedItem.dataIncial,
+          dataFinal: this.editedItem.dataFinal,
+          remuneracao: Number(remuneracao),
+          ajuda: Number(ajuda),
           codigoSeguroSaude: this.editedItem.codigoSeguroSaude,
           companhiaSeguroSaude: this.editedItem.companhiaSeguroSaude,
           horasTrabalhoSemanais: this.editedItem.horasSemanaisTrabalhadas,
@@ -392,6 +397,7 @@ export default {
           relatorios: 'Pendente',
           status: this.editedItem.status,
         })
+        this.editedItem = Object.assign({}, this.defaultItem)
 
         // eslint-disable-next-line no-undef
         console.log(student)
@@ -405,16 +411,16 @@ export default {
     async update(id) {
       try {
         const internship = await axios.put(
-          `https://sistema-estagio-back-production.up.railway.app/api/v1/estagios/${id}`,
+          `${baseURL}estagios/${id}`,
           {
-            alunoId: this.editedItem.alunoId,
+            estudanteId: this.editedItem.estudanteId,
             empresaId: this.editedItem.empresaId,
             professorId: this.editedItem.professorId,
-            supervisor: this.editedItem.supervisor,
+            supervisorId: this.editedItem.supervisorId,
             dataIncial: this.formatDateForISO(this.editedItem.dataIncial),
             dataFinal: this.formatDateForISO(this.editedItem.dataFinal),
-            remuneracao: this.editedItem.remuneracao,
-            ajuda: this.editedItem.ajuda,
+            remuneracao: Number(this.editedItem.remuneracao),
+            ajuda: Number(this.editedItem.ajuda),
             codigoSeguroSaude: this.editedItem.codigoSeguroSaude,
             companhiaSeguroSaude: this.editedItem.companhiaSeguroSaude,
             horasSemanaisTrabalhadas: this.editedItem.horasSemanaisTrabalhadas,
@@ -435,7 +441,7 @@ export default {
       }
     },
     async destroy(id) {
-      await axios.delete(`https://sistema-estagio-back-production.up.railway.app/api/v1/estagios/${id}`)
+      await axios.delete(`${baseURL}estagios/${id}`)
       this.initialize()
     },
 
@@ -459,53 +465,50 @@ export default {
     },
 
     internshipMore(id) {
-      this.$router.push(`https://sistema-estagio-back-production.up.railway.app/api/v1//estagios/${id}`)
+      this.$router.push(`/internships/${id}`)
     },
 
     async initialize() {
-      const internships = await axios.get(`https://sistema-estagio-back-production.up.railway.app/api/v1/estagios/findAll`)
-
+      debugger
+      const internships = await axios.get(`${baseURL}estagios/findAll`)
+      debugger
       this.dessertsEdited = internships.data
 
       this.desserts = this.dessertsEdited.map(this.formatDateForBrazil)
       console.log(this.desserts)
 
-      this.getStudents()
-      this.getCompanies()
-      this.getTeachers()
+      this.getStudents();
+      this.getCompanies();
+      this.getTeachers();
+      this.disabled = true;
 
       // const str = '2021-12-12T03:00:00.000Z'
       // const date = new Date(str)
       // console.log(format(date, 'dd/MM/yyyy'))
     },
 
-    async printrelatorio(id, alunoId, empresaId) {
+    async printrelatorio(id, estudanteId, empresaId) {
+      debugger
       const doc = new jsPDF()
 
       const internshipEdited = await axios.get(
-        `estagios/${id}`
+        `${baseURL}estagios/${id}`
       )
-      const internshipAux = internshipEdited.data.map(this.formatDateForBrazil)
-      const internship = internshipAux[0]
-      console.log(internship, '<Internship>')
+      debugger
+      const internship = internshipEdited.data
 
       const studentEdited = await axios.get(
-        `students/${alunoId}`
+        `${baseURL}estudantes/${estudanteId}`
       )
       const student = studentEdited.data
       console.log(student, '<Student>')
 
       const companyEdited = await axios.get(
-        `companies/${empresaId}`
+        `${baseURL}empresas/${empresaId}`
       )
       const company = companyEdited.data
       console.log(company, '<Company>')
 
-      const periodEdited = await axios.get(
-        `periods/${id}`
-      )
-      const period = periodEdited.data
-      console.log(period, '<Period>')
 
       // TÍTULO
       doc.setFontSize(30)
@@ -514,12 +517,12 @@ export default {
       doc.setFontSize(16)
       doc.text(20, 40, 'ESTAGIÁRIO')
       doc.setFontSize(12)
-      doc.text(20, 50, `Nome: ${student.name}`)
+      doc.text(20, 50, `Nome: ${student.nome}`)
       doc.text(20, 55, `E-mail: ${student.email}`)
-      doc.text(20, 60, `Telefone: ${student.phone}`)
+      doc.text(20, 60, `Telefone: ${student.telefone}`)
       doc.text(20, 65, `CPF: ${student.cpf}`)
-      doc.text(20, 70, `Matrícula: ${student.alunoId}`)
-      doc.text(20, 75, `Endereço: ${student.address}`)
+      doc.text(20, 70, `Matrícula: ${student.matricula}`)
+      doc.text(20, 75, `Endereço: ${student.endereco}`)
 
       // CURSO
       doc.setFontSize(16)
@@ -556,46 +559,46 @@ export default {
       doc.text(20, 205, `Relatório: ${internship.relatorio}`)
 
       let index = 1
-      for (const item of period) {
-        console.log(item, 'aqui')
+      // for (const item of period) {
+      //   console.log(item, 'aqui')
 
-        // RENOVAÇÕES
-        doc.addPage()
-        doc.setFontSize(30)
-        doc.text(35, 20, 'RENOVAÇÕES DE ESTÁGIO')
-        doc.setFontSize(16)
-        doc.text(20, 40, `${index}ª RENOVAÇÃO DE ESTÁGIO`)
+      //   // RENOVAÇÕES
+      //   doc.addPage()
+      //   doc.setFontSize(30)
+      //   doc.text(35, 20, 'RENOVAÇÕES DE ESTÁGIO')
+      //   doc.setFontSize(16)
+      //   doc.text(20, 40, `${index}ª RENOVAÇÃO DE ESTÁGIO`)
 
-        doc.setFontSize(12)
-        doc.text(20, 50, `Empresa: ${item.company_name}`)
-        doc.text(20, 55, `CNPJ: ${item.empresaId}`)
-        doc.text(20, 60, `E-mail: ${item.company_email}`)
-        doc.text(20, 65, `Telefone: ${item.company_phone}`)
-        doc.text(20, 70, `Endereço: ${item.company_address}`)
-        doc.text(20, 75, `Supervisor: ${item.supervisor}`)
-        doc.text(20, 80, `Orientador: ${item.teacher_name}`)
-        doc.text(20, 85, `Data de Início: ${item.dataIncial}`)
-        doc.text(20, 90, `Data de Término: ${item.dataFinal}`)
-        doc.text(20, 95, `Bolsa: R$${item.remuneracao}`)
-        doc.text(20, 100, `Auxílio: R$${item.ajuda}`)
-        doc.text(20, 105, `Seguradora: ${item.companhiaSeguroSaude}`)
-        doc.text(20, 110, `Numero de Seguro: ${item.codigoSeguroSaude}`)
-        doc.text(
-          20,
-          115,
-          `Carga horária Semanal: ${item.horasSemanaisTrabalhadas} horas`
-        )
-        doc.text(20, 120, `Categoria: ${item.categoria}`)
-        doc.text(20, 125, `Modalidade: ${item.modalidade}`)
-        doc.text(20, 130, `Status: ${item.status}`)
-        doc.text(20, 135, `Plano de Atividades: ${item.planoAtividades}`)
-        doc.text(20, 140, `Relatório: ${item.relatorio}`)
+      //   doc.setFontSize(12)
+      //   doc.text(20, 50, `Empresa: ${item.company_name}`)
+      //   doc.text(20, 55, `CNPJ: ${item.empresaId}`)
+      //   doc.text(20, 60, `E-mail: ${item.company_email}`)
+      //   doc.text(20, 65, `Telefone: ${item.company_phone}`)
+      //   doc.text(20, 70, `Endereço: ${item.company_address}`)
+      //   doc.text(20, 75, `Supervisor: ${item.supervisor}`)
+      //   doc.text(20, 80, `Orientador: ${item.teacher_name}`)
+      //   doc.text(20, 85, `Data de Início: ${item.dataIncial}`)
+      //   doc.text(20, 90, `Data de Término: ${item.dataFinal}`)
+      //   doc.text(20, 95, `Bolsa: R$${item.remuneracao}`)
+      //   doc.text(20, 100, `Auxílio: R$${item.ajuda}`)
+      //   doc.text(20, 105, `Seguradora: ${item.companhiaSeguroSaude}`)
+      //   doc.text(20, 110, `Numero de Seguro: ${item.codigoSeguroSaude}`)
+      //   doc.text(
+      //     20,
+      //     115,
+      //     `Carga horária Semanal: ${item.horasSemanaisTrabalhadas} horas`
+      //   )
+      //   doc.text(20, 120, `Categoria: ${item.categoria}`)
+      //   doc.text(20, 125, `Modalidade: ${item.modalidade}`)
+      //   doc.text(20, 130, `Status: ${item.status}`)
+      //   doc.text(20, 135, `Plano de Atividades: ${item.planoAtividades}`)
+      //   doc.text(20, 140, `Relatório: ${item.relatorio}`)
 
-        index += 1
-      }
+      //   index += 1
+      // }
 
       // SAVE DOC IN PDF
-      doc.save(`https://sistema-estagio-back-production.up.railway.app/api/v1/${student.name}.pdf`)
+      doc.save(`${baseURL}${student.name}.pdf`)
     },
 
     editItem(item) {
@@ -620,6 +623,7 @@ export default {
 
     close() {
       this.dialog = false
+      this.disabled = true
       this.$nextTick(() => {
         this.editedItem = Object.assign({}, this.defaultItem)
         this.editedIndex = -1
