@@ -1,12 +1,12 @@
 
 
 import axios from "axios";
-import Cookies from "js-cookie";
+import baseURL from "../api";
 
     export default async ({store,route,redirect})=>{
         // eslint-disable-next-line no-undef
           console.log(store.$auth.options)
-        await axios.get(`http://localhost:3003/api/v1/auth/autenticacao`).then((resposta)=>{
+        await axios.get(`${baseURL}auth/autenticacao`).then((resposta)=>{
           
           if (!resposta.data || resposta.data.tipo === 1) {
             redirect('/login')

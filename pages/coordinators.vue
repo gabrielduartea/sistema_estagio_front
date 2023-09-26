@@ -167,6 +167,7 @@
 
 <script>
 import axios from 'axios'
+import baseURL from '../api'
 
 
 export default {
@@ -202,7 +203,7 @@ export default {
 
     async indexCoordinators() {
   
-      const coordinators = await axios.get('https://sistema-estagio-back-production.up.railway.app/api/v1/auth/findAll')
+      const coordinators = await axios.get(`${baseURL}auth/findAll`)
       this.coordinators = coordinators.data
       this.dialogStore = false
     },
@@ -210,9 +211,9 @@ export default {
     async storeCoordinators() {
   
       try {
-        const coordinator = await axios.post('https://sistema-estagio-back-production.up.railway.app/api/v1/auth', {
+        const coordinator = await axios.post(`${baseURL}auth/signup`, {
           email: this.email,
-          type: '',
+          tipo: 0,
           password: this.password,
         })
 

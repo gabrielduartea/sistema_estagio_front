@@ -1,4 +1,5 @@
 import colors from 'vuetify/es5/util/colors'
+import baseURL from './api'
 
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
@@ -48,7 +49,7 @@ export default {
   },
 
   axios: {
-    baseURL: "http://localhost:3003/api/v1/auth"
+    baseURL: `${baseURL}auth`
   },
 
   auth: {
