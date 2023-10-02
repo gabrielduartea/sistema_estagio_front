@@ -148,8 +148,8 @@ export default (ctx, inject) => {
   const runtimeConfig = ctx.$config && ctx.$config.axios || {}
   // baseURL
   const baseURL = process.browser
-    ? (runtimeConfig.browserBaseURL || runtimeConfig.browserBaseUrl || runtimeConfig.baseURL || runtimeConfig.baseUrl || 'http://ec2-3-91-121-116.compute-1.amazonaws.com:3003/api/v1/auth')
-      : (runtimeConfig.baseURL || runtimeConfig.baseUrl || process.env._AXIOS_BASE_URL_ || 'http://ec2-3-91-121-116.compute-1.amazonaws.com:3003/api/v1/auth')
+    ? (runtimeConfig.browserBaseURL || runtimeConfig.browserBaseUrl || runtimeConfig.baseURL || runtimeConfig.baseUrl || 'https://gestagio-api.onrender.com/api/v1/auth')
+      : (runtimeConfig.baseURL || runtimeConfig.baseUrl || process.env._AXIOS_BASE_URL_ || 'https://gestagio-api.onrender.com/api/v1/auth')
 
   // Create fresh objects for all default header scopes
   // Axios creates only one which is shared across SSR requests!

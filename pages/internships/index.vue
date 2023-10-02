@@ -131,9 +131,7 @@
                             :items="itemsActivitiesPlan" label="Plano de Atividades"></v-select>
                         </v-col>
                         <v-col cols="12" sm="6" md="6">
-                          <v-select
-:rules="[rules.required]" v-model="editedItem.relatorio" :items="itemsrelatorio"
-                            label="Relatório"></v-select>
+                          <v-file-input accept=".pdf" show-size label="File input"></v-file-input>
                         </v-col>
                       </v-row>
                     </v-container>
@@ -175,7 +173,8 @@
 
                 <v-list>
                   <div>
-                    <v-btn color="primary" x-small text @click="printrelatorio(item.id, item.estudanteId, item.empresaId)">
+                    <v-btn color="primary" x-small text
+                      @click="printrelatorio(item.id, item.estudanteId, item.empresaId)">
                       Imprimir
                     </v-btn>
                   </div>
