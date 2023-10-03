@@ -6241,8 +6241,8 @@ const baseMixins = Object(mixins["a" /* default */])(VSheet["a" /* default */], 
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-//const baseURL= "http://localhost:3000/api/v1/";
-const baseURL = "https://sistema-estagio-back.vercel.app/api/v1/";
+// const baseURL= "http://localhost:3003/api/v1/";
+const baseURL = "https://api.gestagioufvjm-api.store/api/v1/";
 /* harmony default export */ __webpack_exports__["a"] = (baseURL);
 
 /***/ }),
@@ -10467,7 +10467,7 @@ const setupProgress = axios => {
   // runtimeConfig
   const runtimeConfig = ctx.$config && ctx.$config.axios || {};
   // baseURL
-  const baseURL =  false ? undefined : runtimeConfig.baseURL || runtimeConfig.baseUrl || process.env._AXIOS_BASE_URL_ || 'https://sistema-estagio-back.vercel.app/api/v1/auth';
+  const baseURL =  false ? undefined : runtimeConfig.baseURL || runtimeConfig.baseUrl || process.env._AXIOS_BASE_URL_ || 'https://api.gestagioufvjm-api.store/api/v1/auth';
 
   // Create fresh objects for all default header scopes
   // Axios creates only one which is shared across SSR requests!
