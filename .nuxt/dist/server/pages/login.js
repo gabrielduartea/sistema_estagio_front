@@ -2103,7 +2103,7 @@ var VToolbar = __webpack_require__(10);
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VToolbar/index.js
 var components_VToolbar = __webpack_require__(31);
 
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/login.vue?vue&type=template&id=cfc0335c&
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/login.vue?vue&type=template&id=2086c73b&
 
 
 
@@ -2119,7 +2119,7 @@ var components_VToolbar = __webpack_require__(31);
 
 
 
-var loginvue_type_template_id_cfc0335c_render = function render() {
+var loginvue_type_template_id_2086c73b_render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c(VApp["a" /* default */], {
@@ -2189,7 +2189,7 @@ var loginvue_type_template_id_cfc0335c_render = function render() {
 };
 var staticRenderFns = [];
 
-// CONCATENATED MODULE: ./pages/login.vue?vue&type=template&id=cfc0335c&
+// CONCATENATED MODULE: ./pages/login.vue?vue&type=template&id=2086c73b&
 
 // EXTERNAL MODULE: external "js-cookie"
 var external_js_cookie_ = __webpack_require__(143);
@@ -2215,7 +2215,7 @@ var external_js_cookie_default = /*#__PURE__*/__webpack_require__.n(external_js_
         debugger;
         external_js_cookie_default.a.set('token', res.data.token);
         debugger;
-        if (res.data.user.tipo === 1) {
+        if (res.data.user.username === "master@ufvjm.edu.br") {
           this.$router.push('/coordinators');
         } else {
           this.$router.push('/students');
@@ -2250,7 +2250,7 @@ function injectStyles (context) {
 
 var component = Object(componentNormalizer["a" /* default */])(
   pages_loginvue_type_script_lang_js_,
-  loginvue_type_template_id_cfc0335c_render,
+  loginvue_type_template_id_2086c73b_render,
   staticRenderFns,
   false,
   injectStyles,

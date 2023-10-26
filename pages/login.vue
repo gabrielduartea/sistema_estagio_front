@@ -50,7 +50,7 @@ export default {
         debugger
         Cookie.set('token', res.data.token);
         debugger
-        if (res.data.user.tipo === 1) {
+        if (res.data.user.username === "master@ufvjm.edu.br") {
           this.$router.push('/coordinators')
         } else {
           this.$router.push('/students')

@@ -10592,7 +10592,7 @@ var VToolbar = __webpack_require__(10);
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VToolbar/index.js
 var components_VToolbar = __webpack_require__(31);
 
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/internships/index.vue?vue&type=template&id=1a08e4f8&
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/internships/index.vue?vue&type=template&id=1bfa7d22&
 
 
 
@@ -10617,7 +10617,7 @@ var components_VToolbar = __webpack_require__(31);
 
 
 
-var internshipsvue_type_template_id_1a08e4f8_render = function render() {
+var internshipsvue_type_template_id_1bfa7d22_render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c(VContainer["a" /* default */], [_c(VRow["a" /* default */], [_c(VCol["a" /* default */], [_c(VDataTable["a" /* default */], {
@@ -11247,7 +11247,7 @@ var internshipsvue_type_template_id_1a08e4f8_render = function render() {
 };
 var staticRenderFns = [];
 
-// CONCATENATED MODULE: ./pages/internships/index.vue?vue&type=template&id=1a08e4f8&
+// CONCATENATED MODULE: ./pages/internships/index.vue?vue&type=template&id=1bfa7d22&
 
 // EXTERNAL MODULE: external "axios"
 var external_axios_ = __webpack_require__(19);
@@ -11538,13 +11538,16 @@ var api = __webpack_require__(55);
       const internshipEdited = await external_axios_default.a.get(`${api["a" /* default */]}estagios/${id}`);
       debugger;
       const internship = internshipEdited.data;
+      const supervisores = await external_axios_default.a.get(`${api["a" /* default */]}supervisores/${internship.supervisorId}`);
+      const professores = await external_axios_default.a.get(`${api["a" /* default */]}professores/${internship.professorId}/findOne`);
       const studentEdited = await external_axios_default.a.get(`${api["a" /* default */]}estudantes/${estudanteId}`);
       const student = studentEdited.data;
+      const cursos = await external_axios_default.a.get(`${api["a" /* default */]}cursos/${student.cursoId}`);
       console.log(student, '<Student>');
       const companyEdited = await external_axios_default.a.get(`${api["a" /* default */]}empresas/${empresaId}`);
       const company = companyEdited.data;
       console.log(company, '<Company>');
-
+      debugger;
       // TÍTULO
       doc.setFontSize(30);
       doc.text(45, 20, 'RELATÓRIO DE ESTÁGIO');
@@ -11563,26 +11566,26 @@ var api = __webpack_require__(55);
       doc.setFontSize(16);
       doc.text(20, 85, 'CURSO');
       doc.setFontSize(12);
-      doc.text(20, 95, `${internship.course_name}`);
+      doc.text(20, 95, `${cursos.data.nome}`);
 
       // DADOS DO PERÍODO DE ESTÁGIO
       doc.setFontSize(16);
       doc.text(20, 105, 'PERÍODO DE ESTÁGIO');
       doc.setFontSize(12);
-      doc.text(20, 115, `Empresa: ${company.name}`);
-      doc.text(20, 120, `CNPJ: ${company.empresaId}`);
+      doc.text(20, 115, `Empresa: ${company.nome}`);
+      doc.text(20, 120, `CNPJ: ${company.cnpj}`);
       doc.text(20, 125, `E-mail: ${company.email}`);
-      doc.text(20, 130, `Telefone: ${company.phone}`);
-      doc.text(20, 135, `Endereço: ${company.address}`);
-      doc.text(20, 140, `Supervisor: ${internship.supervisor}`);
-      doc.text(20, 145, `Orientador: ${internship.teacher_name}`);
-      doc.text(20, 150, `Data de Início: ${internship.dataIncial}`);
-      doc.text(20, 155, `Data de Término: ${internship.dataFinal}`);
+      doc.text(20, 130, `Telefone: ${company.telefone}`);
+      doc.text(20, 135, `Endereço: ${company.endereco}`);
+      doc.text(20, 140, `Supervisor: ${supervisores.data.nome}`);
+      doc.text(20, 145, `Orientador: ${professores.data.nome}`);
+      doc.text(20, 150, `Data de Início: ${external_moment_default()(internship.dataInicial).format('DD/MM/YYYY')}`);
+      doc.text(20, 155, `Data de Término: ${external_moment_default()(internship.dataFinal).format('DD/MM/YYYY')}`);
       doc.text(20, 160, `Bolsa: R$${internship.remuneracao}`);
       doc.text(20, 165, `Auxílio: R$${internship.ajuda}`);
       doc.text(20, 170, `Seguradora: ${internship.companhiaSeguroSaude}`);
       doc.text(20, 175, `Numero de Seguro: ${internship.codigoSeguroSaude}`);
-      doc.text(20, 180, `Carga horária Semanal: ${internship.horasSemanaisTrabalhadas} horas`);
+      doc.text(20, 180, `Carga horária Semanal: ${internship.horasTrabalhoSemanais} horas`);
       doc.text(20, 185, `Categoria: ${internship.categoria}`);
       doc.text(20, 190, `Modalidade: ${internship.modalidade}`);
       doc.text(20, 195, `Status: ${internship.status}`);
@@ -11690,7 +11693,7 @@ var componentNormalizer = __webpack_require__(13);
 
 var component = Object(componentNormalizer["a" /* default */])(
   pages_internshipsvue_type_script_lang_js_,
-  internshipsvue_type_template_id_1a08e4f8_render,
+  internshipsvue_type_template_id_1bfa7d22_render,
   staticRenderFns,
   false,
   null,

@@ -495,11 +495,25 @@ export default {
       )
       debugger
       const internship = internshipEdited.data
+      
+
+      const supervisores=await axios.get(
+        `${baseURL}supervisores/${internship.supervisorId}`
+      )
+
+      const professores=await axios.get(
+        `${baseURL}professores/${internship.professorId}/findOne`
+      )
 
       const studentEdited = await axios.get(
         `${baseURL}estudantes/${estudanteId}`
       )
       const student = studentEdited.data
+
+
+      const cursos=await axios.get(
+        `${baseURL}cursos/${student.cursoId}`
+      )
       console.log(student, '<Student>')
 
       const companyEdited = await axios.get(
@@ -508,7 +522,7 @@ export default {
       const company = companyEdited.data
       console.log(company, '<Company>')
 
-
+      debugger
       // TÍTULO
       doc.setFontSize(30)
       doc.text(45, 20, 'RELATÓRIO DE ESTÁGIO')
@@ -527,21 +541,21 @@ export default {
       doc.setFontSize(16)
       doc.text(20, 85, 'CURSO')
       doc.setFontSize(12)
-      doc.text(20, 95, `${internship.course_name}`)
+      doc.text(20, 95, `${cursos.data.nome}`)
 
       // DADOS DO PERÍODO DE ESTÁGIO
       doc.setFontSize(16)
       doc.text(20, 105, 'PERÍODO DE ESTÁGIO')
       doc.setFontSize(12)
-      doc.text(20, 115, `Empresa: ${company.name}`)
-      doc.text(20, 120, `CNPJ: ${company.empresaId}`)
+      doc.text(20, 115, `Empresa: ${company.nome}`)
+      doc.text(20, 120, `CNPJ: ${company.cnpj}`)
       doc.text(20, 125, `E-mail: ${company.email}`)
-      doc.text(20, 130, `Telefone: ${company.phone}`)
-      doc.text(20, 135, `Endereço: ${company.address}`)
-      doc.text(20, 140, `Supervisor: ${internship.supervisor}`)
-      doc.text(20, 145, `Orientador: ${internship.teacher_name}`)
-      doc.text(20, 150, `Data de Início: ${internship.dataIncial}`)
-      doc.text(20, 155, `Data de Término: ${internship.dataFinal}`)
+      doc.text(20, 130, `Telefone: ${company.telefone}`)
+      doc.text(20, 135, `Endereço: ${company.endereco}`)
+      doc.text(20, 140, `Supervisor: ${supervisores.data.nome}`)
+      doc.text(20, 145, `Orientador: ${professores.data.nome}`)
+      doc.text(20, 150, `Data de Início: ${moment(internship.dataInicial).format('DD/MM/YYYY')}`)
+      doc.text(20, 155, `Data de Término: ${moment(internship.dataFinal).format('DD/MM/YYYY')}`)
       doc.text(20, 160, `Bolsa: R$${internship.remuneracao}`)
       doc.text(20, 165, `Auxílio: R$${internship.ajuda}`)
       doc.text(20, 170, `Seguradora: ${internship.companhiaSeguroSaude}`)
@@ -549,7 +563,7 @@ export default {
       doc.text(
         20,
         180,
-        `Carga horária Semanal: ${internship.horasSemanaisTrabalhadas} horas`
+        `Carga horária Semanal: ${internship.horasTrabalhoSemanais} horas`
       )
       doc.text(20, 185, `Categoria: ${internship.categoria}`)
       doc.text(20, 190, `Modalidade: ${internship.modalidade}`)
