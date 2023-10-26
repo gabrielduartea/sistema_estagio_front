@@ -9737,7 +9737,7 @@ var VSpacer = __webpack_require__(149);
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VToolbar/index.js
 var components_VToolbar = __webpack_require__(31);
 
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./layouts/alternative.vue?vue&type=template&id=f0dd46c8&
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./layouts/alternative.vue?vue&type=template&id=37e8c582&
 
 
 
@@ -9753,7 +9753,7 @@ var components_VToolbar = __webpack_require__(31);
 
 
 
-var alternativevue_type_template_id_f0dd46c8_render = function render() {
+var alternativevue_type_template_id_37e8c582_render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c(VApp["a" /* default */], {
@@ -9802,9 +9802,9 @@ var alternativevue_type_template_id_f0dd46c8_render = function render() {
     }
   }, [_vm._v("mdi-logout")])], 1), _vm._v(" "), _c(VMain["a" /* default */], [_c(VContainer["a" /* default */], [_c('Nuxt')], 1)], 1)], 1);
 };
-var alternativevue_type_template_id_f0dd46c8_staticRenderFns = [];
+var alternativevue_type_template_id_37e8c582_staticRenderFns = [];
 
-// CONCATENATED MODULE: ./layouts/alternative.vue?vue&type=template&id=f0dd46c8&
+// CONCATENATED MODULE: ./layouts/alternative.vue?vue&type=template&id=37e8c582&
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./layouts/alternative.vue?vue&type=script&lang=js&
 /* harmony default export */ var alternativevue_type_script_lang_js_ = ({
@@ -9819,7 +9819,7 @@ var alternativevue_type_template_id_f0dd46c8_staticRenderFns = [];
   }),
   methods: {
     logout() {
-      this.$router.push(`/login`);
+      this.$auth.logout();
     }
   }
 });
@@ -9835,8 +9835,8 @@ var alternativevue_type_template_id_f0dd46c8_staticRenderFns = [];
 
 var alternative_component = Object(componentNormalizer["a" /* default */])(
   layouts_alternativevue_type_script_lang_js_,
-  alternativevue_type_template_id_f0dd46c8_render,
-  alternativevue_type_template_id_f0dd46c8_staticRenderFns,
+  alternativevue_type_template_id_37e8c582_render,
+  alternativevue_type_template_id_37e8c582_staticRenderFns,
   false,
   null,
   null,
