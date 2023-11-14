@@ -8354,22 +8354,22 @@ function shouldScrollToTop(route) {
 
 
 
-const _59affdb1 = () => interopDefault(__webpack_require__.e(/* import() | pages/companies/index */ 5).then(__webpack_require__.bind(null, 256)));
-const _acacf880 = () => interopDefault(__webpack_require__.e(/* import() | pages/coordinators */ 6).then(__webpack_require__.bind(null, 257)));
-const _70486fcb = () => interopDefault(__webpack_require__.e(/* import() | pages/courses */ 7).then(__webpack_require__.bind(null, 258)));
-const _3f0bf5e7 = () => interopDefault(__webpack_require__.e(/* import() | pages/dashboard */ 8).then(__webpack_require__.bind(null, 259)));
-const _3f33930a = () => interopDefault(__webpack_require__.e(/* import() | pages/internships/index */ 11).then(__webpack_require__.bind(null, 254)));
-const _51eb1dbc = () => interopDefault(__webpack_require__.e(/* import() | pages/login */ 12).then(__webpack_require__.bind(null, 255)));
-const _11aa4bdc = () => interopDefault(__webpack_require__.e(/* import() | pages/loginError */ 13).then(__webpack_require__.bind(null, 260)));
-const _13c16615 = () => interopDefault(__webpack_require__.e(/* import() | pages/students */ 18).then(__webpack_require__.bind(null, 261)));
-const _102d0cce = () => interopDefault(__webpack_require__.e(/* import() | pages/teachers */ 19).then(__webpack_require__.bind(null, 262)));
-const _1208eb50 = () => interopDefault(__webpack_require__.e(/* import() | pages/relatorios/numero_estaudantes_por_professor */ 14).then(__webpack_require__.bind(null, 263)));
-const _0ebd4bcf = () => interopDefault(__webpack_require__.e(/* import() | pages/relatorios/relatorio_estagios */ 15).then(__webpack_require__.bind(null, 264)));
-const _6275872d = () => interopDefault(__webpack_require__.e(/* import() | pages/relatorios/relatorio_estagios_por_empresa */ 16).then(__webpack_require__.bind(null, 265)));
-const _1fb6c713 = () => interopDefault(__webpack_require__.e(/* import() | pages/relatorios/relatorio_estagios_por_professor */ 17).then(__webpack_require__.bind(null, 266)));
-const _ef790ab6 = () => interopDefault(__webpack_require__.e(/* import() | pages/index */ 9).then(__webpack_require__.bind(null, 267)));
-const _5800d81c = () => interopDefault(__webpack_require__.e(/* import() | pages/companies/_id/index */ 4).then(__webpack_require__.bind(null, 268)));
-const _980cc834 = () => interopDefault(__webpack_require__.e(/* import() | pages/internships/_id/index */ 10).then(__webpack_require__.bind(null, 269)));
+const _59affdb1 = () => interopDefault(__webpack_require__.e(/* import() | pages/companies/index */ 5).then(__webpack_require__.bind(null, 261)));
+const _acacf880 = () => interopDefault(__webpack_require__.e(/* import() | pages/coordinators */ 6).then(__webpack_require__.bind(null, 262)));
+const _70486fcb = () => interopDefault(__webpack_require__.e(/* import() | pages/courses */ 7).then(__webpack_require__.bind(null, 263)));
+const _3f0bf5e7 = () => interopDefault(__webpack_require__.e(/* import() | pages/dashboard */ 8).then(__webpack_require__.bind(null, 264)));
+const _3f33930a = () => interopDefault(__webpack_require__.e(/* import() | pages/internships/index */ 11).then(__webpack_require__.bind(null, 259)));
+const _51eb1dbc = () => interopDefault(__webpack_require__.e(/* import() | pages/login */ 12).then(__webpack_require__.bind(null, 260)));
+const _11aa4bdc = () => interopDefault(__webpack_require__.e(/* import() | pages/loginError */ 13).then(__webpack_require__.bind(null, 265)));
+const _13c16615 = () => interopDefault(__webpack_require__.e(/* import() | pages/students */ 18).then(__webpack_require__.bind(null, 266)));
+const _102d0cce = () => interopDefault(__webpack_require__.e(/* import() | pages/teachers */ 19).then(__webpack_require__.bind(null, 267)));
+const _1208eb50 = () => interopDefault(__webpack_require__.e(/* import() | pages/relatorios/numero_estaudantes_por_professor */ 14).then(__webpack_require__.bind(null, 268)));
+const _0ebd4bcf = () => interopDefault(__webpack_require__.e(/* import() | pages/relatorios/relatorio_estagios */ 15).then(__webpack_require__.bind(null, 269)));
+const _6275872d = () => interopDefault(__webpack_require__.e(/* import() | pages/relatorios/relatorio_estagios_por_empresa */ 16).then(__webpack_require__.bind(null, 270)));
+const _1fb6c713 = () => interopDefault(__webpack_require__.e(/* import() | pages/relatorios/relatorio_estagios_por_professor */ 17).then(__webpack_require__.bind(null, 271)));
+const _ef790ab6 = () => interopDefault(__webpack_require__.e(/* import() | pages/index */ 9).then(__webpack_require__.bind(null, 272)));
+const _5800d81c = () => interopDefault(__webpack_require__.e(/* import() | pages/companies/_id/index */ 4).then(__webpack_require__.bind(null, 273)));
+const _980cc834 = () => interopDefault(__webpack_require__.e(/* import() | pages/internships/_id/index */ 10).then(__webpack_require__.bind(null, 274)));
 
 const emptyFn = () => {};
 external_vue_default.a.use(external_vue_router_default.a);
@@ -8545,7 +8545,7 @@ function createRouter(ssrContext, config) {
 const transitionsKeys = ['name', 'mode', 'appear', 'css', 'type', 'duration', 'enterClass', 'leaveClass', 'appearClass', 'enterActiveClass', 'enterActiveClass', 'leaveActiveClass', 'appearActiveClass', 'enterToClass', 'leaveToClass', 'appearToClass'];
 const listenersKeys = ['beforeEnter', 'enter', 'afterEnter', 'enterCancelled', 'beforeLeave', 'leave', 'afterLeave', 'leaveCancelled', 'beforeAppear', 'appear', 'afterAppear', 'appearCancelled'];
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VApp/VApp.js
-var VApp = __webpack_require__(148);
+var VApp = __webpack_require__(150);
 
 // CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./layouts/error.vue?vue&type=template&id=7dfdef44&scoped=true&
 
@@ -9337,7 +9337,7 @@ var VBtn = __webpack_require__(54);
   }
 }));
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VContainer.js
-var VContainer = __webpack_require__(151);
+var VContainer = __webpack_require__(153);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VIcon/VIcon.js
 var VIcon_VIcon = __webpack_require__(45);
@@ -9355,7 +9355,7 @@ var VListItemAction = __webpack_require__(44);
 var components_VList = __webpack_require__(14);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VMain/VMain.js
-var VMain = __webpack_require__(150);
+var VMain = __webpack_require__(152);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/src/components/VNavigationDrawer/VNavigationDrawer.sass
 var VNavigationDrawer = __webpack_require__(83);
@@ -9732,7 +9732,7 @@ const VNavigationDrawer_baseMixins = Object(mixins["a" /* default */])(applicati
   }
 }));
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VSpacer.js
-var VSpacer = __webpack_require__(149);
+var VSpacer = __webpack_require__(151);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VToolbar/index.js
 var components_VToolbar = __webpack_require__(31);
@@ -10251,9 +10251,9 @@ function normalizeModule(moduleData, filePath) {
   return moduleData;
 }
 // CONCATENATED MODULE: ./.nuxt/components/index.js
-const NuxtLogo = () => __webpack_require__.e(/* import() | components/nuxt-logo */ 1).then(__webpack_require__.bind(null, 271)).then(c => wrapFunctional(c.default || c));
-const Tutorial = () => __webpack_require__.e(/* import() | components/tutorial */ 2).then(__webpack_require__.bind(null, 270)).then(c => wrapFunctional(c.default || c));
-const VuetifyLogo = () => __webpack_require__.e(/* import() | components/vuetify-logo */ 3).then(__webpack_require__.bind(null, 272)).then(c => wrapFunctional(c.default || c));
+const NuxtLogo = () => __webpack_require__.e(/* import() | components/nuxt-logo */ 1).then(__webpack_require__.bind(null, 276)).then(c => wrapFunctional(c.default || c));
+const Tutorial = () => __webpack_require__.e(/* import() | components/tutorial */ 2).then(__webpack_require__.bind(null, 275)).then(c => wrapFunctional(c.default || c));
+const VuetifyLogo = () => __webpack_require__.e(/* import() | components/vuetify-logo */ 3).then(__webpack_require__.bind(null, 277)).then(c => wrapFunctional(c.default || c));
 
 // nuxt/nuxt.js#8607
 function wrapFunctional(options) {
@@ -12246,13 +12246,25 @@ module.exports = require("js-cookie");
 /* 144 */
 /***/ (function(module, exports) {
 
+module.exports = require("core-js/modules/es.typed-array.set.js");
+
+/***/ }),
+/* 145 */
+/***/ (function(module, exports) {
+
 module.exports = require("v-money");
 
 /***/ }),
-/* 145 */,
-/* 146 */,
+/* 146 */
+/***/ (function(module, exports) {
+
+module.exports = require("aws-sdk");
+
+/***/ }),
 /* 147 */,
-/* 148 */
+/* 148 */,
+/* 149 */,
+/* 150 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -12316,7 +12328,7 @@ module.exports = require("v-money");
 }));
 
 /***/ }),
-/* 149 */
+/* 151 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -12328,7 +12340,7 @@ module.exports = require("v-money");
 /* harmony default export */ __webpack_exports__["a"] = (Object(_util_helpers__WEBPACK_IMPORTED_MODULE_1__[/* createSimpleFunctional */ "j"])('spacer', 'div', 'v-spacer'));
 
 /***/ }),
-/* 150 */
+/* 152 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -12381,7 +12393,7 @@ module.exports = require("v-money");
 }));
 
 /***/ }),
-/* 151 */
+/* 153 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
