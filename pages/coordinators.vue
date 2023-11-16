@@ -253,7 +253,7 @@ export default {
     async updateCoordinators(id) {
       try {
         const coordinator = await axios.put(
-          `auth/${id}`,
+          `${baseURL}auth/${id}`,
           {
             email: this.email,
             password: this.password,
@@ -272,7 +272,7 @@ export default {
     },
 
     async destroyCoordinators(id) {
-      await axios.delete(`auth/${id}`)
+      await axios.delete(`${baseURL}auth/${id}`)
       this.indexCoordinators()
       this.dialogDestroy = false
     },
