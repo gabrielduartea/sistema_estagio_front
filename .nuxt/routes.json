@@ -91,6 +91,13 @@
     "_name": "_1fb6c713"
   },
   {
+    "name": "internships-docs-documentos",
+    "path": "/internships/docs/documentos",
+    "component": "/home/gabriel/Documentos/Projetos/TCC/sistema_estagio_front/pages/internships/docs/documentos.vue",
+    "chunkName": "pages/internships/docs/documentos",
+    "_name": "_6aae9708"
+  },
+  {
     "name": "index",
     "path": "/",
     "component": "/home/gabriel/Documentos/Projetos/TCC/sistema_estagio_front/pages/index.vue",

@@ -17,31 +17,16 @@
 
           <v-data-table :headers="headers" :items="desserts" sort-by="name" class="elevation-1">
             <template #item.status="{ item }">
-            <v-chip dark :color="getColorStatus(item.status)">
-              {{ item.status }}
-            </v-chip>
-          </template>
-            <template #[`item.planoEstagio`]="{ item }">
-              <v-icon small class="mr-3" :disabled="!item.planoEstagio" style="font-size: 35px;" :color="getColorrelatorio(item.planoEstagio)" @click="abrirPdf(item.planoEstagioUrl)">
-                mdi-file-document-arrow-right
-            </v-icon>
+              <v-chip dark :color="getColorStatus(item.status)">
+                {{ item.status }}
+              </v-chip>
             </template>
-            <template #[`item.aceiteOrientador`]="{ item }">
-              <v-icon small class="mr-3" :disabled="!item.aceiteOrientador" style="font-size: 35px;" :color="getColorrelatorio(item.aceiteOrientador)" @click="abrirPdf(item.aceiteOrientadorUrl)">
-                mdi-file-document-arrow-right
-            </v-icon>
+            <template #item.dataIncial="{ item }">
+              <v-text readonly>{{ formatTabela(item.dataIncial) }}</v-text>
             </template>
-            <template #[`item.termoAceite`]="{ item }">
-              <v-icon small class="mr-3" :disabled="!item.termoAceite" style="font-size: 35px;" :color="getColorrelatorio(item.termoAceite)" @click="abrirPdf(item.termoAceiteUrl)">
-                mdi-file-document-arrow-right
-            </v-icon>
+            <template #item.dataFinal="{ item }">
+              <v-text readonly>{{ formatTabela(item.dataFinal) }}</v-text>
             </template>
-            <template #[`item.relatorio`]="{ item }">
-              <v-icon small class="mr-3" :disabled="!item.relatorio" style="font-size: 35px;" :color="getColorrelatorio(item.relatorio)" @click="abrirPdf(item.relatorioUrl)">
-                mdi-file-document-arrow-right
-            </v-icon>
-            </template>
-
             <template v-slot:top>
               <v-toolbar flat>
                 <v-toolbar-title>Estágios</v-toolbar-title>
@@ -88,22 +73,22 @@
                             <v-menu v-model="menu1" :close-on-content-click="false" :nudge-right="40"
                               transition="scale-transition" offset-y min-width="auto">
                               <template v-slot:activator="{ on, attrs }">
-                                <v-text-field v-model="editedItem.dataIncial" label="Data Inicial"
-                                  prepend-icon="mdi-calendar" readonly v-bind="attrs" v-on="on"></v-text-field>
+                                <v-text-field v-model="dataInicial" label="Data Inicial" prepend-icon="mdi-calendar"
+                                  readonly v-bind="attrs" v-on="on"></v-text-field>
                               </template>
-                              <v-date-picker v-model="editedItem.dataIncial" @input="menu1 = false"
-                                locale="pt-br"></v-date-picker>
+                              <v-date-picker v-model="editedItem.dataIncial" @change="formatDateForBrazil(editedItem)"
+                                @input="menu1 = false" locale="pt-br"></v-date-picker>
                             </v-menu>
                           </v-col>
                           <v-col cols="12" sm="6" md="6">
                             <v-menu v-model="menu2" :close-on-content-click="false" :nudge-right="40"
                               transition="scale-transition" offset-y min-width="auto">
                               <template v-slot:activator="{ on, attrs }">
-                                <v-text-field v-model="editedItem.dataFinal" label="Data Final"
-                                  prepend-icon="mdi-calendar" readonly v-bind="attrs" v-on="on"></v-text-field>
+                                <v-text-field v-model="dataFinal" label="Data Final" prepend-icon="mdi-calendar" readonly
+                                  v-bind="attrs" v-on="on"></v-text-field>
                               </template>
-                              <v-date-picker v-model="editedItem.dataFinal" @input="menu2 = false"
-                                locale="pt-br"></v-date-picker>
+                              <v-date-picker v-model="editedItem.dataFinal" @change="formatDateForBrazil(editedItem)"
+                                @input="menu2 = false" locale="pt-br"></v-date-picker>
                             </v-menu>
                           </v-col>
                           <v-col cols="12" sm="6" md="6">
@@ -124,7 +109,7 @@
                               label="Seguradora"></v-text-field>
                           </v-col>
                           <v-col cols="12" sm="6" md="6">
-                            <v-text-field :rules="[rules.required]" v-model="editedItem.horasSemanaisTrabalhadas"
+                            <v-text-field :rules="[rules.required]" v-model="editedItem.horasTrabalhoSemanais"
                               v-mask="'##:##'" label="Carga horária semanal"></v-text-field>
                           </v-col>
 
@@ -141,19 +126,6 @@
                           <v-col cols="12" sm="6" md="6">
                             <v-select :rules="[rules.required]" v-model="editedItem.status" :items="itemsStatus"
                               label="Status"></v-select>
-                          </v-col>
-                          <v-col cols="12" sm="6" md="6">
-                            <v-file-input v-model="termoAceite" accept=".pdf" label="Termo de aceite"></v-file-input>
-                          </v-col>
-                          <v-col cols="12" sm="6" md="6">
-                            <v-file-input v-model="planoEstagio" accept=".pdf" label="Plano de estágio"></v-file-input>
-                          </v-col>
-                          <v-col cols="12" sm="6" md="6">
-                            <v-file-input v-model="aceiteOrientador" accept=".pdf"
-                              label="Aceite do orientador" @change="verificaDelete(aceiteOrientador,'aceiteOrientador')"></v-file-input>
-                          </v-col>
-                          <v-col cols="12" sm="6" md="6">
-                            <v-file-input v-model="relatorio" accept=".pdf" label="Relatório" @change="verificaDelete()"></v-file-input>
                           </v-col>
                         </v-row>
                       </v-container>
@@ -198,6 +170,11 @@
                       <v-btn color="primary" x-small text
                         @click="printrelatorio(item.id, item.estudanteId, item.empresaId)">
                         Imprimir
+                      </v-btn>
+                    </div>
+                    <div>
+                      <v-btn color="primary" x-small text @click="gerirDocumentos(item.id)">
+                        Gerir Documentos
                       </v-btn>
                     </div>
                     <div>
@@ -258,7 +235,7 @@ export default {
     axio: null,
     menu2: false,
     dialog: false,
-    deleteKeys:[],
+    deleteKeys: [],
     dialogDelete: false,
     dialogAlternative: false,
     itemsStatus: ['Em andamento', 'Finalizado', 'Cancelado'],
@@ -271,16 +248,6 @@ export default {
     itemsTeachers: [],
     itemsSupervisores: [],
     objForm: {},
-    pdfs: {
-      relatorio: null,
-      planoEstagio: null,
-      termoAceite: null,
-      aceiteOrientador: null,
-    },
-    relatorio: null,
-    planoEstagio: null,
-    termoAceite: null,
-    aceiteOrientador: null,
     headers: [
       {
         text: 'Estudante',
@@ -289,43 +256,35 @@ export default {
         value: 'estudante[0].nome',
       },
       { text: 'Empresa', value: 'empresa[0].nome', sortable: false },
+      { text: 'Orientador', value: 'professor[0].nome', sortable: false },
       { text: 'Status', value: 'status', sortable: false },
       { text: 'Início', value: 'dataIncial', sortable: false },
-      { text: 'Fim', value: 'dataFinal', sortable: false },
-      { text: 'Relatório', value: 'relatorio', sortable: false },
-      { text: 'Plano estagio', value: 'planoEstagio', sortable: false },
-      { text: 'Aceite orientador', value: 'aceiteOrientador', sortable: false },
-      { text: 'Termo aceite', value: 'planoEstagio', sortable: false },
+      { text: 'Fim', value: `dataFinal`, sortable: false },
       { text: 'Ações', value: 'actions', sortable: false },
     ],
     desserts: [],
     dessertsEdited: [],
     editedIndex: -1,
     estudanteId: null,
+    dataInicial: null,
+    dataFinal: null,
     editedItem: {
       id: '',
       estudanteId: '',
       empresaId: '',
       professorId: '',
       supervisorId: '',
-      dataIncial: '',
-      dataFinal: '',
+      dataIncial: moment().format('YYYY-MM-DD'),
+      dataFinal: moment().format('YYYY-MM-DD'),
       remuneracao: 0.00,
       ajuda: 0.00,
       codigoSeguroSaude: '',
       companhiaSeguroSaude: '',
-      horasSemanaisTrabalhadas: '',
+      horasTrabalhoSemanais: '',
       categoria: '',
       modalidade: '',
       relatorio: '',
       status: '',
-      planoEstagio: null,
-      termoAceite: null,
-      aceiteOrientador: null,
-      termoAceiteUrl: '',
-      planoEstagioUrl: '',
-      relatorioUrl: '',
-      aceiteOrientadorUrl: '',
     },
     defaultItem: {
       id: '',
@@ -334,24 +293,17 @@ export default {
       professorId: '',
       supervisorId: '',
       date: '',
-      dataIncial: '',
-      dataFinal: '',
+      dataIncial: moment().format('YYYY-MM-DD'),
+      dataFinal: moment().format('YYYY-MM-DD'),
       remuneracao: 0.00,
       ajuda: 0.00,
       codigoSeguroSaude: '',
       companhiaSeguroSaude: '',
-      horasSemanaisTrabalhadas: '',
+      horasTrabalhoSemanais: '',
       categoria: '',
       modalidade: '',
       relatorio: '',
       status: '',
-      planoEstagio: null,
-      termoAceite: null,
-      aceiteOrientador: null,
-      termoAceiteUrl: '',
-      planoEstagioUrl: '',
-      relatorioUrl: '',
-      aceiteOrientadorUrl: '',
     },
     disabled: true,
   }),
@@ -394,8 +346,8 @@ export default {
 
       this.itemsTeachers = teachers.data
     },
-    async getSupervisores() {
-      const supervisores = await axios.get(`${baseURL}supervisores/findAllEmpresa/${this.editedItem.empresaId}`)
+    async getSupervisores(item = null) {
+      const supervisores = await axios.get(`${baseURL}supervisores/findAllEmpresa/${item != null ? item : this.editedItem.empresaId}`)
       this.itemsSupervisores = supervisores.data;
       this.disabled = false;
 
@@ -416,14 +368,22 @@ export default {
       if (statusColor) return 'green'
     },
 
-    async salvar(objForm,id=null) {
+    async salvar(objForm, id = null) {
       debugger
       try {
-        if(!id){
-          await axios.post(`${baseURL}estagios/create`, objForm)
-        }else{
+        if (!id) {
+          await axios.post(`${baseURL}estagios/create`, objForm).then(res => {
+            if (res) {
+              this.initialize()
+            }
+          })
+        } else {
           await axios.put(
-          `${baseURL}estagios/${id}`,objForm)
+            `${baseURL}estagios/${id}`, objForm).then(res => {
+              if (res) {
+                this.initialize()
+              }
+            })
         }
         this.editedItem = Object.assign({}, this.defaultItem)
         this.initialize()
@@ -454,7 +414,7 @@ export default {
             ajuda: Number(this.editedItem.ajuda.substr(2)),
             codigoSeguroSaude: this.editedItem.codigoSeguroSaude,
             companhiaSeguroSaude: this.editedItem.companhiaSeguroSaude,
-            horasSemanaisTrabalhadas: this.editedItem.horasSemanaisTrabalhadas,
+            horasTrabalhoSemanais: this.editedItem.horasTrabalhoSemanais,
             categoria: this.editedItem.categoria,
             modalidade: this.editedItem.modalidade,
             status: this.editedItem.status,
@@ -483,13 +443,25 @@ export default {
     },
 
     formatDateForBrazil(e) {
-      const initialDate = moment(e.dataIncial).format('DD/MM/YYYY')
-      const finalDate = moment(e.dataFinal).format('DD/MM/YYYY')
+      const initialDate = moment(e.dataIncial).format('YYYY-MM-DD')
+      const finalDate = moment(e.dataFinal).format('YYYY-MM-DD')
+      this.dataFinal = moment(e.dataFinal).format('DD/MM/YYYY')
+      this.dataInicial = moment(e.dataIncial).format('DD/MM/YYYY')
       e.dataIncial = initialDate
 
       e.dataFinal = finalDate
+      if (typeof e.ajuda === "number" && (e.ajuda.toString().substr(-2) === '00' || e.ajuda.toString().substr(-2) === '0')) {
+        e.ajuda = String(e.ajuda) + e.ajuda.toString().substr(-2);
+      }
+      if (typeof e.remuneracao === "number" && (e.remuneracao.toString().substr(-2) === '00' || e.remuneracao.toString().substr(-2) === '0')) {
+        e.remuneracao = String(e.remuneracao) + e.remuneracao.toString().substr(-2);
+      }
+      debugger
 
       return e
+    },
+    formatTabela(data) {
+      return moment(data).format("DD/MM/YYYY")
     },
     // BD ESTÁ RECEBENDO YYYY-MM-DD
     formatDateForISO(str) {
@@ -501,6 +473,9 @@ export default {
     internshipMore(id) {
       this.$router.push(`/internships/${id}`)
     },
+    gerirDocumentos(id) {
+      this.$router.push(`/internships/docs/documentos/${id}`)
+    },
 
     async initialize() {
 
@@ -509,9 +484,11 @@ export default {
       const internships = await this.axio.get(`estagios/findAll`)
 
       this.dessertsEdited = internships.data
-      
+
       this.desserts = this.dessertsEdited.map(this.formatDateForBrazil)
+      debugger
       const teste = this.desserts;
+
       debugger
       console.log(this.desserts)
 
@@ -519,7 +496,7 @@ export default {
       this.getCompanies();
       this.getTeachers();
       this.disabled = true;
-
+      this.loading = false;
       // const str = '2021-12-12T03:00:00.000Z'
       // const date = new Date(str)
       // console.log(format(date, 'dd/MM/yyyy'))
@@ -611,9 +588,8 @@ export default {
       doc.save(`${baseURL}${student.name}.pdf`)
     },
 
-    async editItem(item) {
-      debugger
-      await this.pesquisarDowload(item);
+    editItem(item) {
+      this.getSupervisores(item.empresaId)
       this.editedIndex = this.desserts.indexOf(item)
       this.editedItem = Object.assign({}, item)
       this.dialog = true
@@ -632,46 +608,11 @@ export default {
       console.log(this.editedIndex)
       this.closeDelete()
     },
-    async pesquisarDowload(item) {
-      debugger
-      if (item.relatorio) {
-        this.relatorio = await this.downloadPdf(item.relatorio);
-        
-      }
-      if (item.termoAceite) {
-        this.termoAceite = await this.downloadPdf(item.termoAceite);
-      }
-      if (item.aceiteOrientador) {
-        this.aceiteOrientador = await this.downloadPdf(item.aceiteOrientador);
-      }
-      if (item.planoEstagio) {
-        this.planoEstagio = await this.downloadPdf(item.planoEstagio);
-      }
-    },
-    async downloadPdf(key) {
-      debugger
-      const AWS_S3_BUCKET = 'gestagio-s3';
-      const s3 = new S3({
-        accessKeyId: 'AKIASTCFU5KKPQLPQDOL',
-        secretAccessKey: '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',
-      });
-      const file = await s3.getObject({ Bucket: AWS_S3_BUCKET, Key: key }).promise()
-      debugger
-      const teste = new File([new Uint8Array(file.Body)], key)
-      return teste
-    },
 
     close() {
       this.dialog = false
       this.disabled = true
-      this.$nextTick(() => {
-        this.editedItem = Object.assign({}, this.defaultItem)
-        this.relatorio = null
-        this.planoEstagio = null
-        this.termoAceite = null
-        this.aceiteOrientador = null
-        this.editedIndex = -1
-      })
+      this.editedItem = Object.assign({}, this.defaultItem)
     },
 
     closeDelete() {
@@ -682,9 +623,8 @@ export default {
       })
     },
 
-    async save() {
+    save() {
       if (this.editedIndex > -1) {
-        await this.executarDelete();
         this.store(this.editedItem.id)
       } else {
         this.store()
@@ -692,14 +632,15 @@ export default {
       this.close()
     },
 
-    async store(id=null) {
+    store(id = null) {
+      debugger
       this.estudanteId = this.editedItem.estudanteId;
       const ajuda = this.editedItem.ajuda.substr(2);
       const remuneracao = this.editedItem.remuneracao.substr(2);
       this.loading = true;
 
       this.objForm = {
-        //  estudanteId, empresaId, professorId, supervisor, dataIncial, dataFinal, remuneracao, ajuda, codigoSeguroSaude, companhiaSeguroSaude, horasSemanaisTrabalhadas, categoria, modalidade, planoAtividades, relatorio, status
+        //  estudanteId, empresaId, professorId, supervisor, dataIncial, dataFinal, remuneracao, ajuda, codigoSeguroSaude, companhiaSeguroSaude, horasTrabalhoSemanais, categoria, modalidade, planoAtividades, relatorio, status
         estudanteId: this.editedItem.estudanteId,
         empresaId: this.editedItem.empresaId,
         professorId: this.editedItem.professorId,
@@ -710,152 +651,13 @@ export default {
         ajuda: Number(ajuda),
         codigoSeguroSaude: this.editedItem.codigoSeguroSaude,
         companhiaSeguroSaude: this.editedItem.companhiaSeguroSaude,
-        horasTrabalhoSemanais: this.editedItem.horasSemanaisTrabalhadas,
+        horasTrabalhoSemanais: this.editedItem.horasTrabalhoSemanais,
         categoria: this.editedItem.categoria,
         modalidade: this.editedItem.modalidade,
-        planoAtividades: 'Pendente',
-        relatorios: 'Pendente',
         status: this.editedItem.status,
-        planoEstagio: this.editedItem.planoEstagio,
-        termoAceite: this.editedItem.termoAceite,
-        aceiteOrientador: this.editedItem.aceiteOrientador,
-        relatorio: this.editedItem.relatorio,
-        termoAceiteUrl: this.editedItem.termoAceiteUrl,
-        planoEstagioUrl: this.editedItem.planoEstagioUrl,
-        relatorioUrl: this.editedItem.relatorioUrl,
-        aceiteOrientadorUrl: this.editedItem.aceiteOrientadorUrl
+      }
+      this.salvar(this.objForm, id)
 
-      }
-      const files = []
-      this.estudanteId = this.editedItem.estudanteId
-      if (this.relatorio && this.relatorio.name !== this.editedItem.relatorio) {
-        const pdf = {
-          arquivo: this.relatorio,
-          tipo: 'relatorio'
-        }
-        files.push(pdf)
-      }
-      if (this.termoAceite && this.termoAceite.name !== this.editedItem.termoAceite) {
-        const pdf = {
-          arquivo: this.termoAceite,
-          tipo: 'termoAceite'
-        }
-        files.push(pdf)
-      }
-      if (this.planoEstagio && this.planoEstagio.name !== this.editedItem.planoEstagio) {
-        const pdf = {
-          arquivo: this.planoEstagio,
-          tipo: 'planoEstagio'
-        }
-        files.push(pdf)
-      }
-      if (this.aceiteOrientador && this.aceiteOrientador !== this.editedItem.aceiteOrientador) {
-        const pdf = {
-          arquivo: this.aceiteOrientador,
-          tipo: 'aceiteOrientador'
-        }
-        files.push(pdf)
-      }
-      const AWS_S3_BUCKET = 'gestagio-s3';
-      const s3 = new S3({
-        accessKeyId: 'AKIASTCFU5KKPQLPQDOL',
-        secretAccessKey: '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',
-      });
-      const index = files.length - 1
-      if (files.length === 0) {
-        this.salvar(this.objForm);
-      }
-      for (const file of files) {
-        const key = file.arquivo.name + `-${this.estudanteId}`
-        const tipoUrl = file.tipo + `Url`
-        const params = {
-          Bucket: AWS_S3_BUCKET,
-          Key: key,
-          Body: file.arquivo,
-          ACL: 'public-read',
-          ContentType: file.arquivo.type,
-          ContentDisposition: 'inline',
-          CreateBucketConfiguration: {
-            LocationConstraint: 'us-east-1',
-          }
-        }
-        await s3.upload(params).promise().then(res => {
-          if (res) {
-            debugger
-            this.objForm[file.tipo] = `${key}-${this.estudanteId}`
-            this.objForm[tipoUrl] = res.Location
-            debugger
-            if (files.indexOf(file) === index) {
-              this.loading = false;
-              this.salvar(this.objForm,id);
-            } else {
-              return key
-            }
-          }
-        });
-      }
-    },
-    async uploadoPdf(file, tipo) {
-      const AWS_S3_BUCKET = 'gestagio-s3';
-      const s3 = new S3({
-        accessKeyId: 'AKIASTCFU5KKPQLPQDOL',
-        secretAccessKey: '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',
-      });
-      const key = file.name + `-${this.editedItem.estudanteId}`
-      const params = {
-        Bucket: AWS_S3_BUCKET,
-        Key: key,
-        Body: file,
-        ACL: 'public-read',
-        ContentType: file.type,
-        ContentDisposition: 'inline',
-        CreateBucketConfiguration: {
-          LocationConstraint: 'us-east-1',
-        },
-      }
-      try {
-        await s3.upload(params).promise().then(res => {
-          if (res) {
-            debugger
-            const tipoUrl = `${tipo}Url-${this.estudanteId}`
-            this.editedItem[tipo] = key
-            this.editedItem[tipoUrl] = res.url
-            debugger
-            return key
-          }
-        });
-      } catch (erro) {
-        // eslint-disable-next-line no-undef
-        console.log(erro);
-      }
-    },
-    abrirPdf(url) {
-      window.open(url, '_blank', 'noreferrer');
-    },
-    verificaDelete(item,campo){
-      debugger
-      if(!item && this.editedItem[campo]){
-        debugger
-        this.deleteKeys.push(this.editedItem[campo])
-        this.editedItem[campo]=null
-        this.editedItem[`${campo}Url`]=null
-      }
-    },
-    async executarDelete(){
-      if(this.deleteKeys.length>0){
-        const AWS_S3_BUCKET = 'gestagio-s3';
-        const s3 = new S3({
-          accessKeyId: 'AKIASTCFU5KKPQLPQDOL',
-          secretAccessKey: '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',
-        });
-        for(const key of this.deleteKeys){
-          debugger
-          await s3.deleteObject({
-            Bucket:AWS_S3_BUCKET,
-            Key:key
-          }).promise();
-        }
-      }
     }
   },
 }

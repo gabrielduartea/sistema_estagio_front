@@ -20,8 +20,6 @@
                 <th class="text-left">Status</th>
                 <th class="text-left">Início</th>
                 <th class="text-left">Fim</th>
-                <th class="text-left">Plano de Atividades</th>
-                <th class="text-left">Relatório</th>
               </tr>
             </thead>
             <tbody>
@@ -33,19 +31,8 @@
                     {{ internship_details.status }}
                   </v-chip>
                 </td>
-                <td>{{ internship_details.dataInicial }}</td>
-                <td>{{ internship_details.dataFinal }}</td>
-                <td>
-                  <v-chip dark small :color="getColorActivitiesPlan(internship_details.planoAtividades)
-                    ">
-                    {{ internship_details.planoAtividades }}
-                  </v-chip>
-                </td>
-                <td>
-                  <v-chip dark small :color="getColorrelatorio(internship_details.relatorio)">
-                    {{ internship_details.relatorio }}
-                  </v-chip>
-                </td>
+                <td>{{ formatTabela(internship_details.dataInicial) }}</td>
+                <td>{{ formatTabela(internship_details.dataFinal) }}</td>
               </tr>
             </tbody>
           </template>
@@ -60,21 +47,15 @@
               {{ item.status }}
             </v-chip>
           </template>
-
-          <template #item.planoAtividades="{ item }">
-            <v-chip dark :color="getColorActivitiesPlan(item.planoAtividades)">
-              {{ item.planoAtividades }}
-            </v-chip>
+          <template #item.dataInicial="{ item }">
+            <v-text readonly>{{ formatTabela(item.dataInicial) }}</v-text>
           </template>
-          <template #item.relatorio="{ item }">
-            <v-chip dark :color="getColorrelatorio(item.relatorio)">
-              {{ item.relatorio }}
-            </v-chip>
+          <template #item.dataFinal="{ item }">
+            <v-text readonly>{{ formatTabela(item.dataFinal) }}</v-text>
           </template>
-
           <template v-slot:top>
             <v-toolbar flat>
-              <v-toolbar-title>Renovações</v-toolbar-title>
+              <v-toolbar-title>Histórico de renovações</v-toolbar-title>
               <v-divider class="mx-4" inset vertical></v-divider>
               <v-spacer></v-spacer>
               <v-dialog v-model="dialog" max-width="600px">
@@ -92,60 +73,73 @@
                     <v-container>
                       <v-row>
                         <v-col cols="12" sm="6" md="6">
-                          <v-autocomplete v-model="editedItem.empresaId" label="Empresa" :disabled="disabled == true"
+                          <v-autocomplete v-model="editedItem.estudanteId" label="Estudante" :disabled="true"
+                            :items="itemsStudents" item-text="nome" item-value="id"></v-autocomplete>
+                        </v-col>
+                        <v-col cols="12" sm="6" md="6">
+                          <v-autocomplete v-model="editedItem.empresaId" label="Empresa" :disabled="true"
                             :items="itemsCompanies" item-text="nome" item-value="id"></v-autocomplete>
                         </v-col>
 
                         <v-col cols="12" sm="6" md="6">
-                          <v-autocomplete v-model="editedItem.professorId" label="Orientador" :items="itemsProfessores"
+                          <v-autocomplete v-model="editedItem.professorId" label="Orientador(a)" :disabled="disabled == true" :items="itemsProfessores"
                             item-text="nome" item-value="id"></v-autocomplete>
                         </v-col>
                         <v-col cols="12" sm="6" md="6">
-                          <v-autocomplete v-model="editedItem.supervisor" label="Supervisores" :items="itemsSupervisores"
-                            item-text="nome" item-value="id"></v-autocomplete>
+                          <v-autocomplete v-model="editedItem.supervisorId" label="Supervisores" :disabled="disabled == true"
+                            :items="itemsSupervisores" item-text="nome" item-value="id"></v-autocomplete>
                         </v-col>
                         <v-col cols="12" sm="6" md="6">
-                          <v-text-field v-model="editedItem.dataInicial" label="Data de início"></v-text-field>
+                          <v-menu v-model="menu1" :close-on-content-click="false" :nudge-right="40"
+                            transition="scale-transition" offset-y min-width="auto">
+                            <template v-slot:activator="{ on, attrs }">
+                              <v-text-field v-model="dataInicial" label="Data Inicial" :disabled="disabled == true" prepend-icon="mdi-calendar"
+                                readonly v-bind="attrs" v-on="on"></v-text-field>
+                            </template>
+                            <v-date-picker v-model="editedItem.dataInicial" @change="formatDateForBrazil(editedItem)" :disabled="disabled == true"
+                              @input="menu1 = false" locale="pt-br"></v-date-picker>
+                          </v-menu>
                         </v-col>
                         <v-col cols="12" sm="6" md="6">
-                          <v-text-field v-model="editedItem.dataFinal" label="Data de término"></v-text-field>
+                          <v-menu v-model="menu2" :close-on-content-click="false" :nudge-right="40"
+                            transition="scale-transition" offset-y min-width="auto">
+                            <template v-slot:activator="{ on, attrs }">
+                              <v-text-field v-model="dataFinal" label="Data Final" prepend-icon="mdi-calendar" :disabled="disabled == true" readonly
+                                v-bind="attrs" v-on="on"></v-text-field>
+                            </template>
+                            <v-date-picker v-model="editedItem.dataFinal" @change="formatDateForBrazil(editedItem)" :disabled="disabled == true"
+                              @input="menu2 = false" locale="pt-br"></v-date-picker>
+                          </v-menu>
                         </v-col>
                         <v-col cols="12" sm="6" md="6">
-                          <v-text-field v-model="editedItem.remuneracao" label="Bolsa (R$)"></v-text-field>
+                          <v-text-field v-model="editedItem.remuneracao" v-money="money" label="Bolsa (R$)" :disabled="disabled == true"></v-text-field> 
                         </v-col>
                         <v-col cols="12" sm="6" md="6">
-                          <v-text-field v-model="editedItem.ajuda" label="Auxílio (R$)"></v-text-field>
+                          <v-text-field v-model="editedItem.ajuda" v-money="money" label="Auxílio (R$)" :disabled="disabled == true"></v-text-field>
                         </v-col>
 
                         <v-col cols="12" sm="6" md="6">
-                          <v-text-field v-model="editedItem.codigoSeguroSaude" label="Número do Seguro"></v-text-field>
+                          <v-text-field v-model="editedItem.codigoSeguroSaude" label="Número do Seguro" :disabled="disabled == true"></v-text-field>
                         </v-col>
                         <v-col cols="12" sm="6" md="6">
-                          <v-text-field v-model="editedItem.companhiaSeguroSaude" label="Seguradora"></v-text-field>
+                          <v-text-field v-model="editedItem.companhiaSeguroSaude" label="Seguradora" :disabled="disabled == true"></v-text-field>
                         </v-col>
                         <v-col cols="12" sm="6" md="6">
-                          <v-text-field v-model="editedItem.horasSemanaisTrabalho"
-                            label="Carga horária semanal"></v-text-field>
-                        </v-col>
-
-                        <v-col cols="12" sm="6" md="6">
-                          <v-select v-model="editedItem.categoria" :items="itemscategoria" label="Categoria"></v-select>
+                          <v-text-field v-model="editedItem.horasTrabalhoSemanais"
+                            label="Carga horária semanal" :disabled="disabled == true"></v-text-field>
                         </v-col>
 
                         <v-col cols="12" sm="6" md="6">
-                          <v-select v-model="editedItem.modalidade" :items="itemsmodalidade"
+                          <v-select v-model="editedItem.categoria" :items="itemscategoria" :disabled="disabled == true" label="Categoria"></v-select>
+                        </v-col>
+
+                        <v-col cols="12" sm="6" md="6">
+                          <v-select v-model="editedItem.modalidade" :items="itemsmodalidade" :disabled="disabled == true"
                             label="Modalidade"></v-select>
                         </v-col>
 
                         <v-col cols="12" sm="6" md="6">
-                          <v-select v-model="editedItem.status" :items="itemsStatus" label="Status"></v-select>
-                        </v-col>
-                        <v-col cols="12" sm="6" md="6">
-                          <v-select v-model="editedItem.planoAtividades" :items="itemsActivitiesPlan"
-                            label="Plano de Atividades"></v-select>
-                        </v-col>
-                        <v-col cols="12" sm="6" md="6">
-                          <v-select v-model="editedItem.relatorio" :items="itemsrelatorio" label="Relatório"></v-select>
+                          <v-select v-model="editedItem.status" :items="itemsStatus" :disabled="disabled == true" label="Status"></v-select>
                         </v-col>
                       </v-row>
                     </v-container>
@@ -156,7 +150,7 @@
                     <v-btn color="blue darken-1" text @click="close">
                       Cancelar
                     </v-btn>
-                    <v-btn color="blue darken-1" text @click="save">
+                    <v-btn color="blue darken-1" text @click="save" :disabled="disabled == true">
                       Salvar
                     </v-btn>
                   </v-card-actions>
@@ -177,9 +171,8 @@
           </template>
           <template v-slot:[`item.actions`]="{ item }">
             <v-icon small class="mr-2" @click="editItem(item)">
-              mdi-pencil
+              mdi-eye
             </v-icon>
-            <v-icon small @click="deleteItem(item)"> mdi-delete </v-icon>
           </template>
 
           <template v-slot:no-data>
@@ -194,11 +187,25 @@
 <script>
 import axios from 'axios'
 import moment from 'moment'
+import { VMoney } from 'v-money'
 import baseURL from '../../../api'
 
 
 export default {
   data: () => ({
+    money: {
+      decimal: '.',
+      thousands: '',
+      prefix: 'R$',
+      suffix: '',
+      precision: 2,
+      masked: false
+    },
+    rules: {
+      required: value => !!value || 'Campo obrigatório',
+      cnpj: value => String(value).length > 15 || 'Incompleto',
+      telefone: value => String(value).length > 14 || 'Incompleto',
+    },
     dessertsEdited: [],
     itemsStudents: [],
     itemsCompanies: [],
@@ -206,7 +213,6 @@ export default {
     itemsProfessores: [],
     itemsStatus: ['Em andamento', 'Finalizado', 'Cancelado'],
     itemsActivitiesPlan: ['Pendente', 'Entregue'],
-    itemsrelatorio: ['Pendente', 'Entregue'],
     itemscategoria: ['Obrigatório', 'Não Obrigatório'],
     itemsmodalidade: ['Presencial', 'Remoto', 'Híbrido'],
     internship_id: '',
@@ -220,22 +226,18 @@ export default {
         value: 'estudante[0].nome',
       },
       { text: 'Empresa', value: 'empresa[0].nome', sortable: false },
+      { text: 'Orientador', value: 'professor[0].nome', sortable: false },
       // { text: 'Status', value: 'status', sortable: false },
       { text: 'Início', value: 'dataInicial', sortable: false },
       { text: 'Fim', value: 'dataFinal', sortable: false },
-      {
-        text: 'Plano de Atividades',
-        value: 'planoAtividades',
-        sortable: false,
-      },
-      { text: 'Relatório', value: 'relatorio', sortable: false },
-      { text: 'Ações', value: 'actions', sortable: false },
+      { text: 'Visualizar', value: 'actions', sortable: false },
     ],
     desserts: [],
     editedIndex: -1,
     editedItem: {
       id: '',
       internship_id: '',
+      estudanteId:'',
       empresaId: '',
       professorId: '',
       supervisor: '',
@@ -245,16 +247,15 @@ export default {
       ajuda: '',
       codigoSeguroSaude: '',
       companhiaSeguroSaude: '',
-      horasSemanaisTrabalho: '',
+      horasTrabalhoSemanais: '',
       categoria: '',
       modalidade: '',
-      planoAtividades: '',
-      relatorio: '',
       status: '',
     },
     defaultItem: {
       id: '',
       internship_id: '',
+      estudanteId: '',
       empresaId: '',
       professorId: '',
       supervisor: '',
@@ -264,16 +265,14 @@ export default {
       ajuda: '',
       codigoSeguroSaude: '',
       companhiaSeguroSaude: '',
-      horasSemanaisTrabalho: '',
+      horasTrabalhoSemanais: '',
       categoria: '',
       modalidade: '',
-      planoAtividades: '',
-      relatorio: '',
       status: '',
     },
     internship_details: {
       internship_id: '',
-      student_name: '',
+      estudanteId: '',
       nome: '',
       professorId: '',
       supervisor: '',
@@ -286,12 +285,16 @@ export default {
       horasSemanaisTrabalho: '',
       categoria: '',
       modalidade: '',
-      planoAtividades: '',
-      relatorio: '',
       status: '',
     },
-    disabled: false
+    disabled: false,
+    dataInicial: null,
+    dataFinal: null,
+    empresaId: null,
+    menu1: false,
+    menu2: false,
   }),
+  directives: { money: VMoney },
 
   computed: {
     formTitle() {
@@ -315,7 +318,7 @@ export default {
   methods: {
     async getStudents() {
 
-      const students = await axios.get(`${baseURL}estudante/findAll`)
+      const students = await axios.get(`${baseURL}estudantes/findAll`)
       debugger
       this.itemsStudents = students.data
     },
@@ -328,7 +331,7 @@ export default {
     },
     async getSupervisores() {
       debugger
-      const supervisores = await axios.get(`${baseURL}supervisores/findAllEmpresa/${this.empresaId.id}`)
+      const supervisores = await axios.get(`${baseURL}supervisores/findAllEmpresa/${this.internship_details.empresaId}`)
       debugger
       this.itemsSupervisores = supervisores.data;
 
@@ -343,6 +346,9 @@ export default {
       if (statusColor === 'Em andamento') return 'orange'
       else if (statusColor === 'Finalizado') return 'green'
       else return 'red'
+    },
+    formatData(data) {
+      return moment().format('')
     },
 
     getColorActivitiesPlan(statusColor) {
@@ -365,8 +371,15 @@ export default {
       this.internship_details = internshipDetails.data;
       this.internship_details.estudante = internshipDetails.data.estudante[0].nome;
       this.internship_details.empresa = internshipDetails.data.empresa[0].nome;
-      this.internship_details.dataInicial = moment(internshipDetails.data.dataInicial).format('DD-MM-YYYY');
-      this.internship_details.dataFinal = moment(internshipDetails.data.dataFinal).format('DD-MM-YYYY');
+      this.internship_details.supervisor = internshipDetails.data.supervisor[0].nome;
+      if (internshipDetails.data.renovacao) {
+        const renovacao = JSON.parse(internshipDetails.data.renovacao);
+        debugger
+        this.dessertsEdited=renovacao
+        debugger
+
+        this.desserts = this.dessertsEdited
+      }
     },
 
     async showPeriods() {
@@ -375,53 +388,59 @@ export default {
         `${baseURL}estagios/findAllEstagio/${Number(this.$route.params.id)}`
       )
       this.dessertsEdited = periods.data
+      debugger
 
       this.desserts = this.dessertsEdited
 
-    
+
     },
 
     async store() {
       try {
-        const renovacao = await axios.post(`${baseURL}estagios/create`, {
+        const item = this.editedItem
+        const renovacao = {
           estagioReferenteId: this.$route.params.id,
-          estudanteId: this.internship_details.student_id,
+          estudanteId: this.editedItem.estudanteId,
           empresaId: this.editedItem.empresaId,
           professorId: this.editedItem.professorId,
+          supervisorId: this.editedItem.supervisorId,
+          estudante: this.editedItem.estudante,
+          empresa: this.editedItem.empresa,
+          professor: this.editedItem.professor,
           supervisor: this.editedItem.supervisor,
-          dataInicial: this.formatDateForISO(this.editedItem.dataInicial),
-          dataFinal: this.formatDateForISO(this.editedItem.dataFinal),
-          remuneracao: this.editedItem.remuneracao,
-          ajuda: this.editedItem.ajuda,
+          dataInicial: new Date(this.editedItem.dataInicial),
+          dataFinal: new Date(this.editedItem.dataFinal),
+          remuneracao: Number(this.editedItem.remuneracao.substr(2)),
+          ajuda: Number(this.editedItem.ajuda.substr(2)),
           codigoSeguroSaude: this.editedItem.codigoSeguroSaude,
           companhiaSeguroSaude: this.editedItem.companhiaSeguroSaude,
           horasSemanaisTrabalho: this.editedItem.horasSemanaisTrabalho,
           categoria: this.editedItem.categoria,
           modalidade: this.editedItem.modalidade,
-          planoAtividades: this.editedItem.planoAtividades,
-          relatorio: this.editedItem.relatorio,
           status: this.editedItem.status,
-        })
+        }
+        debugger
+        await axios.post(`${baseURL}estagios/renovarEstagios`, renovacao)
 
         // eslint-disable-next-line no-undef
-        
+
         this.initialize()
       } catch (error) {
         // eslint-disable-next-line no-undef
-        
+
       }
     },
 
     async update(id) {
       try {
-        const student = await axios.put(`${baseURL}estagios/${id}`, {
-          internship_id: this.$route.params.id,
-          student_id: this.editedItem.student_id,
+        const renovacao = await axios.post(`${baseURL}estagios/renovarEstagios`, {
+          estagioReferenteId: this.$route.params.id,
+          estudanteId: this.internship_details.estudanteId,
           empresaId: this.editedItem.empresaId,
           professorId: this.editedItem.professorId,
           supervisor: this.editedItem.supervisor,
-          dataInicial: this.formatDateForISO(this.editedItem.dataInicial),
-          dataFinal: this.formatDateForISO(this.editedItem.dataFinal),
+          dataInicial: this.editedItem.dataInicial,
+          dataFinal: this.editedItem.dataFinal,
           remuneracao: this.editedItem.remuneracao,
           ajuda: this.editedItem.ajuda,
           codigoSeguroSaude: this.editedItem.codigoSeguroSaude,
@@ -429,17 +448,15 @@ export default {
           horasSemanaisTrabalho: this.editedItem.horasSemanaisTrabalho,
           categoria: this.editedItem.categoria,
           modalidade: this.editedItem.modalidade,
-          planoAtividades: this.editedItem.planoAtividades,
-          relatorio: this.editedItem.relatorio,
           status: this.editedItem.status,
         })
 
         // eslint-disable-next-line no-undef
-        
+
         this.initialize()
       } catch (error) {
         // eslint-disable-next-line no-undef
-        
+
       }
     },
     async destroy(id) {
@@ -448,29 +465,35 @@ export default {
     },
 
     formatDateForBrazil(e) {
-      const initialDate = moment(e.dataInicial).format('DD/MM/YYYY')
-      const finalDate = moment(e.dataFinal).format('DD/MM/YYYY')
+      debugger
+      const initialDate = moment(e.dataInicial).format('YYYY-MM-DD')
+      const finalDate = moment(e.dataFinal).format('YYYY-MM-DD')
+      this.dataFinal = moment(e.dataFinal).format('DD/MM/YYYY')
+      this.dataInicial = moment(e.dataInicial).format('DD/MM/YYYY')
       e.dataInicial = initialDate
+
       e.dataFinal = finalDate
 
       return e
     },
     // BD ESTÁ RECEBENDO YYYY-MM-DD
     formatDateForISO(str) {
-      
+
       const date = moment(str, 'DD/MM/YYYY')
       const dateFormated = date.format('YYYY-MM-DD')
-      
+
 
       return dateFormated
     },
+    formatTabela(data) {
+      return moment(data).format("DD/MM/YYYY")
+    },
 
-    initialize() {
+    async initialize() {
       this.internship_id = this.$route.params.id
-      
 
-      this.getInternships();
-      this.showPeriods();
+
+      await this.getInternships();
       this.getStudents();
       this.getCompanies();
       this.getSupervisores();
@@ -480,13 +503,20 @@ export default {
     editItem(item) {
       this.editedIndex = this.desserts.indexOf(item)
       this.editedItem = Object.assign({}, item)
-      this.dialog = true
+      this.dialog = true;
+      this.disabled = true;
     },
     renovarEstagio() {
       this.editedIndex = this.desserts.indexOf(this.internship_details)
+      debugger
+      const teste=this.internship_details
+      debugger
       this.editedItem = Object.assign({}, this.internship_details)
+      debugger
+      this.editedItem = this.formatDateForBrazil(this.editedItem)
+      debugger
       this.dialog = true
-      this.disabled = true
+      this.disabled = false
     },
 
     deleteItem(item) {
@@ -499,7 +529,7 @@ export default {
       this.desserts.splice(this.editedIndex, 1)
       this.destroy(this.editedItem.id)
       // eslint-disable-next-line no-undef
-      
+
       this.closeDelete()
     },
 
@@ -518,13 +548,14 @@ export default {
         this.editedIndex = -1
       })
     },
-
     save() {
+      debugger
       if (this.editedIndex > -1) {
         // Object.assign(this.desserts[this.editedIndex], this.editedItem)
+        this.formatDateForBrazil(this.editItem);
         this.update(this.editedItem.id)
         // eslint-disable-next-line no-undef
-        
+
       } else {
         this.store()
       }
