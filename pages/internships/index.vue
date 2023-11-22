@@ -474,7 +474,7 @@ export default {
       this.$router.push(`/internships/${id}`)
     },
     gerirDocumentos(id) {
-      this.$router.push(`/internships/docs/documentos/${id}`)
+      this.$router.push(`/internships/docs/${id}`)
     },
 
     async initialize() {

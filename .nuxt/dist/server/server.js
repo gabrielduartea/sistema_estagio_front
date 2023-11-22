@@ -43,7 +43,7 @@ module.exports =
 /******/
 /******/ 		// "0" is the signal for "already loaded"
 /******/ 		if(installedChunks[chunkId] !== 0) {
-/******/ 			var chunk = require("./" + ({"1":"components/nuxt-logo","2":"components/tutorial","3":"components/vuetify-logo","4":"pages/companies/_id/index","5":"pages/companies/index","6":"pages/coordinators","7":"pages/courses","8":"pages/dashboard","9":"pages/index","10":"pages/internships/_id/index","11":"pages/internships/docs/documentos","12":"pages/internships/index","13":"pages/login","14":"pages/loginError","15":"pages/relatorios/numero_estaudantes_por_professor","16":"pages/relatorios/relatorio_estagios","17":"pages/relatorios/relatorio_estagios_por_empresa","18":"pages/relatorios/relatorio_estagios_por_professor","19":"pages/students","20":"pages/teachers"}[chunkId]||chunkId) + ".js");
+/******/ 			var chunk = require("./" + ({"1":"components/nuxt-logo","2":"components/tutorial","3":"components/vuetify-logo","4":"pages/companies/_id/index","5":"pages/companies/index","6":"pages/coordinators","7":"pages/courses","8":"pages/dashboard","9":"pages/index","10":"pages/internships/_id/index","11":"pages/internships/docs/index","12":"pages/internships/index","13":"pages/login","14":"pages/loginError","15":"pages/relatorios/numero_estaudantes_por_professor","16":"pages/relatorios/relatorio_estagios","17":"pages/relatorios/relatorio_estagios_por_empresa","18":"pages/relatorios/relatorio_estagios_por_professor","19":"pages/students","20":"pages/teachers"}[chunkId]||chunkId) + ".js");
 /******/ 			var moreModules = chunk.modules, chunkIds = chunk.ids;
 /******/ 			for(var moduleId in moreModules) {
 /******/ 				modules[moduleId] = moreModules[moduleId];
@@ -6242,7 +6242,7 @@ const baseMixins = Object(mixins["a" /* default */])(VSheet["a" /* default */], 
 
 "use strict";
 // const baseURL= "http://localhost:3003/api/v1/";
-const baseURL = "https://sistema-estagio-back-production-0fe4.up.railway.app/api/v1/";
+const baseURL = "https://sistema-estagio-back-gestagiostore.up.railway.app/api/v1/";
 /* harmony default export */ __webpack_exports__["a"] = (baseURL);
 
 /***/ }),
@@ -7810,7 +7810,7 @@ async function setContext(app, context) {
   // If context not defined, create it
   if (!app.context) {
     app.context = {
-      isStatic: true,
+      isStatic: false,
       isDev: false,
       isHMR: false,
       app,
@@ -8363,11 +8363,11 @@ const _51eb1dbc = () => interopDefault(__webpack_require__.e(/* import() | pages
 const _11aa4bdc = () => interopDefault(__webpack_require__.e(/* import() | pages/loginError */ 14).then(__webpack_require__.bind(null, 270)));
 const _13c16615 = () => interopDefault(__webpack_require__.e(/* import() | pages/students */ 19).then(__webpack_require__.bind(null, 271)));
 const _102d0cce = () => interopDefault(__webpack_require__.e(/* import() | pages/teachers */ 20).then(__webpack_require__.bind(null, 272)));
+const _5fbeebb6 = () => interopDefault(__webpack_require__.e(/* import() | pages/internships/docs/index */ 11).then(__webpack_require__.bind(null, 264)));
 const _1208eb50 = () => interopDefault(__webpack_require__.e(/* import() | pages/relatorios/numero_estaudantes_por_professor */ 15).then(__webpack_require__.bind(null, 273)));
 const _0ebd4bcf = () => interopDefault(__webpack_require__.e(/* import() | pages/relatorios/relatorio_estagios */ 16).then(__webpack_require__.bind(null, 274)));
 const _6275872d = () => interopDefault(__webpack_require__.e(/* import() | pages/relatorios/relatorio_estagios_por_empresa */ 17).then(__webpack_require__.bind(null, 275)));
 const _1fb6c713 = () => interopDefault(__webpack_require__.e(/* import() | pages/relatorios/relatorio_estagios_por_professor */ 18).then(__webpack_require__.bind(null, 276)));
-const _6aae9708 = () => interopDefault(__webpack_require__.e(/* import() | pages/internships/docs/documentos */ 11).then(__webpack_require__.bind(null, 264)));
 const _ef790ab6 = () => interopDefault(__webpack_require__.e(/* import() | pages/index */ 9).then(__webpack_require__.bind(null, 277)));
 const _5800d81c = () => interopDefault(__webpack_require__.e(/* import() | pages/companies/_id/index */ 4).then(__webpack_require__.bind(null, 278)));
 const _980cc834 = () => interopDefault(__webpack_require__.e(/* import() | pages/internships/_id/index */ 10).then(__webpack_require__.bind(null, 279)));
@@ -8417,6 +8417,10 @@ const routerOptions = {
     component: _102d0cce,
     name: "teachers"
   }, {
+    path: "/internships/docs",
+    component: _5fbeebb6,
+    name: "internships-docs"
+  }, {
     path: "/relatorios/numero_estaudantes_por_professor",
     component: _1208eb50,
     name: "relatorios-numero_estaudantes_por_professor"
@@ -8432,10 +8436,6 @@ const routerOptions = {
     path: "/relatorios/relatorio_estagios_por_professor",
     component: _1fb6c713,
     name: "relatorios-relatorio_estagios_por_professor"
-  }, {
-    path: "/internships/docs/documentos",
-    component: _6aae9708,
-    name: "internships-docs-documentos"
   }, {
     path: "/",
     component: _ef790ab6,
@@ -10123,9 +10123,6 @@ const layouts = {
     },
     isFetching() {
       return this.nbFetching > 0;
-    },
-    isPreview() {
-      return Boolean(this.$options.previewData);
     }
   },
   methods: {
@@ -10472,7 +10469,7 @@ const setupProgress = axios => {
   // runtimeConfig
   const runtimeConfig = ctx.$config && ctx.$config.axios || {};
   // baseURL
-  const baseURL =  false ? undefined : runtimeConfig.baseURL || runtimeConfig.baseUrl || process.env._AXIOS_BASE_URL_ || 'https://sistema-estagio-back-production-0fe4.up.railway.app/api/v1/auth';
+  const baseURL =  false ? undefined : runtimeConfig.baseURL || runtimeConfig.baseUrl || process.env._AXIOS_BASE_URL_ || 'https://sistema-estagio-back-gestagiostore.up.railway.app/api/v1/auth';
 
   // Create fresh objects for all default header scopes
   // Axios creates only one which is shared across SSR requests!
