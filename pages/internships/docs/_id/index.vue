@@ -104,12 +104,12 @@
                       <v-container>
                         <v-row>
                           <v-col cols="12" sm="6" md="6">
-                            <v-autocomplete :rules="[rules.required]" v-model="editedItem.estudanteId" label="Estudante"
+                            <v-autocomplete :rules="[rules.required]" :disabled="true" v-model="editedItem.estudanteId" label="Estudante"
                               :items="itemsStudents" item-value="id" item-text="nome"></v-autocomplete>
                           </v-col>
 
                           <v-col cols="12" sm="6" md="6">
-                            <v-autocomplete :rules="[rules.required]" v-model="editedItem.empresaId"
+                            <v-autocomplete :rules="[rules.required]" :disabled="true" v-model="editedItem.empresaId"
                               @change="getSupervisores()" label="Empresa" :items="itemsCompanies" item-text="nome"
                               item-value="id"></v-autocomplete>
                           </v-col>
@@ -117,26 +117,26 @@
                             <v-menu v-model="menu1" :close-on-content-click="false" :nudge-right="40"
                               transition="scale-transition" offset-y min-width="auto">
                               <template v-slot:activator="{ on, attrs }">
-                                <v-text-field v-model="dataInicial" label="Data Inicial" prepend-icon="mdi-calendar"
+                                <v-text-field v-model="dataInicial" :disabled="true" label="Data Inicial" prepend-icon="mdi-calendar"
                                   readonly v-bind="attrs" v-on="on"></v-text-field>
                               </template>
-                              <v-date-picker v-model="editedItem.dataIncial" @change="formatDateForBrazil(editedItem)"
+                              <v-date-picker v-model="editedItem.dataIncial" :disabled="true" @change="formatDateForBrazil(editedItem)"
                                 @input="menu1 = false" locale="pt-br"></v-date-picker>
                             </v-menu>
                           </v-col>
                           <v-col cols="12" sm="6" md="6">
                             <v-menu v-model="menu2" :close-on-content-click="false" :nudge-right="40"
                               transition="scale-transition" offset-y min-width="auto">
-                              <template v-slot:activator="{ on, attrs }">
-                                <v-text-field v-model="dataFinal" label="Data Final" prepend-icon="mdi-calendar" readonly
+                              <template v-slot:activator="{ on, attrs }" >
+                                <v-text-field v-model="dataFinal" label="Data Final" :disabled="true" prepend-icon="mdi-calendar" readonly
                                   v-bind="attrs" v-on="on"></v-text-field>
                               </template>
-                              <v-date-picker v-model="editedItem.dataFinal" @change="formatDateForBrazil(editedItem)"
+                              <v-date-picker v-model="editedItem.dataFinal" :disabled="true" @change="formatDateForBrazil(editedItem)"
                                 @input="menu2 = false" locale="pt-br"></v-date-picker>
                             </v-menu>
                           </v-col>
                           <v-col cols="12" sm="6" md="6">
-                            <v-select :rules="[rules.required]" v-model="editedItem.status" :items="itemsStatus"
+                            <v-select :rules="[rules.required]" :disabled="true" v-model="editedItem.status" :items="itemsStatus"
                               label="Status"></v-select>
                           </v-col>
                           <v-col cols="12" sm="6" md="6">
