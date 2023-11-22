@@ -17,7 +17,7 @@ export default {
   debugger
   await axios.get(`${baseURL}auth/token/${token}`,{token}).then((res) => {
     debugger
-    if (res.data.tipo === 0) {
+    if (res.data.tipo === 1) {
           this.$router.push('/coordinators')
         } else {
           this.$router.push('/students')

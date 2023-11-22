@@ -367,11 +367,11 @@ var VCol = __webpack_require__(216);
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VRow.js
 var VRow = __webpack_require__(215);
 
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/index.vue?vue&type=template&id=06840b88&
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/index.vue?vue&type=template&id=08976a89&
 
 
 
-var lib_vue_loader_options_pagesvue_type_template_id_06840b88_render = function render() {
+var lib_vue_loader_options_pagesvue_type_template_id_08976a89_render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c(VRow["a" /* default */], {
@@ -389,7 +389,7 @@ var lib_vue_loader_options_pagesvue_type_template_id_06840b88_render = function 
 };
 var staticRenderFns = [];
 
-// CONCATENATED MODULE: ./pages/index.vue?vue&type=template&id=06840b88&
+// CONCATENATED MODULE: ./pages/index.vue?vue&type=template&id=08976a89&
 
 // EXTERNAL MODULE: external "axios"
 var external_axios_ = __webpack_require__(19);
@@ -415,7 +415,7 @@ var api = __webpack_require__(55);
       token
     }).then(res => {
       debugger;
-      if (res.data.tipo === 0) {
+      if (res.data.tipo === 1) {
         this.$router.push('/coordinators');
       } else {
         this.$router.push('/students');
@@ -438,7 +438,7 @@ var componentNormalizer = __webpack_require__(13);
 
 var component = Object(componentNormalizer["a" /* default */])(
   pagesvue_type_script_lang_js_,
-  lib_vue_loader_options_pagesvue_type_template_id_06840b88_render,
+  lib_vue_loader_options_pagesvue_type_template_id_08976a89_render,
   staticRenderFns,
   false,
   null,
