@@ -13,12 +13,12 @@ const _51eb1dbc = () => interopDefault(import('../pages/login.vue' /* webpackChu
 const _11aa4bdc = () => interopDefault(import('../pages/loginError.vue' /* webpackChunkName: "pages/loginError" */))
 const _13c16615 = () => interopDefault(import('../pages/students.vue' /* webpackChunkName: "pages/students" */))
 const _102d0cce = () => interopDefault(import('../pages/teachers.vue' /* webpackChunkName: "pages/teachers" */))
-const _5fbeebb6 = () => interopDefault(import('../pages/internships/docs/index.vue' /* webpackChunkName: "pages/internships/docs/index" */))
 const _1208eb50 = () => interopDefault(import('../pages/relatorios/numero_estaudantes_por_professor.vue' /* webpackChunkName: "pages/relatorios/numero_estaudantes_por_professor" */))
 const _0ebd4bcf = () => interopDefault(import('../pages/relatorios/relatorio_estagios.vue' /* webpackChunkName: "pages/relatorios/relatorio_estagios" */))
 const _6275872d = () => interopDefault(import('../pages/relatorios/relatorio_estagios_por_empresa.vue' /* webpackChunkName: "pages/relatorios/relatorio_estagios_por_empresa" */))
 const _1fb6c713 = () => interopDefault(import('../pages/relatorios/relatorio_estagios_por_professor.vue' /* webpackChunkName: "pages/relatorios/relatorio_estagios_por_professor" */))
 const _ef790ab6 = () => interopDefault(import('../pages/index.vue' /* webpackChunkName: "pages/index" */))
+const _5ca3eae0 = () => interopDefault(import('../pages/internships/docs/_id/index.vue' /* webpackChunkName: "pages/internships/docs/_id/index" */))
 const _5800d81c = () => interopDefault(import('../pages/companies/_id/index.vue' /* webpackChunkName: "pages/companies/_id/index" */))
 const _980cc834 = () => interopDefault(import('../pages/internships/_id/index.vue' /* webpackChunkName: "pages/internships/_id/index" */))
 
@@ -70,10 +70,6 @@ export const routerOptions = {
     component: _102d0cce,
     name: "teachers"
   }, {
-    path: "/internships/docs",
-    component: _5fbeebb6,
-    name: "internships-docs"
-  }, {
     path: "/relatorios/numero_estaudantes_por_professor",
     component: _1208eb50,
     name: "relatorios-numero_estaudantes_por_professor"
@@ -93,6 +89,10 @@ export const routerOptions = {
     path: "/",
     component: _ef790ab6,
     name: "index"
+  }, {
+    path: "/internships/docs/:id",
+    component: _5ca3eae0,
+    name: "internships-docs-id"
   }, {
     path: "/companies/:id",
     component: _5800d81c,

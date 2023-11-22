@@ -43,7 +43,7 @@ module.exports =
 /******/
 /******/ 		// "0" is the signal for "already loaded"
 /******/ 		if(installedChunks[chunkId] !== 0) {
-/******/ 			var chunk = require("./" + ({"1":"components/nuxt-logo","2":"components/tutorial","3":"components/vuetify-logo","4":"pages/companies/_id/index","5":"pages/companies/index","6":"pages/coordinators","7":"pages/courses","8":"pages/dashboard","9":"pages/index","10":"pages/internships/_id/index","11":"pages/internships/docs/index","12":"pages/internships/index","13":"pages/login","14":"pages/loginError","15":"pages/relatorios/numero_estaudantes_por_professor","16":"pages/relatorios/relatorio_estagios","17":"pages/relatorios/relatorio_estagios_por_empresa","18":"pages/relatorios/relatorio_estagios_por_professor","19":"pages/students","20":"pages/teachers"}[chunkId]||chunkId) + ".js");
+/******/ 			var chunk = require("./" + ({"1":"components/nuxt-logo","2":"components/tutorial","3":"components/vuetify-logo","4":"pages/companies/_id/index","5":"pages/companies/index","6":"pages/coordinators","7":"pages/courses","8":"pages/dashboard","9":"pages/index","10":"pages/internships/_id/index","11":"pages/internships/docs/_id/index","12":"pages/internships/index","13":"pages/login","14":"pages/loginError","15":"pages/relatorios/numero_estaudantes_por_professor","16":"pages/relatorios/relatorio_estagios","17":"pages/relatorios/relatorio_estagios_por_empresa","18":"pages/relatorios/relatorio_estagios_por_professor","19":"pages/students","20":"pages/teachers"}[chunkId]||chunkId) + ".js");
 /******/ 			var moreModules = chunk.modules, chunkIds = chunk.ids;
 /******/ 			for(var moduleId in moreModules) {
 /******/ 				modules[moduleId] = moreModules[moduleId];
@@ -7810,7 +7810,7 @@ async function setContext(app, context) {
   // If context not defined, create it
   if (!app.context) {
     app.context = {
-      isStatic: false,
+      isStatic: true,
       isDev: false,
       isHMR: false,
       app,
@@ -8363,12 +8363,12 @@ const _51eb1dbc = () => interopDefault(__webpack_require__.e(/* import() | pages
 const _11aa4bdc = () => interopDefault(__webpack_require__.e(/* import() | pages/loginError */ 14).then(__webpack_require__.bind(null, 270)));
 const _13c16615 = () => interopDefault(__webpack_require__.e(/* import() | pages/students */ 19).then(__webpack_require__.bind(null, 271)));
 const _102d0cce = () => interopDefault(__webpack_require__.e(/* import() | pages/teachers */ 20).then(__webpack_require__.bind(null, 272)));
-const _5fbeebb6 = () => interopDefault(__webpack_require__.e(/* import() | pages/internships/docs/index */ 11).then(__webpack_require__.bind(null, 264)));
 const _1208eb50 = () => interopDefault(__webpack_require__.e(/* import() | pages/relatorios/numero_estaudantes_por_professor */ 15).then(__webpack_require__.bind(null, 273)));
 const _0ebd4bcf = () => interopDefault(__webpack_require__.e(/* import() | pages/relatorios/relatorio_estagios */ 16).then(__webpack_require__.bind(null, 274)));
 const _6275872d = () => interopDefault(__webpack_require__.e(/* import() | pages/relatorios/relatorio_estagios_por_empresa */ 17).then(__webpack_require__.bind(null, 275)));
 const _1fb6c713 = () => interopDefault(__webpack_require__.e(/* import() | pages/relatorios/relatorio_estagios_por_professor */ 18).then(__webpack_require__.bind(null, 276)));
 const _ef790ab6 = () => interopDefault(__webpack_require__.e(/* import() | pages/index */ 9).then(__webpack_require__.bind(null, 277)));
+const _5ca3eae0 = () => interopDefault(__webpack_require__.e(/* import() | pages/internships/docs/_id/index */ 11).then(__webpack_require__.bind(null, 264)));
 const _5800d81c = () => interopDefault(__webpack_require__.e(/* import() | pages/companies/_id/index */ 4).then(__webpack_require__.bind(null, 278)));
 const _980cc834 = () => interopDefault(__webpack_require__.e(/* import() | pages/internships/_id/index */ 10).then(__webpack_require__.bind(null, 279)));
 
@@ -8417,10 +8417,6 @@ const routerOptions = {
     component: _102d0cce,
     name: "teachers"
   }, {
-    path: "/internships/docs",
-    component: _5fbeebb6,
-    name: "internships-docs"
-  }, {
     path: "/relatorios/numero_estaudantes_por_professor",
     component: _1208eb50,
     name: "relatorios-numero_estaudantes_por_professor"
@@ -8440,6 +8436,10 @@ const routerOptions = {
     path: "/",
     component: _ef790ab6,
     name: "index"
+  }, {
+    path: "/internships/docs/:id",
+    component: _5ca3eae0,
+    name: "internships-docs-id"
   }, {
     path: "/companies/:id",
     component: _5800d81c,
@@ -10123,6 +10123,9 @@ const layouts = {
     },
     isFetching() {
       return this.nbFetching > 0;
+    },
+    isPreview() {
+      return Boolean(this.$options.previewData);
     }
   },
   methods: {

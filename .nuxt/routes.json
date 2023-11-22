@@ -63,13 +63,6 @@
     "_name": "_102d0cce"
   },
   {
-    "name": "internships-docs",
-    "path": "/internships/docs",
-    "component": "/home/gabriel/Documentos/Projetos/TCC/sistema_estagio_front/pages/internships/docs/index.vue",
-    "chunkName": "pages/internships/docs/index",
-    "_name": "_5fbeebb6"
-  },
-  {
     "name": "relatorios-numero_estaudantes_por_professor",
     "path": "/relatorios/numero_estaudantes_por_professor",
     "component": "/home/gabriel/Documentos/Projetos/TCC/sistema_estagio_front/pages/relatorios/numero_estaudantes_por_professor.vue",
@@ -103,6 +96,13 @@
     "component": "/home/gabriel/Documentos/Projetos/TCC/sistema_estagio_front/pages/index.vue",
     "chunkName": "pages/index",
     "_name": "_ef790ab6"
+  },
+  {
+    "name": "internships-docs-id",
+    "path": "/internships/docs/:id",
+    "component": "/home/gabriel/Documentos/Projetos/TCC/sistema_estagio_front/pages/internships/docs/_id/index.vue",
+    "chunkName": "pages/internships/docs/_id/index",
+    "_name": "_5ca3eae0"
   },
   {
     "name": "companies-id",
