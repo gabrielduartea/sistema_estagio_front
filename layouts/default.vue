@@ -2,10 +2,13 @@
 <template>
   <v-app id="inspire">
     <v-navigation-drawer v-model="drawer" app>
+      <br />
+      <v-img
+    src="http://www.ufvjm.edu.br/formularios/doc_view/7697-logotipo-ufvjm-horizontal-sem-assinatura-colorida.html?lang=pt_BR.utf8%2C+pt_BR.UT"  
+    max-width=200px; max-height=150px; width= auto;  height= auto;
+  ></v-img>
+      <br />
       <!--  -->
-      <br />
-      <br />
-      <br />
       <v-list>
         <div v-for="(link, i) in links">
 
